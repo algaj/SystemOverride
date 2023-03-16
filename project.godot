@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 
 DebugDraw="*res://scripts/DebugDraw.cs"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="SpaceThing"
