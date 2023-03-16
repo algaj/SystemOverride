@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d3prx8qvd4gbj" path="res://scripts/bullet.png" id="1_sr234"]
 [ext_resource type="Script" path="res://scripts/Bullet.cs" id="2_ftxlq"]
 [ext_resource type="PackedScene" uid="uid://oykkag5vp113" path="res://prefabs/bullet_impact_fx.tscn" id="3_853th"]
-[ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://light.png" id="3_i0pis"]
+[ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="4_0eyak"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sht3w"]
 radius = 69.08
@@ -24,5 +24,5 @@ shape = SubResource("CircleShape2D_sht3w")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 0.568627, 0, 1)
 energy = 8.06
-texture = ExtResource("3_i0pis")
+texture = ExtResource("4_0eyak")
 texture_scale = 2.96
