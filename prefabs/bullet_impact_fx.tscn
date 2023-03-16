@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://oykkag5vp113"]
+
+[sub_resource type="Gradient" id="Gradient_fpk33"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fq7hu"]
+gradient = SubResource("Gradient_fpk33")
+
+[sub_resource type="Curve" id="Curve_a8vs4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_khued"]
+curve = SubResource("Curve_a8vs4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kbax6"]
+particle_flag_disable_z = true
+spread = 167.05
+gravity = Vector3(0, 98, 0)
+initial_velocity_max = 465.46
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_max = 21.22
+scale_curve = SubResource("CurveTexture_khued")
+color = Color(0.960784, 0.960784, 0.960784, 1)
+color_ramp = SubResource("GradientTexture1D_fq7hu")
+
+[node name="BulletImpactFX" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_kbax6")
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.8
+randomness = 0.29
+trail_enabled = true

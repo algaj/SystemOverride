@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://du4bg87sd44kf"]
+
+[ext_resource type="Texture2D" uid="uid://d3prx8qvd4gbj" path="res://scripts/bullet.png" id="1_sr234"]
+[ext_resource type="Script" path="res://scripts/Bullet.cs" id="2_ftxlq"]
+[ext_resource type="PackedScene" uid="uid://oykkag5vp113" path="res://prefabs/bullet_impact_fx.tscn" id="3_853th"]
+[ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://light.png" id="3_i0pis"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sht3w"]
+radius = 69.08
+
+[node name="Bullet" type="Sprite2D"]
+z_index = -1
+position = Vector2(-210, -38)
+scale = Vector2(0.089, 0.089)
+texture = ExtResource("1_sr234")
+script = ExtResource("2_ftxlq")
+bulletImpactFXScene = ExtResource("3_853th")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_sht3w")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.568627, 0, 1)
+energy = 8.06
+texture = ExtResource("3_i0pis")
+texture_scale = 2.96

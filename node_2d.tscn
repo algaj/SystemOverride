@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dya470neicy1m"]
+
+[ext_resource type="PackedScene" uid="uid://cirbwep528cw3" path="res://prefabs/spaceship.tscn" id="1_hdo1e"]
+[ext_resource type="Texture2D" uid="uid://b6p2mkgwougqv" path="res://spaceship2.png" id="4_8mv3u"]
+[ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="4_llk0i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6bt42"]
+radius = 28.08
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.239216, 0.239216, 0.239216, 1)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(-552, -358)
+
+[node name="Spaceship" parent="." instance=ExtResource("1_hdo1e")]
+
+[node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+ignore_rotation = false
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 50.0
+script = ExtResource("4_llk0i")
+target = NodePath("../Spaceship")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(-289, 0)
+scale = Vector2(1, 0.991613)
+gravity_scale = 0.0
+
+[node name="Spaceship2" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(0.121, 0.121)
+texture = ExtResource("4_8mv3u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_6bt42")
