@@ -40,6 +40,8 @@ namespace SpaceThing
 
         public EngineTurnEffortDirection TurnEffortDirection { get { return _turnEffortDirection; } }
 
+        public float ThrustFactor { get; set; }
+
         bool _isEngineEnabled = false;
 
         public bool IsEngineEnabled
@@ -94,7 +96,7 @@ namespace SpaceThing
 
             if (IsEngineEnabled)
             {
-                ParentRigidbody.ApplyForce(CalculateThrustDirection() * _maxThrustForce, GlobalPosition - ParentRigidbody.GlobalPosition);
+                ParentRigidbody.ApplyForce(CalculateThrustDirection() * _maxThrustForce * ThrustFactor, GlobalPosition - ParentRigidbody.GlobalPosition);
             }
         }
 

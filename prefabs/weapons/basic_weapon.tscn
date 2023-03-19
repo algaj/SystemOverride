@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://0qbbiip8m68b"]
+[gd_scene load_steps=4 format=3 uid="uid://0qbbiip8m68b"]
 
-[node name="basic_weapon" type="Node2D"]
+[ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_li8oi"]
+[ext_resource type="PackedScene" uid="uid://c44xix01fcjgs" path="res://prefabs/projectiles/basic_projectile.tscn" id="2_3rkjd"]
+[ext_resource type="PackedScene" uid="uid://b5pofdyf4c7tc" path="res://prefabs/particles/basic_weapon_fire_particles.tscn" id="2_o0ly3"]
+
+[node name="basic_weapon" type="Node2D" node_paths=PackedStringArray("_fireParticles", "_fireTimer")]
+script = ExtResource("1_li8oi")
+_fireIntervalMax = 0.2
+_fireIntervalMin = 0.1
+_fireParticles = NodePath("BasicWeaponFireParticles")
+_fireTimer = NodePath("Timer")
+_projectileScene = ExtResource("2_3rkjd")
+_fireSpreadAngle = 2.0
+
+[node name="BasicWeaponFireParticles" parent="." instance=ExtResource("2_o0ly3")]
+
+[node name="Timer" type="Timer" parent="."]

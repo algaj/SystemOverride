@@ -12,6 +12,15 @@ namespace SpaceThing
         [Export]
         Node2D _weaponsRoot;
 
+        [Export]
+        float turnProporcionalGain = 0.0f;
+
+        [Export]
+        float turnIntegralGain = 0.0f;
+
+        [Export]
+        float turnDerivativeGain = 0.0f;
+
         Vector2 _targetMovementEffort = Vector2.Zero;
 
         /// <summary>
@@ -35,27 +44,9 @@ namespace SpaceThing
             }
         }
 
-        float _targetTurnEffort = 0.0f;
+        public float TurnProcessOffset { get; set; }
 
-        /// <summary>
-        /// How much and in what direction should the spaceship turn.
-        /// -1 means full turn to the left,
-        /// 1 means full turn to the right.
-        /// </summary>
-        public float TargetTurnEffort
-        {
-            get
-            {
-                return _targetTurnEffort;
-            }
-
-            set
-            {
-                Debug.Assert(value <= 1.0f && value >= -1.0f, "value <= 1.0f && value >= -1.0f");
-
-                _targetTurnEffort = value;
-            }
-        }
+        PidController _turnPidController;
 
         DebugDraw debugDraw;
 
@@ -66,6 +57,8 @@ namespace SpaceThing
         public override void _Ready()
         {
             debugDraw = GetNode<DebugDraw>("/root/DebugDraw");
+
+            _turnPidController = new PidController(turnProporcionalGain, turnIntegralGain, turnDerivativeGain, 1.0f, -1.0f);
 
             int engineCount = _enginesRoot.GetChildCount();
 
@@ -81,7 +74,8 @@ namespace SpaceThing
 
             for (int i = 0; i < weaponCount; i++)
             {
-                _weapons.Add(_weaponsRoot.GetChild<Weapon>(i));
+                var weapon = _weaponsRoot.GetChild<Weapon>(i);
+                _weapons.Add(weapon);
             }
         }
 
@@ -122,9 +116,15 @@ namespace SpaceThing
 
         public override void _PhysicsProcess(double delta)
         {
+            _turnPidController.ProcessVariable = TurnProcessOffset;
+
+            float target_turn_effort = (float)_turnPidController.ControlVariable(TimeSpan.FromSeconds(delta));
+
+
             foreach (var engine in _engines)
             {
                 bool enableEngine = false;
+                bool usedForTurning = false;
 
                 switch (engine.ThrustEffortDirection)
                 {
@@ -157,21 +157,32 @@ namespace SpaceThing
                 switch (engine.TurnEffortDirection)
                 {
                     case EngineTurnEffortDirection.Left:
-                        if (TargetTurnEffort < 0.0f)
+                        if (target_turn_effort < 0.0f)
                         {
                             enableEngine = true;
+                            usedForTurning = true;
                         }
                         break;
                     case EngineTurnEffortDirection.Right:
-                        if (TargetTurnEffort > 0.0f)
+                        if (target_turn_effort > 0.0f)
                         {
                             enableEngine = true;
+                            usedForTurning = true;
                         }
                         break;
                 }
 
 
                 engine.IsEngineEnabled = enableEngine;
+
+                if (usedForTurning)
+                {
+                    engine.ThrustFactor =Mathf.Abs(target_turn_effort);
+                }
+                else
+                {
+                    engine.ThrustFactor = 1.0f;
+                }
             }
         }
 
@@ -183,13 +194,13 @@ namespace SpaceThing
         /// Each type has it's index. Invalid value is ignored. </param>
         public void FireWeapons(int weaponGroupIndex)
         {
-            /*foreach (var weapon in _weapons)
+            foreach (var weapon in _weapons)
             {
                 if (weapon.WeaponGroupIndex == weaponGroupIndex)
                 {
                     weapon.Fire();
                 }
-            }*/
+            }
         }
     }
 }

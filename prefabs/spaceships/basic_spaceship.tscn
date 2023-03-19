@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5qsdb0rgicka"]
+[gd_scene load_steps=8 format=3 uid="uid://b5qsdb0rgicka"]
 
 [ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_muf4f"]
 [ext_resource type="PackedScene" uid="uid://f4ye8pxcn054" path="res://prefabs/engines/basic_engine.tscn" id="2_8dcbq"]
 [ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/air_engine.tscn" id="3_aavcb"]
 [ext_resource type="Texture2D" uid="uid://bbauwsrjh2uvj" path="res://graphics/spaceships/basic_spaceship.png" id="3_oicfr"]
+[ext_resource type="PackedScene" uid="uid://0qbbiip8m68b" path="res://prefabs/weapons/basic_weapon.tscn" id="4_x26ij"]
 [ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="5_y54mf"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_0jagb"]
@@ -20,17 +21,22 @@ _surfaces = [{
 }]
 
 [node name="BasicSpaceship" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot")]
+mass = 10.0
 center_of_mass_mode = 1
 gravity_scale = 0.0
 script = ExtResource("1_muf4f")
 _enginesRoot = NodePath("Engines")
 _weaponsRoot = NodePath("Weapons")
+turnProporcionalGain = 10.0
+turnIntegralGain = 6.0
+turnDerivativeGain = 1.0
 
 [node name="Engines" type="Node2D" parent="."]
 
 [node name="BasicEngine" parent="Engines" instance=ExtResource("2_8dcbq")]
 position = Vector2(0, 67)
 scale = Vector2(2.832, 2.832)
+_maxThrustForce = 2500.0
 _maxThrustVectoringAngle = 0.0
 _thrustEffortDirection = 1
 
@@ -38,6 +44,7 @@ _thrustEffortDirection = 1
 position = Vector2(-66, 48)
 rotation = 3.14159
 scale = Vector2(2.2, 2.2)
+_maxThrustForce = 500.0
 _thrustEffortDirection = 2
 _turnEffortDirection = 1
 
@@ -45,10 +52,31 @@ _turnEffortDirection = 1
 position = Vector2(66, 48)
 rotation = 3.14159
 scale = Vector2(2.2, 2.2)
+_maxThrustForce = 500.0
 _thrustEffortDirection = 2
 _turnEffortDirection = 2
 
 [node name="Weapons" type="Node2D" parent="."]
+
+[node name="basic_weapon" parent="Weapons" instance=ExtResource("4_x26ij")]
+position = Vector2(-31, -34)
+scale = Vector2(4, 4)
+_fireSpreadAngle = 5.0
+
+[node name="basic_weapon2" parent="Weapons" instance=ExtResource("4_x26ij")]
+position = Vector2(34, -34)
+scale = Vector2(4, 4)
+_fireSpreadAngle = 5.0
+
+[node name="basic_weapon3" parent="Weapons" instance=ExtResource("4_x26ij")]
+position = Vector2(21, -50)
+scale = Vector2(4, 4)
+_fireSpreadAngle = 5.0
+
+[node name="basic_weapon4" parent="Weapons" instance=ExtResource("4_x26ij")]
+position = Vector2(-18, -50)
+scale = Vector2(4, 4)
+_fireSpreadAngle = 5.0
 
 [node name="Sprite" type="MeshInstance2D" parent="."]
 texture_filter = 2

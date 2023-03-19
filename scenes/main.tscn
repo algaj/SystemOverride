@@ -1,9 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://brwj6a3kfwrgu"]
+[gd_scene load_steps=12 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="PackedScene" uid="uid://b5qsdb0rgicka" path="res://prefabs/spaceships/basic_spaceship.tscn" id="2_7v4dp"]
+[ext_resource type="Shader" path="res://scenes/main.gdshader" id="2_anlsk"]
 [ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="2_qujta"]
-[ext_resource type="Texture2D" uid="uid://b6p2mkgwougqv" path="res://graphics/spaceship2.png" id="3_cybk6"]
 [ext_resource type="Script" path="res://scripts/PlayerController.cs" id="4_e1spy"]
+[ext_resource type="PackedScene" uid="uid://dnl2yx025vlyn" path="res://prefabs/spaceships/drone.tscn" id="4_iwaw1"]
+
+[sub_resource type="Environment" id="Environment_5egxo"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.02
+glow_blend_mode = 1
+glow_hdr_threshold = 0.98
+glow_hdr_scale = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_djh13"]
+shader = ExtResource("2_anlsk")
+
+[sub_resource type="QuadMesh" id="QuadMesh_3lj6y"]
+
+[sub_resource type="Gradient" id="Gradient_jra42"]
+offsets = PackedFloat32Array(0.836898, 0.927808)
+colors = PackedColorArray(0, 0, 0, 1, 0.3135, 0.32175, 0.33, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xvsrf"]
+noise_type = 3
+frequency = 0.204
+fractal_type = 3
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g3v5w"]
+seamless = true
+seamless_blend_skirt = 0.003
+color_ramp = SubResource("Gradient_jra42")
+noise = SubResource("FastNoiseLite_xvsrf")
 
 [node name="Node2D" type="Node2D"]
 
@@ -23,11 +53,32 @@ target = NodePath("../BasicSpaceship")
 [node name="BasicSpaceship" parent="." instance=ExtResource("2_7v4dp")]
 position = Vector2(-1, -4)
 
-[node name="Spaceship2" type="Sprite2D" parent="."]
-position = Vector2(-274, -83)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_cybk6")
-
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("spaceship")]
+[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_line")]
 script = ExtResource("4_e1spy")
-spaceship = NodePath("../BasicSpaceship")
+_spaceship = NodePath("../BasicSpaceship")
+_line = NodePath("Line2D")
+
+[node name="Line2D" type="Line2D" parent="PlayerController"]
+z_index = -2
+width = 2.0
+default_color = Color(0.2, 8, 0, 1)
+antialiased = true
+
+[node name="Drone" parent="." instance=ExtResource("4_iwaw1")]
+position = Vector2(-158, -5)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5egxo")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 4
+texture_repeat = 2
+material = SubResource("ShaderMaterial_djh13")
+scale = Vector2(30000, 25000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_g3v5w")

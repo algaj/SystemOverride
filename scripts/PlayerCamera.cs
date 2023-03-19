@@ -15,7 +15,7 @@ namespace SpaceThing
 		public override void _Process(double delta)
 		{
 			GlobalPosition = target.GlobalPosition;
-			Rotation = target.Rotation;
+			//Rotation = target.Rotation;
 		}
 	}
 }
