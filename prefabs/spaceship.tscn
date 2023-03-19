@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqgnahtqecahj"]
+[gd_scene load_steps=10 format=3 uid="uid://b7qr17s1m0auo"]
 
 [ext_resource type="Script" path="res://scripts/SpaceShip.cs" id="1_ngtng"]
-[ext_resource type="PackedScene" uid="uid://du4bg87sd44kf" path="res://prefabs/bullet.tscn" id="2_qhlyd"]
-[ext_resource type="Texture2D" uid="uid://bbauwsrjh2uvj" path="res://graphics/spaceship.png" id="3_ie3ik"]
+[ext_resource type="Texture2D" uid="uid://bbauwsrjh2uvj" path="res://graphics/spaceships/basic_spaceship.png" id="2_08afh"]
 [ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="4_v2g5x"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ff26e"]
@@ -51,22 +50,20 @@ scale_max = 19.06
 scale_curve = SubResource("CurveTexture_42101")
 color_ramp = SubResource("GradientTexture1D_21hhw")
 
-[node name="Spaceship" type="RigidBody2D" node_paths=PackedStringArray("enginePosition", "gunPosition", "engineParticles")]
+[node name="Spaceship" type="RigidBody2D"]
 collision_layer = 2
 center_of_mass_mode = 1
 gravity_scale = 0.0
 script = ExtResource("1_ngtng")
-enginePosition = NodePath("Engine")
-bulletScene = ExtResource("2_qhlyd")
-gunPosition = NodePath("Gun")
-engineParticles = NodePath("Engine/GPUParticles2D")
+_engines = Array[Node2D]([])
 
 [node name="Sprite" type="MeshInstance2D" parent="."]
 scale = Vector2(0.316406, 0.28125)
 mesh = SubResource("ArrayMesh_ff26e")
-texture = ExtResource("3_ie3ik")
+texture = ExtResource("2_08afh")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 scale = Vector2(0.316406, 0.28125)
 polygon = PackedVector2Array(18, -219.2, 18, -215.3, 23.2, -190, 25, -190, 41, -169.4, 41, -165.5, 46.4, -142.2, 75, -118.9, 75, -116, 112, -54.1, 112, -50.5, 116.5, -12, 114.2, -12, 105.6, 24.9, 211, 122.2, 211, 125.5, 217, 152, 215, 152, 215, 182, 212, 182, 206, 190, 199.8, 190, 185, 188.7, 185, 186, 150.7, 160.1, 145.2, 185, 142.1, 185, 133.1, 190.6, 129, 188.4, 129, 187.4, 54.1, 147.6, 35, 169.5, 35, 170.9, 10.6, 225, 3.5, 225, -22.6, 171.8, -43, 154.9, -43, 151.6, -44.3, 148.3, -121, 191, -129.1, 191, -136.7, 161.7, -174.6, 193, -179.6, 193, -198, 186.9, -198, 127, -194.6, 127, -97, 30.4, -97, 27.4, -108, -10.4, -108, -39.5, -104.1, -54, -102.5, -54, -69.4, -118, -67.4, -118, -42, -137.9, -42, -146.6, -32, -180, -29.5, -180, -20, -187.9, -20, -206.9, -5, -239.8, -5, -243, 0.600006, -244.7)
 

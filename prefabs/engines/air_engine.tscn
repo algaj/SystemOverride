@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd078lehxxjwg"]
+
+[ext_resource type="Script" path="res://scripts/Engine.cs" id="1_kvlfv"]
+[ext_resource type="PackedScene" uid="uid://bskjse1gq38w6" path="res://prefabs/particles/air_engine_thrust_particles.tscn" id="2_esb60"]
+
+[node name="AirEngine" type="Node2D" node_paths=PackedStringArray("_engineThrustParticles")]
+script = ExtResource("1_kvlfv")
+_engineThrustParticles = NodePath("AirEngineThrustParticles")
+_maxThrustForce = 25.0
+
+[node name="AirEngineThrustParticles" parent="." instance=ExtResource("2_esb60")]

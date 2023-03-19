@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5pofdyf4c7tc"]
+
+[sub_resource type="Gradient" id="Gradient_lemxr"]
+colors = PackedColorArray(1, 1, 1, 1, 0.983333, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_odx70"]
+gradient = SubResource("Gradient_lemxr")
+
+[sub_resource type="Curve" id="Curve_6f1v5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_my1m3"]
+curve = SubResource("Curve_6f1v5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bjb4o"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 37.11
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.35
+initial_velocity_max = 85.57
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_my1m3")
+color_ramp = SubResource("GradientTexture1D_odx70")
+
+[node name="BasicWeaponFireParticles" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_bjb4o")
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+trail_enabled = true

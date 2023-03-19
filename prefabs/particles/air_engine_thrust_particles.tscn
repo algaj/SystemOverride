@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bskjse1gq38w6"]
+
+[sub_resource type="Gradient" id="Gradient_lemxr"]
+colors = PackedColorArray(0.93408, 0.93408, 0.93408, 1, 0.874573, 0.810542, 0.745447, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_odx70"]
+gradient = SubResource("Gradient_lemxr")
+
+[sub_resource type="Curve" id="Curve_6f1v5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_my1m3"]
+curve = SubResource("Curve_6f1v5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bjb4o"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 0.86
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_curve = SubResource("CurveTexture_my1m3")
+color_ramp = SubResource("GradientTexture1D_odx70")
+
+[node name="AirEngineThrustParticles" type="GPUParticles2D"]
+process_material = SubResource("ParticleProcessMaterial_bjb4o")
+lifetime = 0.1
+preprocess = 1.0
+explosiveness = 0.7
+local_coords = true
+trail_enabled = true

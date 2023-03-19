@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://f4ye8pxcn054"]
+
+[ext_resource type="Script" path="res://scripts/Engine.cs" id="1_jgj7t"]
+[ext_resource type="PackedScene" uid="uid://dylc600xqw2og" path="res://prefabs/particles/basic_engine_thrust_particles.tscn" id="2_agdha"]
+[ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="3_6q5bn"]
+
+[node name="BasicEngine" type="Node2D" node_paths=PackedStringArray("_engineThrustParticles", "_engineLight")]
+script = ExtResource("1_jgj7t")
+_engineThrustParticles = NodePath("BasicEngineThrustParticles")
+_maxThrustForce = 100.0
+_maxThrustVectoringAngle = 10.0
+_engineLight = NodePath("PointLight2D")
+
+[node name="BasicEngineThrustParticles" parent="." instance=ExtResource("2_agdha")]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0.101961, 0, 1)
+energy = 6.38
+texture = ExtResource("3_6q5bn")
+texture_scale = 0.05
