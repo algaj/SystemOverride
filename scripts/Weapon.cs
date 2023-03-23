@@ -33,12 +33,22 @@ namespace SpaceThing
 		RigidBody2D ignoredRigidbody;
 		RandomNumberGenerator random = new RandomNumberGenerator();
 
+		Vector2 _lastPosition = Vector2.Zero;
+		Vector2 _lastVelocity = Vector2.Zero;
+
 		public override void _Ready()
 		{
 			random.Randomize();
             _fireTimer.Timeout += _fireTimer_Timeout;
 			_fireTimer.OneShot = true;
 		}
+
+        public override void _Process(double delta)
+        {
+			_lastVelocity = (GlobalPosition - _lastPosition) / (float)delta;
+
+			_lastPosition = GlobalPosition;
+        }
 
         private void _fireTimer_Timeout()
         {
@@ -55,10 +65,10 @@ namespace SpaceThing
 				_fireParticles.Emitting = true;
 
 				var projectile = _projectileScene.Instantiate<Projectile>();
-				GetNode("/root").AddChild(projectile);
-
 				projectile.GlobalPosition = GlobalPosition;
 				projectile.GlobalRotation = GlobalRotation + Mathf.DegToRad(_fireSpreadAngle * random.Randf());
+				projectile.InitialVelocity = _lastVelocity;
+				GetNode("/root").AddChild(projectile);
 
 			}
         }

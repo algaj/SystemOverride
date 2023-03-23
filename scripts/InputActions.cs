@@ -12,5 +12,7 @@ namespace SpaceThing
         public const string TurnLeft = "turn_left";
         public const string TurnRight = "turn_right";
         public const string PrimaryWeapon = "primary_weapon";
+        public const string ZoomOut = "zoom_out";
+        public const string ZoomIn = "zoom_in";
     }
 }

@@ -1,10 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=19 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="PackedScene" uid="uid://b5qsdb0rgicka" path="res://prefabs/spaceships/basic_spaceship.tscn" id="2_7v4dp"]
 [ext_resource type="Shader" path="res://scenes/main.gdshader" id="2_anlsk"]
 [ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="2_qujta"]
 [ext_resource type="Script" path="res://scripts/PlayerController.cs" id="4_e1spy"]
+[ext_resource type="Texture2D" uid="uid://bus52y5qjsol2" path="res://graphics/arrow.png" id="4_ggwgs"]
 [ext_resource type="PackedScene" uid="uid://dnl2yx025vlyn" path="res://prefabs/spaceships/drone.tscn" id="4_iwaw1"]
+[ext_resource type="Texture2D" uid="uid://d3ypbbcbrxuar" path="res://graphics/app/cursor.png" id="5_pgqo7"]
+[ext_resource type="Texture2D" uid="uid://d0irnmgdw5fps" path="res://graphics/planets/Altara.png" id="7_hpm0e"]
+[ext_resource type="Texture2D" uid="uid://dj0ex4qetscun" path="res://graphics/spaceships/huge_spaceship.png" id="9_kkepo"]
+[ext_resource type="Texture2D" uid="uid://bb6sh4aq0t7yv" path="res://graphics/spaceships/extrahuge_spaceship.png" id="10_25ecj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_djh13"]
 shader = ExtResource("2_anlsk")
@@ -66,16 +71,49 @@ target = NodePath("../BasicSpaceship")
 [node name="BasicSpaceship" parent="." instance=ExtResource("2_7v4dp")]
 position = Vector2(-1, -4)
 
-[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_line")]
+[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_line", "_circle", "_realDirection", "_arrow", "_connectingLine", "_cursor")]
 script = ExtResource("4_e1spy")
 _spaceship = NodePath("../BasicSpaceship")
 _line = NodePath("Line2D")
+_circle = NodePath("Circle")
+_realDirection = NodePath("RealDirection")
+_arrow = NodePath("Arrow")
+_connectingLine = NodePath("ConnectingLine")
+_cursor = NodePath("Cursor")
 
 [node name="Line2D" type="Line2D" parent="PlayerController"]
 z_index = -2
 width = 2.0
-default_color = Color(0.2, 8, 0, 1)
+default_color = Color(0.0156863, 1, 0, 0.54902)
 antialiased = true
+
+[node name="Circle" type="Line2D" parent="PlayerController"]
+z_index = -2
+width = 2.0
+default_color = Color(0.529412, 0.529412, 0.529412, 0.52549)
+antialiased = true
+
+[node name="RealDirection" type="Line2D" parent="PlayerController"]
+z_index = -2
+width = 2.0
+default_color = Color(0.882353, 0.854902, 0, 0.505882)
+antialiased = true
+
+[node name="Arrow" type="Sprite2D" parent="PlayerController"]
+modulate = Color(1, 0.984314, 0, 0.560784)
+position = Vector2(-3, -159)
+scale = Vector2(0.0697155, 0.07)
+texture = ExtResource("4_ggwgs")
+
+[node name="ConnectingLine" type="Line2D" parent="PlayerController"]
+z_index = -2
+width = 2.0
+default_color = Color(0.447059, 0.458824, 0.447059, 0.54902)
+antialiased = true
+
+[node name="Cursor" type="Sprite2D" parent="PlayerController"]
+position = Vector2(-24, -188)
+texture = ExtResource("5_pgqo7")
 
 [node name="Drone" parent="." instance=ExtResource("4_iwaw1")]
 position = Vector2(-158, -5)
@@ -83,7 +121,11 @@ position = Vector2(-158, -5)
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.1, 0.1)
+
+[node name="Altara" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(-396, -15)
+scale = Vector2(2, 2)
+texture = ExtResource("7_hpm0e")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer"]
 texture_filter = 2
@@ -94,7 +136,7 @@ mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_g3v5w")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.15, 0.15)
+motion_scale = Vector2(1.1, 1.1)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer2"]
 texture_filter = 2
@@ -105,7 +147,7 @@ mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_jyy6o")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.2, 0.2)
+motion_scale = Vector2(1.2, 1.2)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer3"]
 texture_filter = 2
@@ -114,3 +156,13 @@ material = SubResource("ShaderMaterial_djh13")
 scale = Vector2(30000, 25000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_g3v5w")
+
+[node name="HugeSpaceship" type="Sprite2D" parent="."]
+position = Vector2(-1894, -19)
+scale = Vector2(2, 2)
+texture = ExtResource("9_kkepo")
+
+[node name="ExtrahugeSpaceship" type="Sprite2D" parent="."]
+position = Vector2(-3479, -75)
+scale = Vector2(4, 4)
+texture = ExtResource("10_25ecj")
