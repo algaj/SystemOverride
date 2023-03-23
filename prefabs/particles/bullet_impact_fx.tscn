@@ -27,6 +27,7 @@ color = Color(0.960784, 0.960784, 0.960784, 1)
 color_ramp = SubResource("GradientTexture1D_fq7hu")
 
 [node name="BulletImpactFX" type="GPUParticles2D"]
+scale = Vector2(0.1, 0.1)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_kbax6")
 lifetime = 0.2

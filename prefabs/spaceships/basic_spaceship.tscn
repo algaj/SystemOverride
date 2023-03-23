@@ -27,9 +27,9 @@ gravity_scale = 0.0
 script = ExtResource("1_muf4f")
 _enginesRoot = NodePath("Engines")
 _weaponsRoot = NodePath("Weapons")
-turnProporcionalGain = 10.0
-turnIntegralGain = 6.0
-turnDerivativeGain = 1.0
+turnProporcionalGain = 50.0
+turnIntegralGain = 25.0
+turnDerivativeGain = 12.0
 
 [node name="Engines" type="Node2D" parent="."]
 

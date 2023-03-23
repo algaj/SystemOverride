@@ -1,15 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnl2yx025vlyn"]
+[gd_scene load_steps=6 format=3 uid="uid://dnl2yx025vlyn"]
 
 [ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_81of2"]
 [ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/air_engine.tscn" id="3_1igki"]
+[ext_resource type="PackedScene" uid="uid://0qbbiip8m68b" path="res://prefabs/weapons/basic_weapon.tscn" id="3_d300w"]
 [ext_resource type="Texture2D" uid="uid://b6p2mkgwougqv" path="res://graphics/spaceships/drone.png" id="4_5hwq2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wqsf6"]
 radius = 24.42
 
 [node name="Drone" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot")]
-collision_layer = 3
-collision_mask = 3
 center_of_mass_mode = 1
 gravity_scale = 0.0
 script = ExtResource("1_81of2")
@@ -49,9 +48,13 @@ _thrustEffortDirection = 1
 
 [node name="Weapons" type="Node2D" parent="."]
 
+[node name="basic_weapon" parent="Weapons" instance=ExtResource("3_d300w")]
+
 [node name="Drone" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_5hwq2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 2
 shape = SubResource("CircleShape2D_wqsf6")

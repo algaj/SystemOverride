@@ -8,7 +8,7 @@
 radius = 96.92
 
 [node name="BasicProjectile" type="Sprite2D" node_paths=PackedStringArray("_collisionArea")]
-scale = Vector2(0.03, 0.03)
+scale = Vector2(0.02, 0.05)
 texture = ExtResource("1_4qbqh")
 script = ExtResource("2_fiwf5")
 _ImpactParticlesScene = ExtResource("3_8elth")

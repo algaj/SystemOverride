@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=14 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="PackedScene" uid="uid://b5qsdb0rgicka" path="res://prefabs/spaceships/basic_spaceship.tscn" id="2_7v4dp"]
 [ext_resource type="Shader" path="res://scenes/main.gdshader" id="2_anlsk"]
@@ -6,34 +6,47 @@
 [ext_resource type="Script" path="res://scripts/PlayerController.cs" id="4_e1spy"]
 [ext_resource type="PackedScene" uid="uid://dnl2yx025vlyn" path="res://prefabs/spaceships/drone.tscn" id="4_iwaw1"]
 
-[sub_resource type="Environment" id="Environment_5egxo"]
-background_mode = 3
-glow_enabled = true
-glow_bloom = 0.02
-glow_blend_mode = 1
-glow_hdr_threshold = 0.98
-glow_hdr_scale = 0.2
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_djh13"]
 shader = ExtResource("2_anlsk")
 
 [sub_resource type="QuadMesh" id="QuadMesh_3lj6y"]
 
-[sub_resource type="Gradient" id="Gradient_jra42"]
-offsets = PackedFloat32Array(0.836898, 0.927808)
-colors = PackedColorArray(0, 0, 0, 1, 0.3135, 0.32175, 0.33, 1)
+[sub_resource type="Gradient" id="Gradient_le1bu"]
+offsets = PackedFloat32Array(0.786096, 0.882353, 0.885027, 0.935829)
+colors = PackedColorArray(0, 0, 0, 0, 0.153376, 1.80731e-05, 0.154969, 1, 84.34, 53.01, 0, 1, 0.0672095, 0.363262, 0.391814, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xvsrf"]
 noise_type = 3
-frequency = 0.204
+seed = 2
+frequency = 0.101
 fractal_type = 3
 domain_warp_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g3v5w"]
 seamless = true
 seamless_blend_skirt = 0.003
-color_ramp = SubResource("Gradient_jra42")
+color_ramp = SubResource("Gradient_le1bu")
 noise = SubResource("FastNoiseLite_xvsrf")
+
+[sub_resource type="Gradient" id="Gradient_c1sac"]
+offsets = PackedFloat32Array(0, 0.807487)
+colors = PackedColorArray(0, 0, 0, 0, 1, 0.374342, 0.995987, 0.235294)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ynv7f"]
+noise_type = 5
+seed = 70
+frequency = 0.044
+fractal_octaves = 3
+fractal_lacunarity = 3.0
+fractal_gain = 1.0
+fractal_weighted_strength = 0.68
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jyy6o"]
+seamless = true
+seamless_blend_skirt = 0.02
+color_ramp = SubResource("Gradient_c1sac")
+noise = SubResource("FastNoiseLite_ynv7f")
 
 [node name="Node2D" type="Node2D"]
 
@@ -67,16 +80,35 @@ antialiased = true
 [node name="Drone" parent="." instance=ExtResource("4_iwaw1")]
 position = Vector2(-158, -5)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_5egxo")
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0.1)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer"]
-texture_filter = 4
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_djh13")
+scale = Vector2(30000, 25000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_g3v5w")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.15, 0.15)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_djh13")
+scale = Vector2(30000, 25000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_jyy6o")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.2, 0.2)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture_filter = 2
 texture_repeat = 2
 material = SubResource("ShaderMaterial_djh13")
 scale = Vector2(30000, 25000)
