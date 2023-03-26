@@ -8,7 +8,7 @@ colors = PackedColorArray(1, 0.583333, 0, 1, 0.94, 0.946, 1, 1, 0, 0, 0, 0.18039
 gradient = SubResource("Gradient_y4pi6")
 
 [sub_resource type="Curve" id="Curve_6qdeu"]
-_data = [Vector2(0.0103896, 0.8), 0.0, 0.0, 0, 0, Vector2(0.0753247, 0.209091), 0.0, 0.0, 0, 0, Vector2(0.649351, 0.809091), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0337662, 0.154545), 0.0, 0.0, 0, 0, Vector2(0.187013, 0.0272727), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_n20du"]
@@ -23,8 +23,8 @@ initial_velocity_min = 99.5
 initial_velocity_max = 318.4
 orbit_velocity_min = 0.01
 orbit_velocity_max = 0.08
-scale_min = 0.5
-scale_max = 2.0
+scale_min = 5.0
+scale_max = 10.0
 scale_curve = SubResource("CurveTexture_n20du")
 color_ramp = SubResource("GradientTexture1D_w30qo")
 hue_variation_max = 0.15
@@ -38,8 +38,9 @@ turbulence_initial_displacement_max = 48.8
 emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_cm6xv")
-lifetime = 4.0
+lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+fixed_fps = 10
 trail_enabled = true

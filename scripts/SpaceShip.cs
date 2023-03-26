@@ -41,6 +41,9 @@ namespace SpaceThing
         [Export]
         AudioStreamPlayer2D _impactSfx;
 
+        [Export]
+        Node2D _damagedVariant;
+
         [ExportCategory("Assets")]
 
         [Export]
@@ -50,6 +53,8 @@ namespace SpaceThing
         PackedScene _spaceshipExplostionSfx;
 
         public int Health { get; private set; }
+
+        public bool IsDestroyed { get; private set; } = false;
 
 
         [Signal]
@@ -121,6 +126,12 @@ namespace SpaceThing
 
         public override void _PhysicsProcess(double delta)
         {
+
+            if (IsDestroyed)
+            {
+                return;
+            }
+
             _turnPidController.ProcessVariable = TurnProcessOffset;
 
             float target_turn_effort = (float)_turnPidController.ControlVariable(TimeSpan.FromSeconds(delta));
@@ -204,6 +215,11 @@ namespace SpaceThing
         /// Each type has it's index. Invalid value is ignored. </param>
         public void FireWeapons(int weaponGroupIndex)
         {
+            if (IsDestroyed)
+            {
+                return;
+            }
+
             foreach (var weapon in _weapons)
             {
                 if (weapon.WeaponGroup == WeaponGroup.Primary)
@@ -226,6 +242,13 @@ namespace SpaceThing
 
         public void TakeDamage(int damage)
         {
+            if (IsDestroyed)
+            {
+                _impactSfx.PitchScale = Mathf.Lerp(0.9f, 1.2f, _rng.Randf());
+                _impactSfx.Play();
+                return;
+            }
+
             Health -= damage;
 
             EmitSignal(SignalName.ScreenShakeRequested, (float)damage / MaxHealth * 10.0f);
@@ -253,7 +276,15 @@ namespace SpaceThing
 
             fx.GlobalPosition = GlobalPosition;
             fx.Emitting = true;
-            QueueFree();
+
+            _damagedVariant.Modulate = new Color(0.2f, 0.2f, 0.2f);
+
+            IsDestroyed = true;
+
+            foreach (var engine in _engines)
+            {
+                engine.IsEngineEnabled = false;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=23 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="PackedScene" uid="uid://b5qsdb0rgicka" path="res://prefabs/spaceships/basic_spaceship.tscn" id="2_7v4dp"]
 [ext_resource type="Shader" path="res://scenes/main.gdshader" id="2_anlsk"]
@@ -15,15 +15,32 @@ shader = ExtResource("2_anlsk")
 
 [sub_resource type="QuadMesh" id="QuadMesh_3lj6y"]
 
+[sub_resource type="Gradient" id="Gradient_e7krw"]
+offsets = PackedFloat32Array(0.804813, 0.917112, 0.975936)
+colors = PackedColorArray(0, 0, 0, 0, 0.870658, 0.611827, 7.70092e-07, 1, 0.83031, 0.552317, 9.62615e-07, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nn24g"]
+noise_type = 3
+seed = 59
+frequency = 0.648
+fractal_octaves = 2
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rkd2f"]
+seamless = true
+seamless_blend_skirt = 0.002
+color_ramp = SubResource("Gradient_e7krw")
+noise = SubResource("FastNoiseLite_nn24g")
+
 [sub_resource type="Gradient" id="Gradient_le1bu"]
-offsets = PackedFloat32Array(0.783422, 0.938503, 0.957219, 0.975936)
-colors = PackedColorArray(0, 0, 0, 0, 0.153376, 1.80731e-05, 0.154969, 1, 84.34, 53.01, 0, 1, 0.0672095, 0.363262, 0.391814, 1)
+offsets = PackedFloat32Array(0.804813, 0.914438, 0.975936)
+colors = PackedColorArray(0, 0, 0, 0, 0.28, 0.28, 0.28, 1, 0.19, 0.19, 0.19, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xvsrf"]
 noise_type = 3
-seed = 2
-frequency = 0.101
-fractal_type = 3
+seed = 59
+frequency = 0.176
+fractal_octaves = 2
 domain_warp_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g3v5w"]
@@ -32,7 +49,107 @@ seamless_blend_skirt = 0.002
 color_ramp = SubResource("Gradient_le1bu")
 noise = SubResource("FastNoiseLite_xvsrf")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0dqhy"]
+noise_type = 3
+seed = 59
+frequency = 0.319
+fractal_octaves = 2
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cjmc2"]
+seamless = true
+seamless_blend_skirt = 0.002
+color_ramp = SubResource("Gradient_le1bu")
+noise = SubResource("FastNoiseLite_0dqhy")
+
+[sub_resource type="Gradient" id="Gradient_cbyi0"]
+offsets = PackedFloat32Array(0.804813, 0.914438, 0.975936)
+colors = PackedColorArray(0, 0, 0, 0, 0.28, 0.28, 0.28, 1, 0.19, 0.19, 0.19, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_44uty"]
+noise_type = 3
+seed = 59
+frequency = 0.54
+fractal_octaves = 2
+domain_warp_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ix1vd"]
+seamless = true
+seamless_blend_skirt = 0.002
+color_ramp = SubResource("Gradient_cbyi0")
+noise = SubResource("FastNoiseLite_44uty")
+
 [node name="Node2D" type="Node2D"]
+
+[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+layer = -50
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_index = -50
+z_as_relative = false
+motion_scale = Vector2(0.98, 0.98)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer3"]
+z_index = -50
+z_as_relative = false
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_djh13")
+scale = Vector2(30000, 25000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_rkd2f")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_index = 4096
+motion_scale = Vector2(1.02, 1.02)
+motion_offset = Vector2(183, 125)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer4"]
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_djh13")
+scale = Vector2(30000, 25000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_g3v5w")
+
+[node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
+layer = 0
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground3"]
+z_index = -50
+z_as_relative = false
+motion_scale = Vector2(1.2, 1.2)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground3/ParallaxLayer3"]
+z_index = -50
+z_as_relative = false
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_djh13")
+scale = Vector2(30000, 25000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_cjmc2")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground3"]
+z_index = 4096
+motion_scale = Vector2(1.5, 1.5)
+motion_offset = Vector2(183, 125)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground3/ParallaxLayer4"]
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_djh13")
+scale = Vector2(30000, 25000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_ix1vd")
+
+[node name="Altara" type="Sprite2D" parent="."]
+z_index = -10
+z_as_relative = false
+texture_filter = 4
+position = Vector2(-396, -15)
+scale = Vector2(2, 2)
+texture = ExtResource("7_hpm0e")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.239216, 0.239216, 0.239216, 1)
@@ -48,6 +165,7 @@ script = ExtResource("2_qujta")
 _target = NodePath("../BasicSpaceship")
 
 [node name="BasicSpaceship" parent="." instance=ExtResource("2_7v4dp")]
+z_index = 10
 position = Vector2(-1, -4)
 
 [node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_line", "_circle", "_realDirection", "_arrow", "_connectingLine", "_cursor", "_healthRing", "_playerCamera")]
@@ -98,41 +216,9 @@ texture = ExtResource("5_pgqo7")
 
 [node name="Circle2" type="Line2D" parent="PlayerController"]
 z_index = -2
-width = 5.0
-default_color = Color(0.498039, 0.329412, 0, 0.843137)
+width = 4.0
+default_color = Color(1, 0, 0, 0.788235)
 antialiased = true
-
-[node name="Altara" type="Sprite2D" parent="."]
-z_index = -10
-texture_filter = 4
-position = Vector2(-396, -15)
-scale = Vector2(2, 2)
-texture = ExtResource("7_hpm0e")
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.5, 0.5)
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer3"]
-texture_filter = 2
-texture_repeat = 2
-material = SubResource("ShaderMaterial_djh13")
-scale = Vector2(30000, 25000)
-mesh = SubResource("QuadMesh_3lj6y")
-texture = SubResource("NoiseTexture2D_g3v5w")
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(1.5, 1.5)
-motion_offset = Vector2(100, 0)
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground/ParallaxLayer4"]
-texture_filter = 2
-texture_repeat = 2
-material = SubResource("ShaderMaterial_djh13")
-scale = Vector2(30000, 25000)
-mesh = SubResource("QuadMesh_3lj6y")
-texture = SubResource("NoiseTexture2D_g3v5w")
 
 [node name="AIController" type="Node2D" parent="." node_paths=PackedStringArray("_target", "_spaceshipsRoot")]
 script = ExtResource("11_ddh2e")
@@ -143,6 +229,63 @@ _spaceshipsRoot = NodePath("Spaceships")
 
 [node name="Drone" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
 position = Vector2(-948, -397)
+
+[node name="Drone6" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(-1520, 258)
+
+[node name="Drone7" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(240, 1366)
+
+[node name="Drone8" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(-59, 1576)
+
+[node name="Drone9" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(504, 1612)
+
+[node name="Drone10" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(889, 1202)
+
+[node name="Drone11" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(1121, 1605)
+
+[node name="Drone12" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(857, 2093)
+
+[node name="Drone13" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(1388, 2207)
+
+[node name="Drone14" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(638, 2809)
+
+[node name="Drone15" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(5, 2737)
+
+[node name="Drone16" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(-844, 3334)
+
+[node name="Drone17" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(525, 3518)
+
+[node name="Drone18" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(1742, 3338)
+
+[node name="Drone19" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(1253, 3598)
+
+[node name="Drone20" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(1913, 2615)
+
+[node name="Drone21" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(2191, 3077)
+
+[node name="Drone22" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(2366, 2242)
+
+[node name="Drone23" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(2092, 1730)
+
+[node name="Drone24" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
+position = Vector2(2644, 1910)
 
 [node name="Drone2" parent="AIController/Spaceships" instance=ExtResource("4_iwaw1")]
 position = Vector2(-1244, -203)

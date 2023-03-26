@@ -11,7 +11,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_wqsf6"]
 radius = 24.42
 
-[node name="Drone" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot", "_impactSfx")]
+[node name="Drone" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot", "_impactSfx", "_damagedVariant")]
 center_of_mass_mode = 1
 gravity_scale = 0.0
 script = ExtResource("1_81of2")
@@ -22,6 +22,7 @@ _turnDerivativeGain = 6.0
 _enginesRoot = NodePath("Engines")
 _weaponsRoot = NodePath("Weapons")
 _impactSfx = NodePath("AudioStreamPlayer2D")
+_damagedVariant = NodePath("Drone")
 _spaceshipExplositionFX = ExtResource("2_prfsi")
 _spaceshipExplostionSfx = ExtResource("3_dmavs")
 
@@ -67,6 +68,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_5hwq2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 light_mask = 2
 visibility_layer = 2
 shape = SubResource("CircleShape2D_wqsf6")

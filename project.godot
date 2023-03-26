@@ -14,6 +14,7 @@ config/name="SpaceThing"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.0", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -24,6 +25,7 @@ DebugDraw="*res://scripts/DebugDraw.cs"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/size/window_width_override=1280
 window/size/window_height_override=720
 mouse_cursor/custom_image="res://graphics/app/cursor.png"
