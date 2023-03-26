@@ -1,9 +1,52 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnymrn32oxnyv"]
+[gd_scene load_steps=6 format=3 uid="uid://borw7as5csxsh"]
 
 [ext_resource type="Texture2D" uid="uid://d3prx8qvd4gbj" path="res://graphics/bullet.png" id="1_2n5kw"]
-[ext_resource type="Script" path="res://scripts/Bullet.cs" id="2_ftxlq"]
 [ext_resource type="PackedScene" uid="uid://oykkag5vp113" path="res://prefabs/particles/bullet_impact_fx.tscn" id="3_6hrl0"]
 [ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="4_0eyak"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_dqmsv"]
+script/source = "using Godot;
+using System;
+
+public partial class Bullet : Node2D
+{
+	[Export]
+	private PackedScene bulletImpactFXScene;
+	
+
+	private float aliveTime = 0.0f;
+
+	private Area2D bulletArea;
+
+	public override void _Ready()
+	{
+		bulletArea = GetNode<Area2D>(\"./Area2D\");
+        bulletArea.BodyEntered += BulletArea_BodyEntered;
+	}
+
+    private void BulletArea_BodyEntered(Node2D body)
+    {
+		GpuParticles2D fx = bulletImpactFXScene.Instantiate<GpuParticles2D>();
+		GetNode(\"/root\").AddChild(fx);
+
+		fx.GlobalPosition = GlobalPosition;
+		fx.Emitting = true;
+		QueueFree();
+	}
+
+    public override void _Process(double delta)
+	{
+		aliveTime += (float)delta;
+
+		MoveLocalY(-(float)delta * 1000.0f);
+
+		if (aliveTime > 5.0f)
+        {
+			QueueFree();
+        }
+	}
+}
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sht3w"]
 radius = 69.08
@@ -13,7 +56,7 @@ z_index = -1
 position = Vector2(-210, -38)
 scale = Vector2(0.089, 0.089)
 texture = ExtResource("1_2n5kw")
-script = ExtResource("2_ftxlq")
+script = SubResource("CSharpScript_dqmsv")
 bulletImpactFXScene = ExtResource("3_6hrl0")
 
 [node name="Area2D" type="Area2D" parent="."]

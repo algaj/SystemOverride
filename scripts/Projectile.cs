@@ -5,51 +5,76 @@ namespace SpaceThing
 {
 	public partial class Projectile : Node2D
 	{
+        [ExportGroup("General Settings")]
 
 		[Export]
-		PackedScene _ImpactParticlesScene;
+		int _damage = 10;
+
+		[Export]
+		float _aliveTime = 10.0f;
+
+		[Export]
+		float _velocity = 1000.0f;
+
+		[ExportGroup("Assets")]
+
+		[Export]
+		PackedScene _impactParticlesScene;
+
+        [ExportGroup("Child Nodes")]
 
 		[Export]
 		Area2D _collisionArea;
 
-		public Vector2 InitialVelocity { get; set; } = Vector2.Zero;
-
-		Vector2 _localInitialVelocity = Vector2.Zero;
-
-		float _aliveTime = 0.0f;
+		[Export]
+		Timer _aliveTimer;
 
 		public override void _Ready()
 		{
-            _collisionArea.BodyEntered += _collisionArea_BodyEntered;
-			_localInitialVelocity = ToLocal(GlobalPosition + InitialVelocity);
+			Debug.Assert(_damage > 0, "_damage > 0");
+			Debug.Assert(_aliveTime > 0, "_aliveTime > 0");
+			Debug.Assert(_velocity > 0, "_velocity > 0");
+			Debug.Assert(_impactParticlesScene != null, "_impactParticlesScene != null");
+			Debug.Assert(_collisionArea != null, "_collisionArea != null");
+			Debug.Assert(_aliveTimer != null, "_aliveTimer != null");
 
+            _collisionArea.BodyEntered += _collisionArea_BodyEntered;
+
+            _aliveTimer.Timeout += _aliveTimer_Timeout;
+
+			_aliveTimer.Start(_aliveTime);
 		}
+
+        private void _aliveTimer_Timeout()
+        {
+			QueueFree();
+        }
 
         private void _collisionArea_BodyEntered(Node2D body)
         {
-			var spaceship = body as Spaceship;
-
-			if (spaceship != null)
+            if (body is Spaceship spaceship)
             {
-				GpuParticles2D fx = _ImpactParticlesScene.Instantiate<GpuParticles2D>();
-				GetNode("/root").AddChild(fx);
+                GpuParticles2D fx = _impactParticlesScene.Instantiate<GpuParticles2D>();
+                GetTree().Root.AddChild(fx);
 
-				fx.GlobalPosition = GlobalPosition;
-				fx.Emitting = true;
+                fx.GlobalPosition = GlobalPosition;
+                fx.Emitting = true;
+
+                spaceship.TakeDamage(_damage);
+
 				QueueFree();
-			}
-		}
+            }
+        }
 
 		public override void _Process(double delta)
 		{
-			_aliveTime += (float)delta;
+			MoveLocalY(-_velocity * (float)delta);
+		}
 
-			MoveLocalY(-1000.0f * (float)delta);
-
-			if (_aliveTime > 5.0f)
-			{
-				QueueFree();
-			}
+		public void SwitchToCollisionLayer(int layer)
+		{
+			_collisionArea.CollisionLayer = 0;
+			_collisionArea.CollisionMask = ~(1u << (layer - 1));
 		}
 	}
 }

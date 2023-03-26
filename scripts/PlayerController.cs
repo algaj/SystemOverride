@@ -26,6 +26,12 @@ namespace SpaceThing
 		[Export]
 		Sprite2D _cursor;
 
+		[Export]
+		Line2D _healthRing;
+
+		[Export]
+		PlayerCamera _playerCamera;
+
 		float _circleRadius = 170.0f;
 
 		int _circleLineCount = 64;
@@ -36,6 +42,10 @@ namespace SpaceThing
 
 		public override void _Ready()
 		{
+			_spaceship.SwitchToCollisionLayer(1);
+
+            _spaceship.ScreenShakeRequested += _spaceship_ScreenShakeRequested;
+
 			for (int i = 0; i < _circleLineCount + 1; i++)
             {
 				float angle = (float)i * Mathf.Pi * 2.0f / (float)_circleLineCount;
@@ -50,8 +60,17 @@ namespace SpaceThing
 			Input.MouseMode = Input.MouseModeEnum.Hidden;
 		}
 
-		public override void _Process(double delta)
+        private void _spaceship_ScreenShakeRequested(float screenShakeFactor)
+        {
+			_playerCamera.ScreenShakeFactor += screenShakeFactor;
+        }
+
+        public override void _Process(double delta)
 		{
+			if (!IsInstanceValid(_spaceship))
+			{
+				return;
+			}
 
 			_lastSpaceshipDirection = (_spaceship.GlobalPosition - _lastSpaceshipPosition).Normalized();
 			_lastSpaceshipPosition = _spaceship.GlobalPosition;
@@ -87,12 +106,27 @@ namespace SpaceThing
             }
 
 			_circle.GlobalPosition = _spaceship.GlobalPosition;
+			_healthRing.GlobalPosition = _spaceship.GlobalPosition;
 
 			_connectingLine.ClearPoints();
 			_connectingLine.AddPoint(_line.ToLocal(_spaceship.GlobalPosition + _lastSpaceshipDirection * _circleRadius));
 			_connectingLine.AddPoint(_line.ToLocal(_line.ToLocal(globalMousePos)));
 
 			_cursor.GlobalPosition = globalMousePos;
+
+			UpdateHealthBar((float)_spaceship.Health / (float)_spaceship.MaxHealth);
+		}
+
+		public void UpdateHealthBar(float healthFactor)
+        {
+			_healthRing.ClearPoints();
+			for (int i = 0; i < (int)((_circleLineCount + 1) * healthFactor); i++)
+			{
+				float angle = (float)i * Mathf.Pi * 2.0f / (float)_circleLineCount;
+				float x = (int)(Mathf.Cos(angle) * _circleRadius);
+				float y = (int)(Mathf.Sin(angle) * _circleRadius);
+				_healthRing.AddPoint(new Vector2(x, y));
+			}
 		}
     }
 }

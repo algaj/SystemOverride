@@ -1,64 +1,84 @@
 using Godot;
 using System;
+using static Godot.FastNoiseLite;
 
 namespace SpaceThing
 {
-	public partial class PlayerCamera : Camera2D
-	{
-		[Export]
-		Node2D target;
+    public partial class PlayerCamera : Camera2D
+    {
+        [Export]
+        Node2D _target;
 
-		[Export]
-		float minZoom = 0.2f;
+        [Export]
+        float _minZoom = 0.2f;
 
-		[Export]
-		float maxZoom = 2.0f;
+        [Export]
+        float _maxZoom = 2.0f;
 
-		[Export]
-		float zoomStepFactor = 1.2f;
+        [Export]
+        float _zoomStepFactor = 1.2f;
 
-		Vector2 _targetZoom = Vector2.One;
+        [Export]
+        float _screenShakeRecoveryFactor = 1.0f;
 
-		public override void _Ready()
-		{
-		}
+        public float ScreenShakeFactor { get; set; } = 0.0f;
 
-		public override void _Process(double delta)
-		{
-			GlobalPosition = target.GlobalPosition;
-			
+        Vector2 _targetZoom = Vector2.One;
 
-			if (Input.IsActionJustReleased(InputActions.ZoomIn))
+        FastNoiseLite _noise = new FastNoiseLite();
+
+        public override void _Ready()
+        {
+            _noise.NoiseType = NoiseTypeEnum.SimplexSmooth;
+            _noise.FractalOctaves = 4;
+            _noise.Frequency = 1.0f / 20.0f;
+        }
+
+        public override void _Process(double delta)
+        {
+            GlobalPosition = _target.GlobalPosition;
+
+            ProcessZoom();
+
+            ProcessScreenShake((float)delta);
+        }
+
+        void ProcessZoom()
+        {
+            if (Input.IsActionJustReleased(InputActions.ZoomIn))
             {
-				_targetZoom /= zoomStepFactor;
+                _targetZoom /= _zoomStepFactor;
             }
 
-			if (Input.IsActionJustReleased(InputActions.ZoomOut))
+            if (Input.IsActionJustReleased(InputActions.ZoomOut))
             {
-				_targetZoom *= zoomStepFactor;
+                _targetZoom *= _zoomStepFactor;
             }
 
-			/*if (Zoom.X < _targetZoom.X)
-            {
-				Zoom += _targetZoom * (float)delta;
-            } 
-			else if (Zoom.X > _targetZoom.X)
-            {
-				Zoom -= _targetZoom * (float)delta;
-			}*/
+            Zoom = _targetZoom;
 
-			Zoom = _targetZoom;
-
-			if (Zoom.X < minZoom)
+            if (Zoom.X < _minZoom)
             {
-				Zoom = new Vector2(minZoom, minZoom);
+                Zoom = new Vector2(_minZoom, _minZoom);
             }
-			else if (Zoom.X > maxZoom)
+            else if (Zoom.X > _maxZoom)
             {
-				Zoom = new Vector2(maxZoom, maxZoom);
+                Zoom = new Vector2(_maxZoom, _maxZoom);
             }
+        }
 
+        void ProcessScreenShake(float deltaTime)
+        {
+            float xNoise = _noise.GetNoise1D((float)Time.GetTicksMsec() / 100.0f);
+            float yNoise = _noise.GetNoise1D((float)Time.GetTicksMsec() / 100.0f + 15515.0f);
 
-		}
-	}
+            Offset = new Vector2(xNoise * ScreenShakeFactor * 100.0f, yNoise * ScreenShakeFactor * 100.0f);
+
+            ScreenShakeFactor -= _screenShakeRecoveryFactor * ScreenShakeFactor * deltaTime;
+            if (ScreenShakeFactor < 0.0f)
+            {
+                ScreenShakeFactor = 0.0f;
+            }
+        }
+    }
 }

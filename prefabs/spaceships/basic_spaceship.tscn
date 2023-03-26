@@ -1,11 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://b5qsdb0rgicka"]
+[gd_scene load_steps=11 format=3 uid="uid://b5qsdb0rgicka"]
 
 [ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_muf4f"]
+[ext_resource type="PackedScene" uid="uid://dao8efj8gwobv" path="res://prefabs/particles/spaceship_explosion.tscn" id="2_0yyqt"]
 [ext_resource type="PackedScene" uid="uid://f4ye8pxcn054" path="res://prefabs/engines/basic_engine.tscn" id="2_8dcbq"]
 [ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/air_engine.tscn" id="3_aavcb"]
+[ext_resource type="PackedScene" uid="uid://b7cqm7i14rhw" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_f8pu3"]
 [ext_resource type="Texture2D" uid="uid://bbauwsrjh2uvj" path="res://graphics/spaceships/basic_spaceship.png" id="3_oicfr"]
 [ext_resource type="PackedScene" uid="uid://0qbbiip8m68b" path="res://prefabs/weapons/basic_weapon.tscn" id="4_x26ij"]
 [ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="5_y54mf"]
+[ext_resource type="AudioStream" uid="uid://bb2wyoricw5xu" path="res://sfx/impact.wav" id="8_o1er7"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_0jagb"]
 _surfaces = [{
@@ -20,16 +23,20 @@ _surfaces = [{
 "vertex_data": PackedByteArray(208, 204, 42, 66, 51, 179, 11, 195, 0, 0, 218, 66, 152, 153, 81, 194, 0, 0, 218, 66, 104, 102, 54, 194, 204, 204, 206, 66, 208, 204, 224, 65, 0, 0, 81, 67, 52, 51, 251, 66, 0, 0, 81, 67, 204, 76, 3, 67, 0, 0, 86, 67, 0, 0, 30, 67, 204, 76, 82, 67, 0, 0, 30, 67, 204, 76, 80, 67, 0, 0, 59, 67, 52, 179, 64, 67, 0, 0, 59, 67, 52, 51, 22, 67, 0, 0, 28, 67, 102, 102, 7, 67, 154, 153, 57, 67, 0, 0, 240, 66, 102, 230, 53, 67, 0, 0, 240, 66, 204, 76, 51, 67, 104, 102, 74, 66, 52, 51, 18, 67, 192, 204, 76, 65, 0, 0, 85, 67, 0, 154, 25, 63, 0, 0, 85, 67, 104, 102, 48, 194, 0, 0, 17, 67, 204, 204, 230, 194, 0, 0, 56, 67, 154, 153, 251, 194, 0, 0, 56, 67, 154, 25, 11, 195, 204, 204, 32, 67, 154, 153, 56, 195, 154, 153, 61, 67, 0, 0, 67, 195, 102, 230, 55, 67, 0, 0, 67, 195, 204, 204, 3, 67, 102, 102, 190, 194, 0, 0, 8, 66, 52, 51, 208, 194, 0, 0, 84, 194, 52, 51, 196, 194, 0, 0, 84, 194, 52, 51, 130, 194, 0, 0, 236, 194, 52, 51, 117, 194, 0, 0, 236, 194, 152, 153, 29, 194, 0, 128, 6, 195, 0, 0, 32, 193, 51, 179, 93, 195, 0, 0, 32, 193, 205, 76, 101, 195, 128, 153, 201, 64, 102, 102, 104, 195)
 }]
 
-[node name="BasicSpaceship" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot")]
+[node name="BasicSpaceship" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot", "_impactSfx")]
 mass = 10.0
 center_of_mass_mode = 1
 gravity_scale = 0.0
 script = ExtResource("1_muf4f")
+_maxHealth = 1000
+_turnProporcionalGain = 20.0
+_turnIntegralGain = 6.0
+_turnDerivativeGain = 3.0
 _enginesRoot = NodePath("Engines")
 _weaponsRoot = NodePath("Weapons")
-turnProporcionalGain = 50.0
-turnIntegralGain = 25.0
-turnDerivativeGain = 12.0
+_impactSfx = NodePath("AudioStreamPlayer2D")
+_spaceshipExplositionFX = ExtResource("2_0yyqt")
+_spaceshipExplostionSfx = ExtResource("3_f8pu3")
 
 [node name="Engines" type="Node2D" parent="."]
 
@@ -61,22 +68,22 @@ _turnEffortDirection = 2
 [node name="basic_weapon" parent="Weapons" instance=ExtResource("4_x26ij")]
 position = Vector2(-31, -34)
 scale = Vector2(4, 4)
-_fireSpreadAngle = 5.0
+_fireSpreadAngle = 4.0
 
 [node name="basic_weapon2" parent="Weapons" instance=ExtResource("4_x26ij")]
 position = Vector2(34, -34)
 scale = Vector2(4, 4)
-_fireSpreadAngle = 5.0
+_fireSpreadAngle = 4.0
 
 [node name="basic_weapon3" parent="Weapons" instance=ExtResource("4_x26ij")]
 position = Vector2(21, -50)
 scale = Vector2(4, 4)
-_fireSpreadAngle = 5.0
+_fireSpreadAngle = 4.0
 
 [node name="basic_weapon4" parent="Weapons" instance=ExtResource("4_x26ij")]
 position = Vector2(-18, -50)
 scale = Vector2(4, 4)
-_fireSpreadAngle = 5.0
+_fireSpreadAngle = 4.0
 
 [node name="Sprite" type="MeshInstance2D" parent="."]
 texture_filter = 2
@@ -97,3 +104,7 @@ color = Color(1, 0.615686, 0, 1)
 energy = 3.46
 texture = ExtResource("5_y54mf")
 texture_scale = 0.15
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_o1er7")
+max_polyphony = 10

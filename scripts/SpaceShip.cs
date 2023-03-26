@@ -4,22 +4,57 @@ using System.Collections.Generic;
 
 namespace SpaceThing
 {
+
     public partial class Spaceship : RigidBody2D
     {
+
+        [ExportCategory("General Settings")]
+        [Export]
+        int _maxHealth = 100;
+
+        public int MaxHealth { get { return _maxHealth; } }
+
+        [ExportCategory("Turn Regulator")]
+        [Export]
+        float _turnProporcionalGain = 0.0f;
+
+        [Export]
+        float _turnIntegralGain = 0.0f;
+
+        [Export]
+        float _turnDerivativeGain = 0.0f;
+
+
+        [ExportCategory("Child Nodes")]
+        /// <summary>
+        /// All engines need to be children of this node.
+        /// </summary>
         [Export]
         Node2D _enginesRoot;
 
+        /// <summary>
+        /// All weapons need to be children of this node.
+        /// </summary>
         [Export]
         Node2D _weaponsRoot;
 
         [Export]
-        float turnProporcionalGain = 0.0f;
+        AudioStreamPlayer2D _impactSfx;
+
+        [ExportCategory("Assets")]
 
         [Export]
-        float turnIntegralGain = 0.0f;
+        PackedScene _spaceshipExplositionFX;
 
         [Export]
-        float turnDerivativeGain = 0.0f;
+        PackedScene _spaceshipExplostionSfx;
+
+        public int Health { get; private set; }
+
+
+        [Signal]
+        public delegate void ScreenShakeRequestedEventHandler(float screenShakeFactor);
+
 
         Vector2 _targetMovementEffort = Vector2.Zero;
 
@@ -48,17 +83,21 @@ namespace SpaceThing
 
         PidController _turnPidController;
 
-        DebugDraw debugDraw;
-
         List<Engine> _engines = new List<Engine>();
 
         List<Weapon> _weapons = new List<Weapon>();
 
+        RandomNumberGenerator _rng = new RandomNumberGenerator();
+
         public override void _Ready()
         {
-            debugDraw = GetNode<DebugDraw>("/root/DebugDraw");
+            Debug.Assert(_impactSfx != null, "_impactSfx != null");
 
-            _turnPidController = new PidController(turnProporcionalGain, turnIntegralGain, turnDerivativeGain, 1.0f, -1.0f);
+            _rng.Randomize();
+
+            Health = _maxHealth;
+
+            _turnPidController = new PidController(_turnProporcionalGain, _turnIntegralGain, _turnDerivativeGain, 1.0f, -1.0f);
 
             int engineCount = _enginesRoot.GetChildCount();
 
@@ -67,7 +106,7 @@ namespace SpaceThing
                 var engine = _enginesRoot.GetChild<Engine>(i);
                 _engines.Add(engine);
                 engine.ParentRigidbody = this;
-               
+
             }
 
             int weaponCount = _weaponsRoot.GetChildCount();
@@ -75,43 +114,9 @@ namespace SpaceThing
             for (int i = 0; i < weaponCount; i++)
             {
                 var weapon = _weaponsRoot.GetChild<Weapon>(i);
+                weapon.ScreenShakeRequested += OnScreenShakeRequestedFromWeapons;
                 _weapons.Add(weapon);
             }
-        }
-
-        public override void _Process(double delta)
-        {
-#if false
-            float turnAxisValue = Input.GetAxis(InputActions.Left, InputActions.Right);
-
-            engineParticles.Rotation = engineParticlesDefaultRotation + turnAxisValue * 0.3f;
-
-            if (Input.IsActionPressed(InputActions.Up))
-            {
-                engineParticles.Emitting = true;
-                engineParticles.Visible = true;
-            }
-            else
-            {
-                engineParticles.Emitting = false;
-                engineParticles.Visible = false;
-            }
-
-            timeSinceLastShot += (float)delta;
-
-            if (Input.IsActionPressed(InputActions.Shoot))
-            {
-                if (timeSinceLastShot > shootInterval)
-                {
-                    timeSinceLastShot = 0.0f;
-                    Bullet bullet = bulletScene.Instantiate<Bullet>();
-
-                    GetNode("/root").AddChild(bullet);
-                    bullet.GlobalPosition = gunPosition.GlobalPosition;
-                    bullet.GlobalRotation = gunPosition.GlobalRotation;
-                }
-            }
-#endif
         }
 
         public override void _PhysicsProcess(double delta)
@@ -177,13 +182,18 @@ namespace SpaceThing
 
                 if (usedForTurning)
                 {
-                    engine.ThrustFactor =Mathf.Abs(target_turn_effort);
+                    engine.ThrustFactor = Mathf.Abs(target_turn_effort);
                 }
                 else
                 {
                     engine.ThrustFactor = 1.0f;
                 }
             }
+        }
+
+        private void OnScreenShakeRequestedFromWeapons(float screenShakeFactor)
+        {
+            EmitSignal(SignalName.ScreenShakeRequested, screenShakeFactor);
         }
 
 
@@ -196,11 +206,54 @@ namespace SpaceThing
         {
             foreach (var weapon in _weapons)
             {
-                if (weapon.WeaponGroupIndex == weaponGroupIndex)
+                if (weapon.WeaponGroup == WeaponGroup.Primary)
                 {
                     weapon.Fire();
                 }
             }
+        }
+
+        public void SwitchToCollisionLayer(int layer)
+        {
+            CollisionLayer = 1u << (layer - 1);
+            CollisionMask = 0xFFFF;
+
+            foreach (var weapon in _weapons)
+            {
+                weapon.SwitchToCollisionLayer(layer);
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+
+            EmitSignal(SignalName.ScreenShakeRequested, (float)damage / MaxHealth * 10.0f);
+
+            _impactSfx.PitchScale = Mathf.Lerp(0.9f, 1.2f, _rng.Randf());
+            _impactSfx.Play();
+
+            if (Health < 0)
+            {
+                DestroySpaceship();
+            }
+        }
+
+        public void DestroySpaceship()
+        {
+
+            var spaceshipExplosionSfx = _spaceshipExplostionSfx.Instantiate<AfterFreeSfx>();
+            GetTree().Root.AddChild(spaceshipExplosionSfx);
+
+            spaceshipExplosionSfx.GlobalPosition = GlobalPosition;
+
+            /* TODO: Queue free particles */
+            GpuParticles2D fx = _spaceshipExplositionFX.Instantiate<GpuParticles2D>();
+            GetNode("/root").AddChild(fx);
+
+            fx.GlobalPosition = GlobalPosition;
+            fx.Emitting = true;
+            QueueFree();
         }
     }
 }
