@@ -14,7 +14,8 @@ _engineLight = NodePath("PointLight2D")
 [node name="BasicEngineThrustParticles" parent="." instance=ExtResource("2_agdha")]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(1, 0.101961, 0, 1)
-energy = 6.38
+position = Vector2(0, 2)
+scale = Vector2(0.03, 0.035)
+color = Color(1, 0.215686, 0, 1)
+energy = 50.0
 texture = ExtResource("3_6q5bn")
-texture_scale = 0.05

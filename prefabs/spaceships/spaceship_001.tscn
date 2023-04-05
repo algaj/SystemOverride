@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://clkvyk0yf6jhq"]
+
+[ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_6ugbi"]
+[ext_resource type="PackedScene" uid="uid://dao8efj8gwobv" path="res://prefabs/particles/spaceship_explosion.tscn" id="2_ah7r1"]
+[ext_resource type="PackedScene" uid="uid://b7cqm7i14rhw" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_lmhso"]
+[ext_resource type="PackedScene" uid="uid://f4ye8pxcn054" path="res://prefabs/engines/basic_engine.tscn" id="4_y3xnj"]
+[ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/air_engine.tscn" id="5_x0g3m"]
+[ext_resource type="PackedScene" uid="uid://0qbbiip8m68b" path="res://prefabs/weapons/basic_weapon.tscn" id="6_fjf7l"]
+[ext_resource type="Texture2D" uid="uid://dx8kcuhansuvu" path="res://graphics/spaceships/spaceship_001.png" id="7_g5xtd"]
+[ext_resource type="AudioStream" uid="uid://bb2wyoricw5xu" path="res://sfx/impact.wav" id="9_88dp4"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vjs4h"]
+diffuse_texture = ExtResource("7_g5xtd")
+
+[node name="Spaceship ID001" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot", "_impactSfx", "_damagedVariant")]
+mass = 70.0
+center_of_mass_mode = 1
+gravity_scale = 0.0
+script = ExtResource("1_6ugbi")
+_maxHealth = 30
+_turnProporcionalGain = 20.0
+_turnIntegralGain = 6.0
+_turnDerivativeGain = 3.0
+_enginesRoot = NodePath("Engines")
+_weaponsRoot = NodePath("Weapons")
+_impactSfx = NodePath("AudioStreamPlayer2D")
+_damagedVariant = NodePath("Spaceship001")
+_spaceshipExplositionFX = ExtResource("2_ah7r1")
+_spaceshipExplostionSfx = ExtResource("3_lmhso")
+
+[node name="Engines" type="Node2D" parent="."]
+
+[node name="BasicEngine" parent="Engines" instance=ExtResource("4_y3xnj")]
+position = Vector2(-1, 37)
+scale = Vector2(5.174, 5.174)
+_maxThrustForce = 25000.0
+_maxThrustVectoringAngle = 0.0
+_thrustEffortDirection = 1
+
+[node name="AirEngine" parent="Engines" instance=ExtResource("5_x0g3m")]
+position = Vector2(-50, 48)
+rotation = 3.14159
+scale = Vector2(2.2, 2.2)
+_maxThrustForce = 5000.0
+_thrustEffortDirection = 2
+_turnEffortDirection = 1
+
+[node name="AirEngine2" parent="Engines" instance=ExtResource("5_x0g3m")]
+position = Vector2(50, 48)
+rotation = 3.14159
+scale = Vector2(2.2, 2.2)
+_maxThrustForce = 5000.0
+_thrustEffortDirection = 2
+_turnEffortDirection = 2
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="basic_weapon" parent="Weapons" instance=ExtResource("6_fjf7l")]
+position = Vector2(-43, 27)
+scale = Vector2(4, 4)
+_fireSpreadAngle = 4.0
+
+[node name="basic_weapon2" parent="Weapons" instance=ExtResource("6_fjf7l")]
+position = Vector2(42, 28)
+scale = Vector2(4, 4)
+_fireSpreadAngle = 4.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_88dp4")
+max_polyphony = 10
+
+[node name="Spaceship001" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = SubResource("CanvasTexture_vjs4h")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+scale = Vector2(0.3, 0.3)
+polygon = PackedVector2Array(10, -220.8, 15, -215.8, 15, -212, 15.5, -210, 38, -189.9, 38, -187.7, 47, -175.7, 47, -172, 70, -87.3, 70, -81, 74.8, -28, 75.6, -28, 76.9, -22.9, 72, -70.9, 72, -112, 73.3, -112, 75.3, -124, 77.5, -124, 83, -127.3, 85, -126.2, 85, -125.1, 88, -123.1, 88, -119.3, 100, -78.3, 100, -73.4, 123.7, 49, 152, 85.3, 152, 87.3, 199, 156.4, 199, 158.5, 208, 175.5, 208, 178.7, 210.4, 193, 208, 193, 204, 198, 195, 198, 195, 196.3, 63, 131.2, 56, 145.5, 56, 150.3, 32.5, 226, 30.8, 226, 25.8, 231, -27, 231, -27, 228.9, -35, 221.9, -35, 217.3, -57.5, 145, -58.5, 145, -62.5, 131, -63, 130.7, -195.5, 197, -198.7, 197, -208, 198.3, -208, 196.1, -211, 194.1, -211, 191, -212.2, 180, -210.4, 180, -200.4, 154, -199.1, 154, -146.1, 75, -145, 75, -125, 50.2, -125, 47.8, -100.6, -76, -99.5, -76, -87.6, -126, -85.5, -126, -80, -129.3, -78, -128.2, -78, -127, -74, -124, -74, -121.4, -72, -111.2, -72, -81, -71.8, -83, -70.6, -83, -52.6, -160, -51.4, -160, -43.4, -183, -41.8, -183, -16, -207.8, -16, -212.6, -11, -220.6, -11, -223.7, -0.699997, -220.6, 10, -223.7)

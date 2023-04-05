@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://oykkag5vp113"]
+[gd_scene load_steps=8 format=3 uid="uid://oykkag5vp113"]
+
+[ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="1_kpbpu"]
+[ext_resource type="Script" path="res://scripts/AfterFreeGFX.cs" id="2_ch1uw"]
 
 [sub_resource type="Gradient" id="Gradient_fpk33"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.99435)
+colors = PackedColorArray(1, 0.65, 0, 1, 0.833185, 0.0591624, 0.302122, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_fq7hu"]
 gradient = SubResource("Gradient_fpk33")
 
 [sub_resource type="Curve" id="Curve_a8vs4"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.98961, 0.0818181), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_khued"]
@@ -15,9 +19,11 @@ curve = SubResource("Curve_a8vs4")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kbax6"]
 particle_flag_disable_z = true
-spread = 167.05
-gravity = Vector3(0, 98, 0)
-initial_velocity_max = 465.46
+direction = Vector3(0, -1, 0)
+spread = 40.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 287.92
+initial_velocity_max = 400.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_min = 0.0
@@ -30,8 +36,16 @@ color_ramp = SubResource("GradientTexture1D_fq7hu")
 scale = Vector2(0.1, 0.1)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_kbax6")
-lifetime = 0.2
+lifetime = 0.4
 one_shot = true
+speed_scale = 4.43
 explosiveness = 0.8
 randomness = 0.29
 trail_enabled = true
+script = ExtResource("2_ch1uw")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1.5, 1.5)
+color = Color(0.870588, 0.337255, 0.00784314, 1)
+energy = 50.0
+texture = ExtResource("1_kpbpu")

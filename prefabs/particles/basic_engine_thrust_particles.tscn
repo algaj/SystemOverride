@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://dylc600xqw2og"]
 
-[sub_resource type="Gradient" id="Gradient_lemxr"]
-colors = PackedColorArray(8, 0, 0, 1, 2, 2, 0, 1)
+[sub_resource type="Gradient" id="Gradient_mf57r"]
+colors = PackedColorArray(0.93, 0.0465, 0.0465, 1, 1, 0.75, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_odx70"]
-gradient = SubResource("Gradient_lemxr")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2mmx4"]
+gradient = SubResource("Gradient_mf57r")
 
 [sub_resource type="Curve" id="Curve_6f1v5"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.119481, 0), 0.0, 5.32, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_my1m3"]
@@ -25,9 +25,10 @@ orbit_velocity_max = 0.0
 scale_min = 0.86
 scale_max = 3.41
 scale_curve = SubResource("CurveTexture_my1m3")
-color_ramp = SubResource("GradientTexture1D_odx70")
+color_ramp = SubResource("GradientTexture1D_2mmx4")
 
 [node name="BasicEngineThrustParticles" type="GPUParticles2D"]
+modulate = Color(2, 2, 2, 1)
 process_material = SubResource("ParticleProcessMaterial_bjb4o")
 lifetime = 0.18
 local_coords = true
