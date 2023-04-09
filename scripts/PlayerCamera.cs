@@ -36,6 +36,7 @@ namespace SpaceThing
 
         public override void _Process(double delta)
         {
+            // Follow target
             GlobalPosition = _target.GlobalPosition;
 
             ProcessZoom();
@@ -48,37 +49,36 @@ namespace SpaceThing
             if (Input.IsActionJustReleased(InputActions.ZoomIn))
             {
                 _targetZoom /= _zoomStepFactor;
+                if (_targetZoom.X < _minZoom)
+                {
+                    _targetZoom = new Vector2(_minZoom, _minZoom);
+                }
             }
 
             if (Input.IsActionJustReleased(InputActions.ZoomOut))
             {
                 _targetZoom *= _zoomStepFactor;
+                if (_targetZoom.X > _maxZoom)
+                {
+                    _targetZoom = new Vector2(_maxZoom, _maxZoom);
+                }
             }
 
             Zoom = _targetZoom;
-
-            if (Zoom.X < _minZoom)
-            {
-                Zoom = new Vector2(_minZoom, _minZoom);
-            }
-            else if (Zoom.X > _maxZoom)
-            {
-                Zoom = new Vector2(_maxZoom, _maxZoom);
-            }
         }
 
+        /// <summary>
+        /// Processes screen shake effect based on Perlin noise algorithm.
+        /// </summary>
+        /// <param name="deltaTime">The time since the last frame in seconds.</param>
         void ProcessScreenShake(float deltaTime)
         {
             float xNoise = _noise.GetNoise1D((float)Time.GetTicksMsec() / 100.0f);
             float yNoise = _noise.GetNoise1D((float)Time.GetTicksMsec() / 100.0f + 15515.0f);
+            Vector2 offset = new Vector2(xNoise, yNoise) * ScreenShakeFactor * 100.0f;
+            Offset = offset;
 
-            Offset = new Vector2(xNoise * ScreenShakeFactor * 100.0f, yNoise * ScreenShakeFactor * 100.0f);
-
-            ScreenShakeFactor -= _screenShakeRecoveryFactor * ScreenShakeFactor * deltaTime;
-            if (ScreenShakeFactor < 0.0f)
-            {
-                ScreenShakeFactor = 0.0f;
-            }
+            ScreenShakeFactor = Mathf.Clamp(ScreenShakeFactor - _screenShakeRecoveryFactor * ScreenShakeFactor * deltaTime, 0.0f, float.MaxValue);
         }
     }
 }

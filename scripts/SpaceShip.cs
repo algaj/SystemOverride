@@ -256,7 +256,7 @@ namespace SpaceThing
             _impactSfx.PitchScale = Mathf.Lerp(0.9f, 1.2f, _rng.Randf());
             _impactSfx.Play();
 
-            if (Health < 0)
+            if (Health <= 0)
             {
                 DestroySpaceship();
             }

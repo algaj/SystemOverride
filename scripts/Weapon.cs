@@ -114,6 +114,8 @@ namespace SpaceThing
 
         Tween _recoilTween;
         Vector2 _recoilBasePosition;
+        Vector2 _previousPosition = Vector2.Zero;
+        Vector2 _velocity = Vector2.Zero;
 
         public override void _Ready()
         {
@@ -132,6 +134,13 @@ namespace SpaceThing
             _rng.Randomize();
             _fireTimer.Timeout += _fireTimer_Timeout;
             _fireTimer.OneShot = true;
+        }
+
+        public override void _Process(double delta)
+        {
+            _velocity = (GlobalPosition - _previousPosition) / (float)delta;
+
+            _previousPosition = GlobalPosition;
         }
 
         /// <summary>
@@ -156,10 +165,11 @@ namespace SpaceThing
                 _fireTimer.Start(Mathf.Lerp(_fireIntervalMin, _fireIntervalMax, _rng.Randf()));
 
                 _fireParticles.Emitting = true;
-
+                
                 var projectile = _projectileAsset.Instantiate<Projectile>();
                 projectile.GlobalPosition = _barrelEnd.GlobalPosition;
                 projectile.GlobalRotation = GlobalRotation + Mathf.DegToRad(_fireSpreadAngle * (_rng.Randf() - 0.5f));
+                projectile.InitialVelocity = _velocity;
                 projectile.SwitchToCollisionLayer(_currentCollisionLayer);
                 GetTree().Root.AddChild(projectile);
                 _audioStreamPlayer.PitchScale = Mathf.Lerp(_fireSfxPitchFactorMin, _fireSfxPitchFactorMax, _rng.Randf());

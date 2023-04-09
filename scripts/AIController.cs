@@ -34,6 +34,9 @@ namespace SpaceThing
 
         public override void _Process(double delta)
         {
+            const float deviationFactor = 0.2f;
+            const float maxFacingDirectionOffsetToFire = 0.1f;
+
             foreach (var spaceship in _spaceships)
             {
                 if (!IsInstanceValid(spaceship))
@@ -43,13 +46,19 @@ namespace SpaceThing
 
                 var direction = (_target.GlobalPosition - spaceship.GlobalPosition).Normalized();
 
+                var randomDeviation = new Vector2((float)GD.RandRange(-1.0, 1.0), (float)GD.RandRange(-1.0, 1.0)) * deviationFactor;
+                direction += randomDeviation;
+
                 float facingDirectionOffset = -spaceship.ToLocal(direction + spaceship.GlobalPosition).X;
 
                 spaceship.TurnProcessOffset = facingDirectionOffset;
                 spaceship.TargetMovementEffort = Vector2.Up;
 
 
-                spaceship.FireWeapons(0);
+                if (facingDirectionOffset <= maxFacingDirectionOffsetToFire && spaceship.GlobalPosition.DistanceSquaredTo(_target.GlobalPosition) < 40000000.0f)
+                {
+                    spaceship.FireWeapons(0);
+                }
             }
         }
     }

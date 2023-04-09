@@ -1,8 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=27 format=3 uid="uid://d1ixhg0tg6byf"]
 
+[ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
+[ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
+[ext_resource type="Material" uid="uid://byfiad0ogaev3" path="res://materials/space_rocks_material.tres" id="2_6w7eg"]
 [ext_resource type="PackedScene" uid="uid://b5qsdb0rgicka" path="res://prefabs/spaceships/basic_spaceship.tscn" id="2_7v4dp"]
-[ext_resource type="Shader" path="res://scenes/main.gdshader" id="2_anlsk"]
+[ext_resource type="Texture2D" uid="uid://dorgfa73rjfgo" path="res://graphics/rocks.png" id="2_ej766"]
 [ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="2_qujta"]
+[ext_resource type="Script" path="res://scripts/Planet.cs" id="3_3ytod"]
 [ext_resource type="Script" path="res://scripts/PlayerController.cs" id="4_e1spy"]
 [ext_resource type="Texture2D" uid="uid://bus52y5qjsol2" path="res://graphics/arrow.png" id="4_ggwgs"]
 [ext_resource type="Texture2D" uid="uid://d3ypbbcbrxuar" path="res://graphics/app/cursor.png" id="5_pgqo7"]
@@ -10,134 +14,117 @@
 [ext_resource type="PackedScene" uid="uid://clkvyk0yf6jhq" path="res://prefabs/spaceships/spaceship_001.tscn" id="9_x7b8i"]
 [ext_resource type="Texture2D" uid="uid://flvfj45je7hi" path="res://graphics/planets/moon.png" id="10_yvygf"]
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_djh13"]
-shader = ExtResource("2_anlsk")
+[ext_resource type="Script" path="res://scripts/StoryEngine.cs" id="12_0bdmg"]
+[ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3lj6y"]
 
-[sub_resource type="Gradient" id="Gradient_e7krw"]
-offsets = PackedFloat32Array(0.804813, 0.903743, 0.975936)
-colors = PackedColorArray(0, 0, 0, 0, 0.87, 0.609, 0, 0.686275, 0.83, 0.553333, 0, 0.705882)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_nn24g"]
-noise_type = 3
-seed = 59
-frequency = 0.922
-fractal_octaves = 2
-fractal_gain = 1.0
-domain_warp_enabled = true
-domain_warp_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rkd2f"]
-width = 1024
-height = 1024
-seamless = true
-seamless_blend_skirt = 0.002
-color_ramp = SubResource("Gradient_e7krw")
-noise = SubResource("FastNoiseLite_nn24g")
-
 [sub_resource type="Gradient" id="Gradient_le1bu"]
-offsets = PackedFloat32Array(0.34492, 0.796791)
-colors = PackedColorArray(0.1524, 0.054, 0.3, 0.12549, 0.579, 0.54, 0.6, 0.0901961)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.171123, 0.823529)
+colors = PackedColorArray(0.1524, 0.054, 0.3, 0.054902, 1, 0.833333, 0, 0.203922, 0.300667, 0.44, 0, 0)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xvsrf"]
 noise_type = 3
-seed = 59
+seed = 89
 frequency = 0.013
-fractal_octaves = 4
-fractal_lacunarity = 1.683
-fractal_gain = 0.717
+fractal_type = 2
+fractal_octaves = 8
+fractal_lacunarity = 1.754
+fractal_gain = 0.609
+fractal_weighted_strength = 0.32
 domain_warp_type = 2
-domain_warp_amplitude = 0.855
-domain_warp_frequency = -0.105
+domain_warp_amplitude = 0.869
+domain_warp_frequency = 1.436
 domain_warp_fractal_octaves = 10
 domain_warp_fractal_lacunarity = 6.172
 domain_warp_fractal_gain = 0.699
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g3v5w"]
+width = 1024
+height = 1024
 seamless = true
 seamless_blend_skirt = 0.15
 color_ramp = SubResource("Gradient_le1bu")
 noise = SubResource("FastNoiseLite_xvsrf")
 
-[sub_resource type="Gradient" id="Gradient_cbyi0"]
-offsets = PackedFloat32Array(0.804813, 0.914438, 0.975936)
-colors = PackedColorArray(0, 0, 0, 0, 0.28, 0.28, 0.28, 0.498039, 0.19, 0.19, 0.19, 0.698039)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
+shader = ExtResource("1_e0scc")
+shader_parameter/texture_scale = 0.04
+shader_parameter/tint_color = Color(1, 1, 1, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_44uty"]
-noise_type = 3
-seed = 59
-frequency = 0.84
-fractal_octaves = 2
-domain_warp_enabled = true
-domain_warp_type = 2
+[sub_resource type="Gradient" id="Gradient_1ho48"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.871658, 0.903743)
+colors = PackedColorArray(0, 0, 0, 1, 0.94, 0.94, 0.94, 1)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ix1vd"]
-width = 1024
-height = 1024
-seamless = true
-seamless_blend_skirt = 0.002
-color_ramp = SubResource("Gradient_cbyi0")
-noise = SubResource("FastNoiseLite_44uty")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4h2ah"]
+frequency = 0.143
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d2pjq"]
+color_ramp = SubResource("Gradient_1ho48")
+noise = SubResource("FastNoiseLite_4h2ah")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y771a"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.533333, 0.333333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gkxn"]
+bg_color = Color(0, 0.533333, 0.333333, 1)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
 layer = -50
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground2"]
-z_index = -50
-z_as_relative = false
-motion_scale = Vector2(0.98, 0.98)
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer3"]
-z_index = -50
-z_as_relative = false
-texture_filter = 2
-texture_repeat = 2
-material = SubResource("ShaderMaterial_djh13")
-scale = Vector2(30000, 25000)
-mesh = SubResource("QuadMesh_3lj6y")
-texture = SubResource("NoiseTexture2D_rkd2f")
-
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground2"]
 z_index = 4096
-motion_scale = Vector2(1.02, 1.02)
+motion_scale = Vector2(0.8, 0.8)
 motion_offset = Vector2(183, 125)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer4"]
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer4"]
 texture_filter = 2
 texture_repeat = 2
-material = SubResource("ShaderMaterial_djh13")
-scale = Vector2(30000, 25000)
+material = ExtResource("1_g7563")
+scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_g3v5w")
 
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_index = -600
+z_as_relative = false
+motion_scale = Vector2(0.95, 0.95)
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer3"]
+z_index = -4096
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ajlgu")
+scale = Vector2(150000, 125000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_d2pjq")
+
 [node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
-layer = 0
+layer = 128
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground3"]
 z_index = 4096
-motion_scale = Vector2(1.5, 1.5)
-motion_offset = Vector2(183, 125)
+motion_scale = Vector2(1.1, 1.1)
+motion_offset = Vector2(1000, 1000)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="ParallaxBackground3/ParallaxLayer4"]
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground3/ParallaxLayer4"]
+modulate = Color(0.992157, 0.992157, 0.992157, 1)
+z_index = 4096
 texture_filter = 2
 texture_repeat = 2
-material = SubResource("ShaderMaterial_djh13")
+material = ExtResource("2_6w7eg")
 scale = Vector2(30000, 25000)
 mesh = SubResource("QuadMesh_3lj6y")
-texture = SubResource("NoiseTexture2D_ix1vd")
-
-[node name="Altara" type="Sprite2D" parent="."]
-light_mask = 0
-z_index = -10
-z_as_relative = false
-texture_filter = 4
-position = Vector2(-396, -15)
-scale = Vector2(3, 3)
-texture = ExtResource("7_hpm0e")
+texture = ExtResource("2_ej766")
 
 [node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("_target")]
 ignore_rotation = false
@@ -145,12 +132,14 @@ position_smoothing_enabled = true
 rotation_smoothing_speed = 50.0
 script = ExtResource("2_qujta")
 _target = NodePath("../BasicSpaceship")
+_minZoom = 0.1
+_maxZoom = 4.0
 
 [node name="BasicSpaceship" parent="." instance=ExtResource("2_7v4dp")]
 z_index = 10
 position = Vector2(-1, -4)
 
-[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_line", "_circle", "_realDirection", "_arrow", "_connectingLine", "_cursor", "_healthRing", "_playerCamera")]
+[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_line", "_circle", "_realDirection", "_arrow", "_connectingLine", "_cursor", "_healthRing", "_playerCamera", "_healthBar")]
 script = ExtResource("4_e1spy")
 _spaceship = NodePath("../BasicSpaceship")
 _line = NodePath("Line2D")
@@ -161,6 +150,7 @@ _connectingLine = NodePath("ConnectingLine")
 _cursor = NodePath("Cursor")
 _healthRing = NodePath("Circle2")
 _playerCamera = NodePath("../MainCamera")
+_healthBar = NodePath("../CanvasLayer/HealthBar")
 
 [node name="Line2D" type="Line2D" parent="PlayerController"]
 z_index = -2
@@ -216,9 +206,116 @@ _spaceshipsRoot = NodePath("Spaceships")
 [node name="Spaceship ID001" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
 position = Vector2(5637, 6156)
 
-[node name="Moon" type="Sprite2D" parent="."]
+[node name="Spaceship ID002" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(7116, 6292)
+
+[node name="Spaceship ID003" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(8940, 5786)
+
+[node name="EarthOrbitPoint" type="Node2D" parent="."]
+position = Vector2(6107, 5207)
+
+[node name="Circle3" type="Line2D" parent="EarthOrbitPoint"]
+z_index = -11
+z_as_relative = false
+default_color = Color(0.0392157, 0.521569, 0.607843, 0.572549)
+antialiased = true
+
+[node name="Altara" type="Sprite2D" parent="EarthOrbitPoint" node_paths=PackedStringArray("_orbitPoint", "_orbitCircle") groups=["planets"]]
+light_mask = 0
+z_index = -10
+z_as_relative = false
+texture_filter = 4
+position = Vector2(-6503, -5222)
+scale = Vector2(3, 3)
+texture = ExtResource("7_hpm0e")
+script = ExtResource("3_3ytod")
+Name = "Earth 2"
+_orbitFrequency = 0.02
+_orbitPoint = NodePath("..")
+_orbitCircle = NodePath("../Circle3")
+
+[node name="Node2D" type="Node2D" parent="EarthOrbitPoint/Altara"]
+
+[node name="Circle2" type="Line2D" parent="EarthOrbitPoint/Altara/Node2D"]
+z_index = -11
+width = 6.0
+default_color = Color(0, 0.168627, 0.560784, 0.560784)
+texture_mode = 1
+antialiased = true
+
+[node name="Moon" type="Sprite2D" parent="EarthOrbitPoint/Altara/Node2D" node_paths=PackedStringArray("_orbitPoint", "_orbitCircle") groups=["planets"]]
 modulate = Color(0.686275, 0.686275, 0.686275, 1)
 light_mask = 0
 z_index = -10
-position = Vector2(1000, 1642)
+position = Vector2(465.333, 552.333)
+scale = Vector2(0.333333, 0.333333)
 texture = ExtResource("10_yvygf")
+script = ExtResource("3_3ytod")
+Name = "Moon"
+_orbitFrequency = 0.5
+_orbitPoint = NodePath("..")
+_orbitCircle = NodePath("../Circle2")
+
+[node name="Node2D2" type="Node2D" parent="EarthOrbitPoint/Altara"]
+
+[node name="Circle2" type="Line2D" parent="EarthOrbitPoint/Altara/Node2D2"]
+z_index = -11
+width = 6.0
+default_color = Color(0, 0.168627, 0.560784, 0.560784)
+texture_mode = 1
+antialiased = true
+
+[node name="Moon" type="Sprite2D" parent="EarthOrbitPoint/Altara/Node2D2" node_paths=PackedStringArray("_orbitPoint", "_orbitCircle") groups=["planets"]]
+modulate = Color(0.686275, 0.686275, 0.686275, 1)
+light_mask = 0
+z_index = -10
+position = Vector2(1532.67, 25.6667)
+scale = Vector2(0.227213, 0.227213)
+texture = ExtResource("15_yrpv2")
+script = ExtResource("3_3ytod")
+Name = "Moon"
+_orbitFrequency = 0.5
+_orbitPoint = NodePath("..")
+_orbitCircle = NodePath("../Circle2")
+
+[node name="Node2D3" type="Node2D" parent="EarthOrbitPoint/Altara"]
+
+[node name="Circle2" type="Line2D" parent="EarthOrbitPoint/Altara/Node2D3"]
+z_index = -11
+width = 6.0
+default_color = Color(0, 0.168627, 0.560784, 0.560784)
+texture_mode = 1
+antialiased = true
+
+[node name="Moon" type="Sprite2D" parent="EarthOrbitPoint/Altara/Node2D3" node_paths=PackedStringArray("_orbitPoint", "_orbitCircle") groups=["planets"]]
+modulate = Color(0.933333, 0.266667, 0, 1)
+light_mask = 0
+z_index = -10
+position = Vector2(1650.33, -893.333)
+scale = Vector2(0.28825, 0.28825)
+texture = ExtResource("15_yrpv2")
+script = ExtResource("3_3ytod")
+Name = "Moon"
+_orbitFrequency = 0.5
+_orbitPoint = NodePath("..")
+_orbitCircle = NodePath("../Circle2")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("12_0bdmg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -15.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_y771a")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1gkxn")
+value = 50.0
+show_percentage = false

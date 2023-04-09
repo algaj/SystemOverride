@@ -9,10 +9,11 @@ radius = 96.92
 
 [node name="BasicProjectile" type="Sprite2D" node_paths=PackedStringArray("_collisionArea", "_aliveTimer")]
 modulate = Color(0.937255, 0.662745, 0, 1)
-scale = Vector2(0.02, 0.05)
+scale = Vector2(0.04, 0.26)
 texture = ExtResource("1_4qbqh")
 script = ExtResource("2_fiwf5")
 _aliveTime = 4.0
+_velocity = 2000.0
 _impactParticlesScene = ExtResource("3_8elth")
 _collisionArea = NodePath("Area2D")
 _aliveTimer = NodePath("Timer")
