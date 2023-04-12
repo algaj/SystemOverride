@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=30 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -16,6 +16,9 @@
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
 [ext_resource type="Script" path="res://scripts/StoryEngine.cs" id="12_0bdmg"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
+[ext_resource type="Script" path="res://scripts/UserPrompt.cs" id="17_jaft6"]
+[ext_resource type="AudioStream" uid="uid://d4acgerhio7xp" path="res://sfx/click.wav" id="18_qrfnb"]
+[ext_resource type="Texture2D" uid="uid://ws7bvfue1510" path="res://graphics/ai.png" id="19_32m51"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3lj6y"]
 
@@ -71,12 +74,12 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0.533333, 0.333333, 1)
+border_color = Color(0, 0.937255, 0.572549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gkxn"]
-bg_color = Color(0, 0.533333, 0.333333, 1)
+bg_color = Color(0.152941, 0.498039, 0, 1)
 
-[node name="Node2D" type="Node2D"]
+[node name="Main Scene" type="Node2D"]
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
 layer = -50
@@ -126,12 +129,13 @@ scale = Vector2(30000, 25000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = ExtResource("2_ej766")
 
-[node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("_anchor", "_cursor")]
 ignore_rotation = false
 position_smoothing_enabled = true
 rotation_smoothing_speed = 50.0
 script = ExtResource("2_qujta")
-_target = NodePath("../BasicSpaceship")
+_anchor = NodePath("../BasicSpaceship")
+_cursor = NodePath("../PlayerController/Cursor")
 _minZoom = 0.1
 _maxZoom = 4.0
 
@@ -173,7 +177,7 @@ default_color = Color(0, 0.631373, 0.505882, 1)
 antialiased = true
 
 [node name="Arrow" type="Sprite2D" parent="PlayerController"]
-modulate = Color(0, 0.631373, 0.505882, 0.388235)
+modulate = Color(0.823529, 0.988235, 0, 0.87451)
 position = Vector2(-3, -159)
 scale = Vector2(0.0697155, 0.07)
 texture = ExtResource("4_ggwgs")
@@ -253,7 +257,7 @@ scale = Vector2(0.333333, 0.333333)
 texture = ExtResource("10_yvygf")
 script = ExtResource("3_3ytod")
 Name = "Moon"
-_orbitFrequency = 0.5
+_orbitFrequency = 0.2
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle2")
 
@@ -275,7 +279,7 @@ scale = Vector2(0.227213, 0.227213)
 texture = ExtResource("15_yrpv2")
 script = ExtResource("3_3ytod")
 Name = "Moon"
-_orbitFrequency = 0.5
+_orbitFrequency = 0.1
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle2")
 
@@ -297,7 +301,7 @@ scale = Vector2(0.28825, 0.28825)
 texture = ExtResource("15_yrpv2")
 script = ExtResource("3_3ytod")
 Name = "Moon"
-_orbitFrequency = 0.5
+_orbitFrequency = 0.02
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle2")
 
@@ -319,3 +323,37 @@ theme_override_styles/background = SubResource("StyleBoxFlat_y771a")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1gkxn")
 value = 50.0
 show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("_audioStreamPlayer")]
+anchors_preset = -1
+anchor_left = 0.057
+anchor_top = 0.006
+anchor_right = 0.507
+anchor_bottom = 0.1
+offset_left = -0.44001
+offset_top = 0.52
+offset_right = 0.559937
+size_flags_horizontal = 4
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[color=green]"
+scroll_active = false
+scroll_following = true
+shortcut_keys_enabled = false
+script = ExtResource("17_jaft6")
+_audioStreamPlayer = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/RichTextLabel"]
+stream = ExtResource("18_qrfnb")
+mix_target = 2
+max_polyphony = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.057
+anchor_bottom = 0.098
+offset_right = 0.55999
+offset_bottom = 0.159996
+texture = ExtResource("19_32m51")
+expand_mode = 2
+stretch_mode = 4

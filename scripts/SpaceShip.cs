@@ -200,6 +200,8 @@ namespace SpaceThing
                     engine.ThrustFactor = 1.0f;
                 }
             }
+
+
         }
 
         private void OnScreenShakeRequestedFromWeapons(float screenShakeFactor)

@@ -8,11 +8,11 @@
 radius = 96.92
 
 [node name="BasicProjectile" type="Sprite2D" node_paths=PackedStringArray("_collisionArea", "_aliveTimer")]
-modulate = Color(0.937255, 0.662745, 0, 1)
-scale = Vector2(0.04, 0.26)
+modulate = Color(0, 0.811765, 0.705882, 1)
+scale = Vector2(0.0542969, 0.262812)
 texture = ExtResource("1_4qbqh")
 script = ExtResource("2_fiwf5")
-_aliveTime = 4.0
+_aliveTime = 3.0
 _velocity = 2000.0
 _impactParticlesScene = ExtResource("3_8elth")
 _collisionArea = NodePath("Area2D")
@@ -23,6 +23,13 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("CircleShape2D_2kj4j")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Bullet" type="Sprite2D" parent="."]
+modulate = Color(0.878431, 0.878431, 0.878431, 0.435294)
+position = Vector2(0, 175.03)
+scale = Vector2(-0.688033, -1.27767)
+texture = ExtResource("1_4qbqh")

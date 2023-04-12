@@ -68,7 +68,8 @@ namespace SpaceThing
         private void _spaceship_ScreenShakeRequested(float screenShakeFactor)
         {
 			_playerCamera.ScreenShakeFactor += screenShakeFactor;
-        }
+
+		}
 
         public override void _Process(double delta)
 		{

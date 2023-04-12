@@ -7,7 +7,10 @@ namespace SpaceThing
     public partial class PlayerCamera : Camera2D
     {
         [Export]
-        Node2D _target;
+        Node2D _anchor;
+
+        [Export]
+        Node2D _cursor;
 
         [Export]
         float _minZoom = 0.2f;
@@ -21,9 +24,14 @@ namespace SpaceThing
         [Export]
         float _screenShakeRecoveryFactor = 1.0f;
 
+        [Export]
+        float _zoomSmoothness = 1.0f;
+
         public float ScreenShakeFactor { get; set; } = 0.0f;
 
         Vector2 _targetZoom = Vector2.One;
+
+        Vector2 _newZoom;
 
         FastNoiseLite _noise = new FastNoiseLite();
 
@@ -32,39 +40,42 @@ namespace SpaceThing
             _noise.NoiseType = NoiseTypeEnum.SimplexSmooth;
             _noise.FractalOctaves = 4;
             _noise.Frequency = 1.0f / 20.0f;
+
+            _newZoom = Zoom;
+
+            GlobalPosition = (_anchor.GlobalPosition + _cursor.GlobalPosition) / 2.0f;
         }
 
         public override void _Process(double delta)
         {
             // Follow target
-            GlobalPosition = _target.GlobalPosition;
+            GlobalPosition = (_anchor.GlobalPosition + _cursor.GlobalPosition) / 2.0f;
 
-            ProcessZoom();
+            ProcessZoom((float)delta);
 
             ProcessScreenShake((float)delta);
         }
 
-        void ProcessZoom()
+        void ProcessZoom(float delta)
         {
             if (Input.IsActionJustReleased(InputActions.ZoomIn))
             {
-                _targetZoom /= _zoomStepFactor;
-                if (_targetZoom.X < _minZoom)
-                {
-                    _targetZoom = new Vector2(_minZoom, _minZoom);
-                }
+                _newZoom /= _zoomStepFactor;
+                _newZoom = ClampZoom(_newZoom);
             }
 
             if (Input.IsActionJustReleased(InputActions.ZoomOut))
             {
-                _targetZoom *= _zoomStepFactor;
-                if (_targetZoom.X > _maxZoom)
-                {
-                    _targetZoom = new Vector2(_maxZoom, _maxZoom);
-                }
+                _newZoom *= _zoomStepFactor;
+                _newZoom = ClampZoom(_newZoom);
             }
 
-            Zoom = _targetZoom;
+            Zoom = Zoom.Lerp(_newZoom, _zoomSmoothness * delta);
+        }
+
+        Vector2 ClampZoom(Vector2 zoom)
+        {
+            return new Vector2(Mathf.Clamp(zoom.X, _minZoom, _maxZoom), Mathf.Clamp(zoom.Y, _minZoom, _maxZoom));
         }
 
         /// <summary>
