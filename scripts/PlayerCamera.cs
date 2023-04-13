@@ -2,7 +2,7 @@ using Godot;
 using System;
 using static Godot.FastNoiseLite;
 
-namespace SpaceThing
+namespace SystemOverride
 {
     public partial class PlayerCamera : Camera2D
     {

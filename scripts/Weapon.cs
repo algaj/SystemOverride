@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace SpaceThing
+namespace SystemOverride
 {
     /// <summary>
     /// Used to group weapons that fire together on the same input action.

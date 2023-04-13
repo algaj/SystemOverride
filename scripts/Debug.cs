@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 
-namespace SpaceThing
+namespace SystemOverride
 {
     internal static class Debug
     {

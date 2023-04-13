@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 
-namespace SpaceThing
+namespace SystemOverride
 {
     public sealed class PidController
     {

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace SpaceThing
+namespace SystemOverride
 {
 	public partial class PlayerController : Node2D
 	{

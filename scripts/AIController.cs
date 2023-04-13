@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace SpaceThing
+namespace SystemOverride
 {
     public partial class AIController : Node2D
     {

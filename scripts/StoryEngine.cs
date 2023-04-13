@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpaceThing
+namespace SystemOverride
 {
-	public class NameGenerator
+    public class NameGenerator
     {
 		RandomNumberGenerator _random = new RandomNumberGenerator();
 
