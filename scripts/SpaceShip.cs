@@ -105,6 +105,7 @@ namespace SpaceThing
             _turnPidController = new PidController(_turnProporcionalGain, _turnIntegralGain, _turnDerivativeGain, 1.0f, -1.0f);
 
             int engineCount = _enginesRoot.GetChildCount();
+            Debug.Assert(engineCount > 0, "engineCount > 0");
 
             for (int i = 0; i < engineCount; i++)
             {

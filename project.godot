@@ -36,7 +36,7 @@ window/stretch/aspect="expand"
 
 [dotnet]
 
-project/assembly_name="SpaceThing"
+project/assembly_name="SystemOverride"
 
 [input]
 

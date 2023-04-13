@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7qr17s1m0auo"]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource type="Script" path="res://scripts/SpaceShip.cs" id="1_ngtng"]
+[ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_ngtng"]
 [ext_resource type="Texture2D" uid="uid://bbauwsrjh2uvj" path="res://graphics/spaceships/basic_spaceship.png" id="2_08afh"]
 [ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="4_v2g5x"]
 

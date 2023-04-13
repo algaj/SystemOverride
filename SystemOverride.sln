@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceThing", "SpaceThing.csproj", "{37AF9BB3-5291-4B1C-9711-EE80A4BCBD4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemOverride", "SystemOverride.csproj", "{37AF9BB3-5291-4B1C-9711-EE80A4BCBD4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
