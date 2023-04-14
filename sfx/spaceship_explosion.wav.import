@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dqyjos4uv8peh"
-path="res://.godot/imported/drone_explosion.wav-0bd69d2069b24097a4963e775f7a87cf.sample"
+path="res://.godot/imported/spaceship_explosion.wav-9bf5e352a503c547830aae593e412d7c.sample"
 
 [deps]
 
-source_file="res://sfx/drone_explosion.wav"
-dest_files=["res://.godot/imported/drone_explosion.wav-0bd69d2069b24097a4963e775f7a87cf.sample"]
+source_file="res://sfx/spaceship_explosion.wav"
+dest_files=["res://.godot/imported/spaceship_explosion.wav-9bf5e352a503c547830aae593e412d7c.sample"]
 
 [params]
 

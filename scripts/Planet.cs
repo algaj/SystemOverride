@@ -6,7 +6,7 @@ namespace SystemOverride
 	public partial class Planet : Node2D
 	{
 		[Export]
-		public string Name { get; private set; }
+		new public string Name { get; private set; }
 
 		[Export]
 		public string Description { get; private set; }

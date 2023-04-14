@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7cqm7i14rhw"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="AudioStream" uid="uid://dqyjos4uv8peh" path="res://sfx/drone_explosion.wav" id="1_pik46"]
+[ext_resource type="AudioStream" uid="uid://dqyjos4uv8peh" path="res://sfx/spaceship_explosion.wav" id="1_pik46"]
 [ext_resource type="Script" path="res://scripts/AfterFreeSfx.cs" id="2_1bbde"]
 
 [node name="spaceship_explosion" type="AudioStreamPlayer2D"]

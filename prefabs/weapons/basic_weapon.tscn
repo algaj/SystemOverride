@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://0qbbiip8m68b"]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_li8oi"]
 [ext_resource type="PackedScene" uid="uid://c44xix01fcjgs" path="res://prefabs/projectiles/basic_projectile.tscn" id="2_3rkjd"]
 [ext_resource type="PackedScene" uid="uid://b5pofdyf4c7tc" path="res://prefabs/particles/basic_weapon_fire_particles.tscn" id="2_o0ly3"]
-[ext_resource type="AudioStream" uid="uid://c6hffa0dyfyey" path="res://sfx/explosionlong.wav" id="4_e1m1x"]
+[ext_resource type="AudioStream" uid="uid://c6hffa0dyfyey" path="res://sfx/cannon_shot.wav" id="4_e1m1x"]
 [ext_resource type="Texture2D" uid="uid://d3qgj12u0peq5" path="res://graphics/gun.png" id="5_d6oxw"]
 
 [node name="basic_weapon" type="Node2D" node_paths=PackedStringArray("_audioStreamPlayer", "_fireParticles", "_fireTimer", "_barrel", "_barrelEnd")]
