@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_6ugbi"]
 [ext_resource type="PackedScene" uid="uid://dao8efj8gwobv" path="res://prefabs/particles/spaceship_explosion.tscn" id="2_ah7r1"]
-[ext_resource type="PackedScene" uid="uid://b7cqm7i14rhw" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_lmhso"]
+[ext_resource type="PackedScene" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_lmhso"]
 [ext_resource type="PackedScene" uid="uid://f4ye8pxcn054" path="res://prefabs/engines/basic_engine.tscn" id="4_y3xnj"]
 [ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/air_engine.tscn" id="5_x0g3m"]
-[ext_resource type="PackedScene" uid="uid://0qbbiip8m68b" path="res://prefabs/weapons/basic_weapon.tscn" id="6_fjf7l"]
+[ext_resource type="PackedScene" path="res://prefabs/weapons/basic_weapon.tscn" id="6_fjf7l"]
 [ext_resource type="Texture2D" uid="uid://dx8kcuhansuvu" path="res://graphics/spaceships/spaceship_001.png" id="7_g5xtd"]
 [ext_resource type="AudioStream" uid="uid://bb2wyoricw5xu" path="res://sfx/impact.wav" id="9_88dp4"]
 
