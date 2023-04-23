@@ -233,6 +233,7 @@ Name = "Earth 2"
 _orbitFrequency = 0.02
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle3")
+_gravityForce = 20000.0
 
 [node name="Node2D" type="Node2D" parent="EarthOrbitPoint/Altara"]
 
@@ -255,6 +256,7 @@ Name = "Moon"
 _orbitFrequency = 0.2
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle2")
+_gravityForce = 1500.0
 
 [node name="Node2D2" type="Node2D" parent="EarthOrbitPoint/Altara"]
 
@@ -277,6 +279,7 @@ Name = "Moon"
 _orbitFrequency = 0.1
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle2")
+_gravityForce = 2000.0
 
 [node name="Node2D3" type="Node2D" parent="EarthOrbitPoint/Altara"]
 
@@ -299,6 +302,7 @@ Name = "Moon"
 _orbitFrequency = 0.02
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle2")
+_gravityForce = 500.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
