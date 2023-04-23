@@ -94,9 +94,13 @@ namespace SystemOverride
 
         RandomNumberGenerator _rng = new RandomNumberGenerator();
 
+        Gravity _gravity;
+
         public override void _Ready()
         {
             Debug.Assert(_impactSfx != null, "_impactSfx != null");
+
+            _gravity = GetNode<Gravity>("/root/Gravity");
 
             _rng.Randomize();
 
@@ -202,7 +206,7 @@ namespace SystemOverride
                 }
             }
 
-
+            ApplyCentralForce(_gravity.CalculateGravityForce(GlobalPosition));
         }
 
         private void OnScreenShakeRequestedFromWeapons(float screenShakeFactor)

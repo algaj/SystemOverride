@@ -21,6 +21,7 @@ config/windows_native_icon="res://graphics/app/icon.ico"
 [autoload]
 
 DebugDraw="*res://scripts/DebugDraw.cs"
+Gravity="*res://scripts/Gravity.cs"
 
 [display]
 

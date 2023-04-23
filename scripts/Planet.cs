@@ -23,10 +23,18 @@ namespace SystemOverride
 		[Export]
 		Line2D _orbitCircle;
 
+		[Export]
+		float _gravityForce;
+
 		public int Health { get; private set; }
+
+		private Gravity _gravity;
 
 		public override void _Ready()
 		{
+			_gravity = GetNode <Gravity>("/root/Gravity");
+			_gravity.RegisterGravityPoint(this, _gravityForce);
+
 			Health = MaxHealth;
 
 			const int circleLineCount = 512;
