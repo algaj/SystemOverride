@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=31 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -14,11 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://clkvyk0yf6jhq" path="res://prefabs/spaceships/spaceship_001.tscn" id="9_x7b8i"]
 [ext_resource type="Texture2D" uid="uid://flvfj45je7hi" path="res://graphics/planets/moon.png" id="10_yvygf"]
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
-[ext_resource type="Script" path="res://scripts/StoryEngine.cs" id="12_0bdmg"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
-[ext_resource type="AudioStream" uid="uid://d4acgerhio7xp" path="res://sfx/click.wav" id="18_qrfnb"]
-[ext_resource type="Texture2D" uid="uid://ws7bvfue1510" path="res://graphics/ai.png" id="19_32m51"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
 shader = ExtResource("1_e0scc")
@@ -97,15 +94,15 @@ bg_color = Color(0.152941, 0.498039, 0, 1)
 
 [node name="Main Scene" type="Node2D"]
 
-[node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
+[node name="Space background" type="ParallaxBackground" parent="."]
 layer = -50
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground2"]
+[node name="Parallax Stars 1" type="ParallaxLayer" parent="Space background"]
 z_index = -600
 z_as_relative = false
 motion_scale = Vector2(0.9, 0.9)
 
-[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer3"]
+[node name="Stars" type="MeshInstance2D" parent="Space background/Parallax Stars 1"]
 z_index = -4096
 texture_filter = 2
 texture_repeat = 2
@@ -114,12 +111,12 @@ scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_d2pjq")
 
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground2"]
+[node name="Parallax Stars 2" type="ParallaxLayer" parent="Space background"]
 z_index = -600
 z_as_relative = false
 motion_scale = Vector2(0.95, 0.95)
 
-[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer5"]
+[node name="Stars" type="MeshInstance2D" parent="Space background/Parallax Stars 2"]
 z_index = -4096
 texture_filter = 2
 texture_repeat = 2
@@ -128,12 +125,12 @@ scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_3crxg")
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground2"]
+[node name="Parallax Dust" type="ParallaxLayer" parent="Space background"]
 z_index = 4096
 motion_scale = Vector2(0.8, 0.8)
 motion_offset = Vector2(183, 125)
 
-[node name="MeshInstance2D2" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer4"]
+[node name="Space Dust" type="MeshInstance2D" parent="Space background/Parallax Dust"]
 texture_filter = 2
 texture_repeat = 2
 material = ExtResource("1_g7563")
@@ -141,15 +138,15 @@ scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_g3v5w")
 
-[node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
+[node name="Space foreground" type="ParallaxBackground" parent="."]
 layer = 128
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground3"]
+[node name="Parallax Rocks" type="ParallaxLayer" parent="Space foreground"]
 z_index = 4096
 motion_scale = Vector2(1.1, 1.1)
 motion_offset = Vector2(1000, 1000)
 
-[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground3/ParallaxLayer4"]
+[node name="Rocks" type="MeshInstance2D" parent="Space foreground/Parallax Rocks"]
 modulate = Color(0.992157, 0.992157, 0.992157, 1)
 z_index = 4096
 texture_filter = 2
@@ -159,80 +156,48 @@ scale = Vector2(30000, 25000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = ExtResource("2_ej766")
 
-[node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("_anchor", "_cursor")]
+[node name="Player Camera" type="Camera2D" parent="." node_paths=PackedStringArray("_anchor", "_cursor")]
 ignore_rotation = false
 position_smoothing_enabled = true
 rotation_smoothing_speed = 50.0
 script = ExtResource("2_qujta")
-_anchor = NodePath("../BasicSpaceship")
-_cursor = NodePath("../PlayerController/Cursor")
+_anchor = NodePath("../Player Spaceship")
+_cursor = NodePath("../Player Controller/Cursor")
 _minZoom = 0.1
 _maxZoom = 4.0
 
-[node name="BasicSpaceship" parent="." instance=ExtResource("2_7v4dp")]
+[node name="Player Spaceship" parent="." instance=ExtResource("2_7v4dp")]
 z_index = 10
 position = Vector2(-1, -4)
 
-[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_line", "_circle", "_realDirection", "_arrow", "_connectingLine", "_cursor", "_healthRing", "_playerCamera", "_healthBar")]
+[node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera", "_healthBar")]
 script = ExtResource("4_e1spy")
-_spaceship = NodePath("../BasicSpaceship")
-_line = NodePath("Line2D")
-_circle = NodePath("Circle")
-_realDirection = NodePath("RealDirection")
-_arrow = NodePath("Arrow")
-_connectingLine = NodePath("ConnectingLine")
+_spaceship = NodePath("../Player Spaceship")
+_shipToCursorLine = NodePath("Ship to cursor line")
+_directionArrow = NodePath("Spaceship moving direction")
 _cursor = NodePath("Cursor")
-_healthRing = NodePath("Circle2")
-_playerCamera = NodePath("../MainCamera")
+_playerCamera = NodePath("../Player Camera")
 _healthBar = NodePath("../CanvasLayer/HealthBar")
 
-[node name="Line2D" type="Line2D" parent="PlayerController"]
+[node name="Ship to cursor line" type="Line2D" parent="Player Controller"]
 z_index = -2
 width = 2.0
 default_color = Color(1, 1, 1, 0.25098)
 antialiased = true
 
-[node name="Circle" type="Line2D" parent="PlayerController"]
-visible = false
-z_index = -2
-width = 2.0
-default_color = Color(0.529412, 0.529412, 0.529412, 0.52549)
-antialiased = true
-
-[node name="RealDirection" type="Line2D" parent="PlayerController"]
-visible = false
-z_index = -2
-width = 2.0
-default_color = Color(0, 0.631373, 0.505882, 1)
-antialiased = true
-
-[node name="Arrow" type="Sprite2D" parent="PlayerController"]
+[node name="Spaceship moving direction" type="Sprite2D" parent="Player Controller"]
 modulate = Color(0.823529, 0.988235, 0, 0.87451)
 position = Vector2(-3, -159)
 scale = Vector2(0.0697155, 0.07)
 texture = ExtResource("4_ggwgs")
 
-[node name="ConnectingLine" type="Line2D" parent="PlayerController"]
-visible = false
-z_index = -2
-width = 2.0
-default_color = Color(0.447059, 0.458824, 0.447059, 0.54902)
-antialiased = true
-
-[node name="Cursor" type="Sprite2D" parent="PlayerController"]
+[node name="Cursor" type="Sprite2D" parent="Player Controller"]
 position = Vector2(-24, -188)
 texture = ExtResource("5_pgqo7")
 
-[node name="Circle2" type="Line2D" parent="PlayerController"]
-visible = false
-z_index = -2
-width = 5.0
-default_color = Color(1, 1, 1, 0.788235)
-antialiased = true
-
 [node name="AIController" type="Node2D" parent="." node_paths=PackedStringArray("_target", "_spaceshipsRoot")]
 script = ExtResource("11_ddh2e")
-_target = NodePath("../BasicSpaceship")
+_target = NodePath("../Player Spaceship")
 _spaceshipsRoot = NodePath("Spaceships")
 
 [node name="Spaceships" type="Node2D" parent="AIController"]
@@ -335,12 +300,9 @@ _orbitFrequency = 0.02
 _orbitPoint = NodePath("..")
 _orbitCircle = NodePath("../Circle2")
 
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("12_0bdmg")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="PostProcess" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_2q6ht")
 anchors_preset = 15
 anchor_right = 1.0
@@ -361,36 +323,3 @@ theme_override_styles/background = SubResource("StyleBoxFlat_y771a")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1gkxn")
 value = 50.0
 show_percentage = false
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.057
-anchor_top = 0.006
-anchor_right = 0.507
-anchor_bottom = 0.1
-offset_left = -0.44001
-offset_top = 0.52
-offset_right = 0.559937
-size_flags_horizontal = 4
-size_flags_vertical = 4
-bbcode_enabled = true
-text = "[color=green]"
-scroll_active = false
-scroll_following = true
-shortcut_keys_enabled = false
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/RichTextLabel"]
-stream = ExtResource("18_qrfnb")
-mix_target = 2
-max_polyphony = 3
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-visible = false
-anchors_preset = -1
-anchor_right = 0.057
-anchor_bottom = 0.098
-offset_right = 0.55999
-offset_bottom = 0.159996
-texture = ExtResource("19_32m51")
-expand_mode = 2
-stretch_mode = 4

@@ -9,25 +9,13 @@ namespace SystemOverride
 		Spaceship _spaceship;
 
 		[Export]
-		Line2D _line;
+		Line2D _shipToCursorLine;
 
 		[Export]
-		Line2D _circle;
-
-		[Export]
-		Line2D _realDirection;
-
-		[Export]
-		Sprite2D _arrow;
-
-		[Export]
-		Line2D _connectingLine;
+		Sprite2D _directionArrow;
 
 		[Export]
 		Sprite2D _cursor;
-
-		[Export]
-		Line2D _healthRing;
 
 		[Export]
 		PlayerCamera _playerCamera;
@@ -48,14 +36,6 @@ namespace SystemOverride
 			_spaceship.SwitchToCollisionLayer(1);
 
             _spaceship.ScreenShakeRequested += _spaceship_ScreenShakeRequested;
-
-			for (int i = 0; i < _circleLineCount + 1; i++)
-            {
-				float angle = (float)i * Mathf.Pi * 2.0f / (float)_circleLineCount;
-				float x = (int)(Mathf.Cos(angle) * _circleRadius);
-				float y = (int)(Mathf.Sin(angle) * _circleRadius);
-				_circle.AddPoint(new Vector2(x, y));
-            }
 
 			_lastSpaceshipPosition = _spaceship.GlobalPosition;
 
@@ -81,12 +61,8 @@ namespace SystemOverride
 			_lastSpaceshipDirection = (_spaceship.GlobalPosition - _lastSpaceshipPosition).Normalized();
 			_lastSpaceshipPosition = _spaceship.GlobalPosition;
 
-			_realDirection.ClearPoints();
-			_realDirection.AddPoint(_line.ToLocal(_spaceship.GlobalPosition));
-			_realDirection.AddPoint(_line.ToLocal(_spaceship.GlobalPosition + _lastSpaceshipDirection * _circleRadius));
-
-			_arrow.GlobalPosition = _spaceship.GlobalPosition + _lastSpaceshipDirection * _circleRadius;
-			_arrow.LookAt(_arrow.GlobalPosition + new Vector2(-_lastSpaceshipDirection.Y, _lastSpaceshipDirection.X));
+			_directionArrow.GlobalPosition = _spaceship.GlobalPosition + _lastSpaceshipDirection * _circleRadius;
+			_directionArrow.LookAt(_directionArrow.GlobalPosition + new Vector2(-_lastSpaceshipDirection.Y, _lastSpaceshipDirection.X));
 
 			float yAxisEffort = Input.GetAxis(InputActions.PositiveThrust, InputActions.NegativeThrust);
 
@@ -100,22 +76,15 @@ namespace SystemOverride
 
 			_spaceship.TurnProcessOffset = facingDirectionOffset;
 
-			_line.ClearPoints();
+			_shipToCursorLine.ClearPoints();
 
-			_line.AddPoint(_line.ToLocal(_spaceship.GlobalPosition));
-			_line.AddPoint(_line.ToLocal(globalMousePos));
+			_shipToCursorLine.AddPoint(_shipToCursorLine.ToLocal(_spaceship.GlobalPosition));
+			_shipToCursorLine.AddPoint(_shipToCursorLine.ToLocal(globalMousePos));
 
 			if (Input.IsActionPressed(InputActions.FireWeapons))
             {
 				_spaceship.FireWeapons(0);
             }
-
-			_circle.GlobalPosition = _spaceship.GlobalPosition;
-			_healthRing.GlobalPosition = _spaceship.GlobalPosition;
-
-			_connectingLine.ClearPoints();
-			_connectingLine.AddPoint(_line.ToLocal(_spaceship.GlobalPosition + _lastSpaceshipDirection * _circleRadius));
-			_connectingLine.AddPoint(_line.ToLocal(_line.ToLocal(globalMousePos)));
 
 			_cursor.GlobalPosition = globalMousePos;
 
@@ -124,15 +93,6 @@ namespace SystemOverride
 
 		public void UpdateHealthBar(float healthFactor)
         {
-			_healthRing.ClearPoints();
-			for (int i = 0; i < (int)((_circleLineCount + 1) * healthFactor); i++)
-			{
-				float angle = (float)i * Mathf.Pi * 2.0f / (float)_circleLineCount;
-				float x = (int)(Mathf.Cos(angle) * _circleRadius);
-				float y = (int)(Mathf.Sin(angle) * _circleRadius);
-				_healthRing.AddPoint(new Vector2(x, y));
-			}
-
 			_healthBar.Value = ((float)_spaceship.Health / (float)_spaceship.MaxHealth) * 100.0f;
 		}
     }
