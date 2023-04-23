@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5qsdb0rgicka"]
+[gd_scene load_steps=12 format=3 uid="uid://b5qsdb0rgicka"]
 
 [ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_muf4f"]
 [ext_resource type="PackedScene" uid="uid://f4ye8pxcn054" path="res://prefabs/engines/basic_engine.tscn" id="2_8dcbq"]
+[ext_resource type="PackedScene" uid="uid://dao8efj8gwobv" path="res://prefabs/particles/spaceship_explosion.tscn" id="2_neakm"]
 [ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/air_engine.tscn" id="3_aavcb"]
 [ext_resource type="PackedScene" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_f8pu3"]
 [ext_resource type="Texture2D" uid="uid://bbauwsrjh2uvj" path="res://graphics/spaceships/basic_spaceship.png" id="3_oicfr"]
@@ -37,7 +38,7 @@ _enginesRoot = NodePath("Engines")
 _weaponsRoot = NodePath("Weapons")
 _impactSfx = NodePath("AudioStreamPlayer2D")
 _damagedVariant = NodePath("Sprite")
-_spaceshipExplositionFX = ExtResource("3_f8pu3")
+_spaceshipExplositionFX = ExtResource("2_neakm")
 _spaceshipExplostionSfx = ExtResource("3_f8pu3")
 
 [node name="Engines" type="Node2D" parent="."]
