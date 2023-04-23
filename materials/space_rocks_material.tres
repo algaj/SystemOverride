@@ -4,5 +4,5 @@
 
 [resource]
 shader = ExtResource("1_a4ufy")
-shader_parameter/texture_scale = 0.1
-shader_parameter/tint_color = Color(1, 1, 1, 0.270588)
+shader_parameter/texture_scale = 0.005
+shader_parameter/tint_color = Color(0.588235, 0.678431, 1, 0.168627)

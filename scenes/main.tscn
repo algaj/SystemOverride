@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=34 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -16,11 +16,41 @@
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
 [ext_resource type="Script" path="res://scripts/StoryEngine.cs" id="12_0bdmg"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
-[ext_resource type="Script" path="res://scripts/UserPrompt.cs" id="17_jaft6"]
+[ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
 [ext_resource type="AudioStream" uid="uid://d4acgerhio7xp" path="res://sfx/click.wav" id="18_qrfnb"]
 [ext_resource type="Texture2D" uid="uid://ws7bvfue1510" path="res://graphics/ai.png" id="19_32m51"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
+shader = ExtResource("1_e0scc")
+shader_parameter/texture_scale = 0.04
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+
 [sub_resource type="QuadMesh" id="QuadMesh_3lj6y"]
+
+[sub_resource type="Gradient" id="Gradient_1ho48"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.584475, 0.89726, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 0.9, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_57hd4"]
+seed = 172
+frequency = 0.296
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d2pjq"]
+color_ramp = SubResource("Gradient_1ho48")
+noise = SubResource("FastNoiseLite_57hd4")
+
+[sub_resource type="Gradient" id="Gradient_ugesr"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.767123, 0.899543)
+colors = PackedColorArray(0, 0, 0, 0, 0.955525, 0.488384, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qgms4"]
+frequency = 0.207
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3crxg"]
+color_ramp = SubResource("Gradient_ugesr")
+noise = SubResource("FastNoiseLite_qgms4")
 
 [sub_resource type="Gradient" id="Gradient_le1bu"]
 interpolation_mode = 2
@@ -51,22 +81,8 @@ seamless_blend_skirt = 0.15
 color_ramp = SubResource("Gradient_le1bu")
 noise = SubResource("FastNoiseLite_xvsrf")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
-shader = ExtResource("1_e0scc")
-shader_parameter/texture_scale = 0.04
-shader_parameter/tint_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Gradient" id="Gradient_1ho48"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0.871658, 0.903743)
-colors = PackedColorArray(0, 0, 0, 1, 0.94, 0.94, 0.94, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4h2ah"]
-frequency = 0.143
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d2pjq"]
-color_ramp = SubResource("Gradient_1ho48")
-noise = SubResource("FastNoiseLite_4h2ah")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2q6ht"]
+shader = ExtResource("17_w3603")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y771a"]
 bg_color = Color(0, 0, 0, 1)
@@ -84,6 +100,34 @@ bg_color = Color(0.152941, 0.498039, 0, 1)
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="."]
 layer = -50
 
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_index = -600
+z_as_relative = false
+motion_scale = Vector2(0.9, 0.9)
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer3"]
+z_index = -4096
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ajlgu")
+scale = Vector2(150000, 125000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_d2pjq")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground2"]
+z_index = -600
+z_as_relative = false
+motion_scale = Vector2(0.95, 0.95)
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer5"]
+z_index = -4096
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ajlgu")
+scale = Vector2(150000, 125000)
+mesh = SubResource("QuadMesh_3lj6y")
+texture = SubResource("NoiseTexture2D_3crxg")
+
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground2"]
 z_index = 4096
 motion_scale = Vector2(0.8, 0.8)
@@ -96,20 +140,6 @@ material = ExtResource("1_g7563")
 scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_3lj6y")
 texture = SubResource("NoiseTexture2D_g3v5w")
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground2"]
-z_index = -600
-z_as_relative = false
-motion_scale = Vector2(0.95, 0.95)
-
-[node name="MeshInstance2D3" type="MeshInstance2D" parent="ParallaxBackground2/ParallaxLayer3"]
-z_index = -4096
-texture_filter = 2
-texture_repeat = 2
-material = SubResource("ShaderMaterial_ajlgu")
-scale = Vector2(150000, 125000)
-mesh = SubResource("QuadMesh_3lj6y")
-texture = SubResource("NoiseTexture2D_d2pjq")
 
 [node name="ParallaxBackground3" type="ParallaxBackground" parent="."]
 layer = 128
@@ -310,6 +340,14 @@ script = ExtResource("12_0bdmg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_2q6ht")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
 anchors_preset = 12
 anchor_top = 1.0
@@ -324,7 +362,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_1gkxn")
 value = 50.0
 show_percentage = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer" node_paths=PackedStringArray("_audioStreamPlayer")]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = -1
 anchor_left = 0.057
 anchor_top = 0.006
@@ -340,8 +378,6 @@ text = "[color=green]"
 scroll_active = false
 scroll_following = true
 shortcut_keys_enabled = false
-script = ExtResource("17_jaft6")
-_audioStreamPlayer = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/RichTextLabel"]
 stream = ExtResource("18_qrfnb")
@@ -349,6 +385,7 @@ mix_target = 2
 max_polyphony = 3
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
 anchors_preset = -1
 anchor_right = 0.057
 anchor_bottom = 0.098

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://comsfwb4k26r3"]
+
+[ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_leg8p"]
+
+[resource]
+shader = ExtResource("1_leg8p")
+shader_parameter/texture_scale = 1.0
+shader_parameter/tint_color = null

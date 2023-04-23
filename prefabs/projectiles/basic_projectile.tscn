@@ -8,7 +8,6 @@
 radius = 96.92
 
 [node name="BasicProjectile" type="Sprite2D" node_paths=PackedStringArray("_collisionArea", "_aliveTimer")]
-modulate = Color(0, 0.811765, 0.705882, 1)
 scale = Vector2(0.0542969, 0.262812)
 texture = ExtResource("1_4qbqh")
 script = ExtResource("2_fiwf5")

@@ -275,7 +275,7 @@ namespace SystemOverride
 
             /* TODO: Queue free particles */
             GpuParticles2D fx = _spaceshipExplositionFX.Instantiate<GpuParticles2D>();
-            GetNode("/root").AddChild(fx);
+            AddChild(fx);
 
             fx.GlobalPosition = GlobalPosition;
             fx.Emitting = true;
