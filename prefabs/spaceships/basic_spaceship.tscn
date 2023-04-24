@@ -47,7 +47,7 @@ _spaceshipExplostionSfx = ExtResource("3_f8pu3")
 z_index = 1
 position = Vector2(0, 64)
 scale = Vector2(4.672, 2.832)
-_maxThrustForce = 25000.0
+_maxThrustForce = 50000.0
 _maxThrustVectoringAngle = 0.0
 _thrustEffortDirection = 1
 
@@ -90,6 +90,8 @@ scale = Vector2(4, 4)
 _fireSpreadAngle = 4.0
 
 [node name="Sprite" type="MeshInstance2D" parent="."]
+z_index = 100
+z_as_relative = false
 texture_filter = 4
 texture_repeat = 1
 rotation = 0.0093134

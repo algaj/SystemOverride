@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://shaders/space_clouds.gdshader" id="1_1cwpl"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_rapxh"]
-frequency = 0.005
+frequency = 0.025
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0dtc1"]
 width = 256
