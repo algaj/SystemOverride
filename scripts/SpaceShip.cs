@@ -141,55 +141,29 @@ namespace SystemOverride
 
             float target_turn_effort = (float)_turnPidController.ControlVariable(TimeSpan.FromSeconds(delta));
 
-
             foreach (var engine in _engines)
             {
-                bool enableEngine = false;
                 bool usedForTurning = false;
 
-                switch (engine.ThrustEffortDirection)
+                bool enableEngine = engine.ThrustEffortDirection switch
                 {
-                    case EngineThrustEffortDirection.Forward:
-                        if (TargetMovementEffort.Y < 0.0f)
-                        {
-                            enableEngine = true;
-                        }
-                        break;
-                    case EngineThrustEffortDirection.Backward:
-                        if (TargetMovementEffort.Y > 0.0f)
-                        {
-                            enableEngine = true;
-                        }
-                        break;
-                    case EngineThrustEffortDirection.Left:
-                        if (TargetMovementEffort.X < 0.0f)
-                        {
-                            enableEngine = true;
-                        }
-                        break;
-                    case EngineThrustEffortDirection.Right:
-                        if (TargetMovementEffort.X > 0.0f)
-                        {
-                            enableEngine = true;
-                        }
-                        break;
-                }
+                    EngineThrustEffortDirection.Forward => TargetMovementEffort.Y < 0.0f,
+                    EngineThrustEffortDirection.Backward => TargetMovementEffort.Y > 0.0f,
+                    EngineThrustEffortDirection.Left => TargetMovementEffort.X < 0.0f,
+                    EngineThrustEffortDirection.Right => TargetMovementEffort.X > 0.0f,
+                    _ => false
+                };
+
 
                 switch (engine.TurnEffortDirection)
                 {
-                    case EngineTurnEffortDirection.Left:
-                        if (target_turn_effort < 0.0f)
-                        {
-                            enableEngine = true;
-                            usedForTurning = true;
-                        }
+                    case EngineTurnEffortDirection.Left when target_turn_effort < 0.0f:
+                        enableEngine = true;
+                        usedForTurning = true;
                         break;
-                    case EngineTurnEffortDirection.Right:
-                        if (target_turn_effort > 0.0f)
-                        {
-                            enableEngine = true;
-                            usedForTurning = true;
-                        }
+                    case EngineTurnEffortDirection.Right when target_turn_effort > 0.0f:
+                        enableEngine = true;
+                        usedForTurning = true;
                         break;
                 }
 
