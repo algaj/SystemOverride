@@ -65,8 +65,9 @@ namespace SystemOverride
 			_directionArrow.LookAt(_directionArrow.GlobalPosition + new Vector2(-_lastSpaceshipDirection.Y, _lastSpaceshipDirection.X));
 
 			float yAxisEffort = Input.GetAxis(InputActions.PositiveThrust, InputActions.NegativeThrust);
+			float xAxisEffort = Input.GetAxis(InputActions.SideThrustLeft, InputActions.SideThrustRight);
 
-			_spaceship.TargetMovementEffort = new Vector2(0.0f, yAxisEffort);
+			_spaceship.TargetMovementEffort = new Vector2(xAxisEffort, yAxisEffort);
 
 			Vector2 globalMousePos = GetGlobalMousePosition();
 

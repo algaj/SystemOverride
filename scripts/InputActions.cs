@@ -10,6 +10,8 @@ namespace SystemOverride
 
         public const string NegativeThrust = "negative_thrust";
         public const string PositiveThrust = "positive_thrust";
+        public const string SideThrustLeft = "side_thrust_left";
+        public const string SideThrustRight = "side_thrust_right";
         public const string FireWeapons = "fire_weapons";
     }
 }

@@ -59,6 +59,20 @@ _maxThrustForce = 5000.0
 _thrustEffortDirection = 2
 _turnEffortDirection = 1
 
+[node name="AirEngine3" parent="Engines" instance=ExtResource("3_aavcb")]
+position = Vector2(-38, 0)
+rotation = 1.5708
+scale = Vector2(2.227, 2.227)
+_maxThrustForce = 25000.0
+_thrustEffortDirection = 4
+
+[node name="AirEngine4" parent="Engines" instance=ExtResource("3_aavcb")]
+position = Vector2(38, 0)
+rotation = -1.5708
+scale = Vector2(2.227, 2.227)
+_maxThrustForce = 25000.0
+_thrustEffortDirection = 3
+
 [node name="AirEngine2" parent="Engines" instance=ExtResource("3_aavcb")]
 position = Vector2(66, 48)
 rotation = 3.14159
