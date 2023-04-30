@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=30 format=3 uid="uid://d1ixhg0tg6byf"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://clkvyk0yf6jhq" path="res://prefabs/spaceships/spaceship_001.tscn" id="9_x7b8i"]
 [ext_resource type="Texture2D" uid="uid://flvfj45je7hi" path="res://graphics/planets/moon.png" id="10_yvygf"]
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
+[ext_resource type="Texture2D" uid="uid://c5hfbju1ownmp" path="res://graphics/planets/moon3.png" id="14_wv56m"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
 
@@ -236,7 +237,7 @@ z_index = -10
 z_as_relative = false
 texture_filter = 4
 position = Vector2(-6503, -5222)
-scale = Vector2(3, 3)
+scale = Vector2(4, 4)
 texture = ExtResource("7_hpm0e")
 script = ExtResource("3_3ytod")
 Name = "Earth 2"
@@ -255,11 +256,10 @@ texture_mode = 1
 antialiased = true
 
 [node name="Moon" type="Sprite2D" parent="EarthOrbitPoint/Altara/Node2D" node_paths=PackedStringArray("_orbitPoint", "_orbitCircle") groups=["planets"]]
-modulate = Color(0.686275, 0.686275, 0.686275, 1)
 light_mask = 0
 z_index = -10
 position = Vector2(465.333, 552.333)
-scale = Vector2(0.333333, 0.333333)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("10_yvygf")
 script = ExtResource("3_3ytod")
 Name = "Moon"
@@ -278,11 +278,10 @@ texture_mode = 1
 antialiased = true
 
 [node name="Moon" type="Sprite2D" parent="EarthOrbitPoint/Altara/Node2D2" node_paths=PackedStringArray("_orbitPoint", "_orbitCircle") groups=["planets"]]
-modulate = Color(0.686275, 0.686275, 0.686275, 1)
 light_mask = 0
 z_index = -10
 position = Vector2(1532.67, 25.6667)
-scale = Vector2(0.227213, 0.227213)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("15_yrpv2")
 script = ExtResource("3_3ytod")
 Name = "Moon"
@@ -301,12 +300,11 @@ texture_mode = 1
 antialiased = true
 
 [node name="Moon" type="Sprite2D" parent="EarthOrbitPoint/Altara/Node2D3" node_paths=PackedStringArray("_orbitPoint", "_orbitCircle") groups=["planets"]]
-modulate = Color(0.933333, 0.266667, 0, 1)
 light_mask = 0
 z_index = -10
 position = Vector2(1650.33, -893.333)
-scale = Vector2(0.28825, 0.28825)
-texture = ExtResource("15_yrpv2")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("14_wv56m")
 script = ExtResource("3_3ytod")
 Name = "Moon"
 _orbitFrequency = 0.02
