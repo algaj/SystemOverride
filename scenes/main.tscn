@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d1ixhg0tg6byf"]
+[gd_scene load_steps=31 format=3 uid="uid://6f3er3i8q8io"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
 [ext_resource type="Texture2D" uid="uid://c5hfbju1ownmp" path="res://graphics/planets/moon3.png" id="14_wv56m"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
+[ext_resource type="AudioStream" uid="uid://dy31kjljxdq5r" path="res://sfx/my_very_own_dead_ship_music.ogg" id="16_qmnbt"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
@@ -144,22 +145,6 @@ motion_scale = Vector2(0.9, 0.9)
 motion_offset = Vector2(1000, 1000)
 
 [node name="Space Dust" type="MeshInstance2D" parent="Space background/Parallax Dust2"]
-texture_filter = 2
-texture_repeat = 2
-material = ExtResource("1_g7563")
-scale = Vector2(150000, 125000)
-mesh = SubResource("QuadMesh_3lj6y")
-texture = SubResource("NoiseTexture2D_g3v5w")
-
-[node name="Space foreground" type="ParallaxBackground" parent="."]
-layer = 100
-visible = false
-
-[node name="Parallax Rocks" type="ParallaxLayer" parent="Space foreground"]
-motion_scale = Vector2(1.1, 1.1)
-motion_offset = Vector2(1000, 1000)
-
-[node name="Space Dust" type="MeshInstance2D" parent="Space foreground/Parallax Rocks"]
 texture_filter = 2
 texture_repeat = 2
 material = ExtResource("1_g7563")
@@ -332,3 +317,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_y771a")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1gkxn")
 value = 50.0
 show_percentage = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_qmnbt")
+autoplay = true
