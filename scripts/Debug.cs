@@ -12,6 +12,7 @@ namespace SystemOverride
             if (cond) return;
 
             GD.PrintErr(msg);
+            GD.PushError(msg);
             throw new ApplicationException($"Assert Failed: {msg}");
         }
 #else

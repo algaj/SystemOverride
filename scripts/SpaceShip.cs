@@ -7,50 +7,22 @@ namespace SystemOverride
 
     public partial class Spaceship : RigidBody2D
     {
-
-        [ExportCategory("General Settings")]
+        /// <summary>
+        /// Normal bullet takes around 10 hp, when this number runs out the spaceship explodes.
+        /// </summary>
         [Export]
         int _maxHealth = 100;
 
-        public int MaxHealth { get { return _maxHealth; } }
-
-        [ExportCategory("Turn Regulator")]
-        [Export]
-        float _turnProporcionalGain = 0.0f;
-
-        [Export]
-        float _turnIntegralGain = 0.0f;
-
-        [Export]
-        float _turnDerivativeGain = 0.0f;
-
-
-        [ExportCategory("Child Nodes")]
-        /// <summary>
-        /// All engines need to be children of this node.
-        /// </summary>
-        [Export]
-        Node2D _enginesRoot;
-
-        /// <summary>
-        /// All weapons need to be children of this node.
-        /// </summary>
-        [Export]
-        Node2D _weaponsRoot;
-
         [Export]
         AudioStreamPlayer2D _impactSfx;
-
-        [Export]
-        Node2D _damagedVariant;
-
-        [ExportCategory("Assets")]
 
         [Export]
         PackedScene _spaceshipExplositionFX;
 
         [Export]
         PackedScene _spaceshipExplostionSfx;
+
+        public int MaxHealth { get { return _maxHealth; } }
 
         public int Health { get; private set; }
 
@@ -59,7 +31,6 @@ namespace SystemOverride
 
         [Signal]
         public delegate void ScreenShakeRequestedEventHandler(float screenShakeFactor);
-
 
         Vector2 _targetMovementEffort = Vector2.Zero;
 
@@ -86,6 +57,14 @@ namespace SystemOverride
 
         public float TurnProcessOffset { get; set; }
 
+
+        const float _turnProporcionalGain = 10.0f;
+
+        const float _turnIntegralGain = 15.0f;
+
+        const float _turnDerivativeGain = 5.0f;
+
+
         PidController _turnPidController;
 
         List<Engine> _engines = new List<Engine>();
@@ -96,30 +75,45 @@ namespace SystemOverride
 
         Gravity _gravity;
 
+        Node2D _enginesRoot;
+        Node2D _weaponsRoot;
+        Node2D _spaceshipSprite;
+
         public override void _Ready()
         {
+            // Check exports
             Debug.Assert(_impactSfx != null, "_impactSfx != null");
 
+            // Initialize references
+
+            _turnPidController = new PidController(_turnProporcionalGain, _turnIntegralGain, _turnDerivativeGain, 1.0f, -1.0f);
+
             _gravity = GetNode<Gravity>("/root/Gravity");
+            _enginesRoot = GetNode<Node2D>("Engines");
+            _weaponsRoot = GetNode<Node2D>("Weapons");
+            _spaceshipSprite = GetNode<Node2D>("Sprite");
+
+
+            // Other initialization stuff
 
             _rng.Randomize();
 
             Health = _maxHealth;
 
-            _turnPidController = new PidController(_turnProporcionalGain, _turnIntegralGain, _turnDerivativeGain, 1.0f, -1.0f);
-
             int engineCount = _enginesRoot.GetChildCount();
+
+            // There should be atleast some engines... otherwise it's not really a spaceship anymore.
             Debug.Assert(engineCount > 0, "engineCount > 0");
 
             for (int i = 0; i < engineCount; i++)
             {
                 var engine = _enginesRoot.GetChild<Engine>(i);
                 _engines.Add(engine);
-                engine.ParentRigidbody = this;
 
             }
 
             int weaponCount = _weaponsRoot.GetChildCount();
+            // But there could be no weapons... probably.
 
             for (int i = 0; i < weaponCount; i++)
             {
@@ -132,51 +126,52 @@ namespace SystemOverride
         public override void _PhysicsProcess(double delta)
         {
 
-            if (IsDestroyed)
-            {
-                return;
-            }
-
             _turnPidController.ProcessVariable = TurnProcessOffset;
 
             float target_turn_effort = (float)_turnPidController.ControlVariable(TimeSpan.FromSeconds(delta));
 
             foreach (var engine in _engines)
             {
-                bool usedForTurning = false;
 
-                bool enableEngine = engine.ThrustEffortDirection switch
+                // If the spaceship is destroyed, dont control the engines.
+                if (!IsDestroyed)
                 {
-                    EngineThrustEffortDirection.Forward => TargetMovementEffort.Y < 0.0f,
-                    EngineThrustEffortDirection.Backward => TargetMovementEffort.Y > 0.0f,
-                    EngineThrustEffortDirection.Left => TargetMovementEffort.X < 0.0f,
-                    EngineThrustEffortDirection.Right => TargetMovementEffort.X > 0.0f,
-                    _ => false
-                };
+
+                    bool usedForTurning = false;
+
+                    bool enableEngine = engine.MoveDirectionGroup switch
+                    {
+                        EngineMoveDirectionGroup.Forward => TargetMovementEffort.Y < 0.0f,
+                        EngineMoveDirectionGroup.Backward => TargetMovementEffort.Y > 0.0f,
+                        EngineMoveDirectionGroup.Left => TargetMovementEffort.X < 0.0f,
+                        EngineMoveDirectionGroup.Right => TargetMovementEffort.X > 0.0f,
+                        _ => false
+                    };
 
 
-                switch (engine.TurnEffortDirection)
-                {
-                    case EngineTurnEffortDirection.Left when target_turn_effort < 0.0f:
-                        enableEngine = true;
-                        usedForTurning = true;
-                        break;
-                    case EngineTurnEffortDirection.Right when target_turn_effort > 0.0f:
-                        enableEngine = true;
-                        usedForTurning = true;
-                        break;
-                }
+                    switch (engine.TurnDirectionGroup)
+                    {
+                        case EngineTurnDirectionGroup.Left when target_turn_effort < 0.0f:
+                            enableEngine = true;
+                            usedForTurning = true;
+                            break;
+                        case EngineTurnDirectionGroup.Right when target_turn_effort > 0.0f:
+                            enableEngine = true;
+                            usedForTurning = true;
+                            break;
+                    }
 
 
-                engine.IsEngineEnabled = enableEngine;
+                    engine.EngineEnabled = enableEngine;
 
-                if (usedForTurning)
-                {
-                    engine.ThrustFactor = Mathf.Abs(target_turn_effort);
-                }
+                    float forceFactor = usedForTurning ? Mathf.Abs(target_turn_effort) : 1.0f;
+
+                    engine.ApplyForceToOwner(this, forceFactor);
+                } 
                 else
                 {
-                    engine.ThrustFactor = 1.0f;
+                    // Keep the engine thrust at max if the spaceship is destroyed and the engine is still active.
+                    engine.ApplyForceToOwner(this, 1.0f);
                 }
             }
 
@@ -258,13 +253,17 @@ namespace SystemOverride
             fx.GlobalPosition = GlobalPosition;
             fx.Emitting = true;
 
-            _damagedVariant.Modulate = new Color(0.2f, 0.2f, 0.2f);
+            // Make the sprite darker so it's easy to see that it's destroyed.
+            _spaceshipSprite.Modulate = new Color(0.2f, 0.2f, 0.2f);
 
             IsDestroyed = true;
 
+            const float stuckEngineChance = 0.1f;
+
+            // Disable all engines.
             foreach (var engine in _engines)
             {
-                engine.IsEngineEnabled = false;
+                engine.EngineEnabled = GD.Randf() < stuckEngineChance;
             }
         }
     }

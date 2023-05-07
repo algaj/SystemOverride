@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://6f3er3i8q8io"]
+[gd_scene load_steps=32 format=3 uid="uid://6f3er3i8q8io"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://c5hfbju1ownmp" path="res://graphics/planets/moon3.png" id="14_wv56m"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
 [ext_resource type="AudioStream" uid="uid://dy31kjljxdq5r" path="res://sfx/my_very_own_dead_ship_music.ogg" id="16_qmnbt"]
+[ext_resource type="Texture2D" uid="uid://chocqh7k8k0p" path="res://graphics/planets/star.png" id="17_p46rg"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
@@ -82,15 +83,15 @@ noise = SubResource("FastNoiseLite_xvsrf")
 shader = ExtResource("17_w3603")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y771a"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(1, 0.290196, 0.4, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0, 0.937255, 0.572549, 1)
+border_color = Color(1, 0.72549, 0.482353, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gkxn"]
-bg_color = Color(0.521569, 0, 0.4, 0.698039)
+bg_color = Color(0, 0, 0, 1)
 
 [node name="Main Scene" type="Node2D"]
 
@@ -166,6 +167,9 @@ _maxZoom = 4.0
 z_index = 100
 position = Vector2(-1, -4)
 
+[node name="AudioListener2D" type="AudioListener2D" parent="Player Spaceship"]
+current = true
+
 [node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera", "_healthBar")]
 script = ExtResource("4_e1spy")
 _spaceship = NodePath("../Player Spaceship")
@@ -201,14 +205,77 @@ _spaceshipsRoot = NodePath("Spaceships")
 [node name="Spaceship ID001" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
 position = Vector2(5637, 6156)
 
+[node name="Spaceship ID004" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(6277, 7300)
+
+[node name="Spaceship ID005" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(7498, 7947)
+
+[node name="Spaceship ID006" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(6290, 8418)
+
 [node name="Spaceship ID002" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
 position = Vector2(7116, 6292)
 
 [node name="Spaceship ID003" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
 position = Vector2(8940, 5786)
 
+[node name="Spaceship ID007" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(7870, 6909)
+
+[node name="Spaceship ID008" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(8510, 8053)
+
+[node name="Spaceship ID009" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(9731, 8700)
+
+[node name="Spaceship ID010" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(8523, 9171)
+
+[node name="Spaceship ID011" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(9349, 7045)
+
+[node name="Spaceship ID012" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(11173, 6539)
+
+[node name="Spaceship ID013" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(9956, 5219)
+
+[node name="Spaceship ID014" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(10596, 6363)
+
+[node name="Spaceship ID015" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(11817, 7010)
+
+[node name="Spaceship ID016" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(10609, 7481)
+
+[node name="Spaceship ID017" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(11435, 5355)
+
+[node name="Spaceship ID018" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(13259, 4849)
+
+[node name="Spaceship ID019" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(10268, 3493)
+
+[node name="Spaceship ID020" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(10908, 4637)
+
+[node name="Spaceship ID021" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(12129, 5284)
+
+[node name="Spaceship ID022" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(10921, 5755)
+
+[node name="Spaceship ID023" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(11747, 3629)
+
+[node name="Spaceship ID024" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
+position = Vector2(13571, 3123)
+
 [node name="EarthOrbitPoint" type="Node2D" parent="."]
-position = Vector2(6107, 5207)
+position = Vector2(16912, 13132)
 
 [node name="Circle3" type="Line2D" parent="EarthOrbitPoint"]
 z_index = -11
@@ -221,7 +288,7 @@ light_mask = 0
 z_index = -10
 z_as_relative = false
 texture_filter = 4
-position = Vector2(-6503, -5222)
+position = Vector2(-13687, -10753)
 scale = Vector2(4, 4)
 texture = ExtResource("7_hpm0e")
 script = ExtResource("3_3ytod")
@@ -321,3 +388,9 @@ show_percentage = false
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_qmnbt")
 autoplay = true
+
+[node name="Star" type="Sprite2D" parent="."]
+modulate = Color(63.25, 21.69, 18.07, 1)
+position = Vector2(16836, 13126)
+scale = Vector2(10, 10)
+texture = ExtResource("17_p46rg")

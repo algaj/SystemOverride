@@ -3,26 +3,20 @@
 [ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_81of2"]
 [ext_resource type="PackedScene" uid="uid://dao8efj8gwobv" path="res://prefabs/particles/spaceship_explosion.tscn" id="2_prfsi"]
 [ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/air_engine.tscn" id="3_1igki"]
-[ext_resource type="PackedScene" uid="uid://0qbbiip8m68b" path="res://prefabs/weapons/basic_weapon.tscn" id="3_d300w"]
-[ext_resource type="PackedScene" uid="uid://b7cqm7i14rhw" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_dmavs"]
+[ext_resource type="PackedScene" path="res://prefabs/weapons/basic_weapon.tscn" id="3_d300w"]
+[ext_resource type="PackedScene" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_dmavs"]
 [ext_resource type="Texture2D" uid="uid://b6p2mkgwougqv" path="res://graphics/spaceships/drone.png" id="4_5hwq2"]
 [ext_resource type="AudioStream" uid="uid://bb2wyoricw5xu" path="res://sfx/impact.wav" id="6_e5pug"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wqsf6"]
 radius = 24.42
 
-[node name="Drone" type="RigidBody2D" node_paths=PackedStringArray("_enginesRoot", "_weaponsRoot", "_impactSfx", "_damagedVariant")]
+[node name="Drone" type="RigidBody2D" node_paths=PackedStringArray("_impactSfx")]
 center_of_mass_mode = 1
 gravity_scale = 0.0
 script = ExtResource("1_81of2")
 _maxHealth = 5
-_turnProporcionalGain = 20.0
-_turnIntegralGain = 10.0
-_turnDerivativeGain = 6.0
-_enginesRoot = NodePath("Engines")
-_weaponsRoot = NodePath("Weapons")
 _impactSfx = NodePath("AudioStreamPlayer2D")
-_damagedVariant = NodePath("Drone")
 _spaceshipExplositionFX = ExtResource("2_prfsi")
 _spaceshipExplostionSfx = ExtResource("3_dmavs")
 
@@ -31,33 +25,19 @@ _spaceshipExplostionSfx = ExtResource("3_dmavs")
 [node name="AirEngine" parent="Engines" instance=ExtResource("3_1igki")]
 position = Vector2(-19, -11)
 rotation = 3.14159
-_maxThrustForce = 50.0
-_thrustEffortDirection = 2
-_turnEffortDirection = 1
 
 [node name="AirEngine2" parent="Engines" instance=ExtResource("3_1igki")]
 position = Vector2(19, -11)
 rotation = 3.14159
-_maxThrustForce = 50.0
-_thrustEffortDirection = 2
-_turnEffortDirection = 2
 
 [node name="AirEngine3" parent="Engines" instance=ExtResource("3_1igki")]
 position = Vector2(-21, 16)
-_maxThrustForce = 50.0
-_thrustEffortDirection = 1
-_turnEffortDirection = 2
 
 [node name="AirEngine4" parent="Engines" instance=ExtResource("3_1igki")]
 position = Vector2(21, 16)
-_maxThrustForce = 50.0
-_thrustEffortDirection = 1
-_turnEffortDirection = 1
 
 [node name="AirEngine5" parent="Engines" instance=ExtResource("3_1igki")]
 position = Vector2(0, 21)
-_maxThrustForce = 50.0
-_thrustEffortDirection = 1
 
 [node name="Weapons" type="Node2D" parent="."]
 

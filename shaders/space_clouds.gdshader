@@ -68,6 +68,8 @@ void fragment() {
 	vec3 hsv = rgb_to_hsv(main_tex.rgb);
 	
 	hsv.x += color_shift_map.x * 360.0f;
+	hsv.y = 0.5;
+	hsv.z = 0.3;
 	
 	COLOR = vec4(hsv_to_rgb(hsv), main_tex.a);
 }

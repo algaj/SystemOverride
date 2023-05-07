@@ -28,8 +28,13 @@ scale_curve = SubResource("CurveTexture_my1m3")
 color_ramp = SubResource("GradientTexture1D_2mmx4")
 
 [node name="BasicEngineThrustParticles" type="GPUParticles2D"]
-modulate = Color(2, 2, 2, 1)
+show_behind_parent = true
+amount = 25
 process_material = SubResource("ParticleProcessMaterial_bjb4o")
-lifetime = 0.18
+lifetime = 0.4
+fixed_fps = 12
 local_coords = true
 trail_enabled = true
+trail_lifetime = 0.19
+trail_sections = 2
+trail_section_subdivisions = 2

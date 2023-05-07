@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://scripts/Engine.cs" id="1_kvlfv"]
 [ext_resource type="PackedScene" uid="uid://bskjse1gq38w6" path="res://prefabs/particles/air_engine_thrust_particles.tscn" id="2_esb60"]
 
-[node name="AirEngine" type="Node2D" node_paths=PackedStringArray("_engineThrustParticles")]
+[node name="AirEngine" type="Node2D" node_paths=PackedStringArray("_optionalEngineParticles2D")]
 script = ExtResource("1_kvlfv")
-_engineThrustParticles = NodePath("AirEngineThrustParticles")
-_maxThrustForce = 25.0
+EngineName = "Air Engine"
+EngineForce = 10000.0
+_optionalEngineParticles2D = NodePath("AirEngineThrustParticles")
 
 [node name="AirEngineThrustParticles" parent="." instance=ExtResource("2_esb60")]
