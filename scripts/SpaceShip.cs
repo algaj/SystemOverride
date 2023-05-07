@@ -258,12 +258,10 @@ namespace SystemOverride
 
             IsDestroyed = true;
 
-            const float stuckEngineChance = 0.1f;
-
             // Disable all engines.
             foreach (var engine in _engines)
             {
-                engine.EngineEnabled = GD.Randf() < stuckEngineChance;
+                engine.EngineEnabled = false;
             }
         }
     }

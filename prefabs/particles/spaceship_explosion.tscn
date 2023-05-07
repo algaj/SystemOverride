@@ -3,51 +3,58 @@
 [ext_resource type="Texture2D" uid="uid://d3prx8qvd4gbj" path="res://graphics/bullet.png" id="1_xv6gh"]
 
 [sub_resource type="Gradient" id="Gradient_y4pi6"]
-offsets = PackedFloat32Array(0, 0.270463, 1)
-colors = PackedColorArray(1, 0, 0, 1, 1, 0.533333, 0, 1, 1, 0.65, 0, 0)
+offsets = PackedFloat32Array(0.0109489, 0.186131, 0.718978, 1)
+colors = PackedColorArray(1, 0.833333, 0, 0.466667, 0, 0, 0, 1, 0.43, 0.43, 0.43, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_w30qo"]
 gradient = SubResource("Gradient_y4pi6")
 
 [sub_resource type="Curve" id="Curve_6qdeu"]
-_data = [Vector2(0, 0.609091), 0.0, 0.0, 0, 0, Vector2(0.179487, 0.681818), 0.0, 0.0, 0, 0, Vector2(0.376392, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, -1.68044, 0, 0, Vector2(0.672131, 0.672727), -0.0792207, -0.0792207, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_n20du"]
 curve = SubResource("Curve_6qdeu")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cm6xv"]
-lifetime_randomness = 0.26
+lifetime_randomness = 1.0
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
 particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
 spread = 180.0
-gravity = Vector3(0, 0, 0)
+gravity = Vector3(10000, 0, 0)
 initial_velocity_min = 900.0
 initial_velocity_max = 1000.0
-angular_velocity_min = 218.18
-angular_velocity_max = 576.0
-orbit_velocity_min = 663.66
-orbit_velocity_max = 1000.0
+angular_velocity_max = 32.48
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
 linear_accel_min = 100.0
 linear_accel_max = 100.0
 angle_max = 436.4
-scale_min = 0.6
-scale_max = 1.6
+scale_max = 3.0
 scale_curve = SubResource("CurveTexture_n20du")
 color_ramp = SubResource("GradientTexture1D_w30qo")
+turbulence_enabled = true
 turbulence_noise_strength = 20.0
 turbulence_noise_scale = 8.15
 turbulence_noise_speed_random = 1.94
+turbulence_influence_max = 0.33
 turbulence_initial_displacement_min = -44.8
 turbulence_initial_displacement_max = 48.8
 
 [node name="SpaceshipExplosion" type="GPUParticles2D"]
 emitting = false
-amount = 100
+amount = 50
 process_material = SubResource("ParticleProcessMaterial_cm6xv")
 texture = ExtResource("1_xv6gh")
-lifetime = 2.0
+lifetime = 5.0
 one_shot = true
-explosiveness = 0.9
+explosiveness = 1.0
 randomness = 1.0
-fixed_fps = 10
-local_coords = true
+trail_lifetime = 0.01
+trail_sections = 2
+trail_section_subdivisions = 1
