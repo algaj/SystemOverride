@@ -46,12 +46,14 @@ position = Vector2(-38, 0)
 rotation = 1.5708
 scale = Vector2(2.227, 2.227)
 MoveDirectionGroup = 4
+EngineForce = 30000.0
 
 [node name="AirEngine4" parent="Engines" instance=ExtResource("3_aavcb")]
 position = Vector2(38, 0)
 rotation = -1.5708
 scale = Vector2(2.227, 2.227)
 MoveDirectionGroup = 3
+EngineForce = 30000.0
 
 [node name="AirEngine2" parent="Engines" instance=ExtResource("3_aavcb")]
 position = Vector2(66, 48)
@@ -65,13 +67,13 @@ TurnDirectionGroup = 2
 [node name="basic_weapon" parent="Weapons" instance=ExtResource("4_x26ij")]
 position = Vector2(0, -101)
 scale = Vector2(4, 4)
-_fireIntervalMax = 0.02
-_fireIntervalMin = 0.01
-_fireSpreadAngle = 15.0
+_fireIntervalMax = 0.1
+_fireIntervalMin = 0.05
+_fireSpreadAngle = 4.0
 _fireSfxPitchFactorMin = 0.5
 _fireSfxPitchFactorMax = 1.0
 _recoilDuration = 0.1
-_screenShakeFactor = 0.5
+_screenShakeFactor = 0.8
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_o1er7")
