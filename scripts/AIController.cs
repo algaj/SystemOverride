@@ -18,7 +18,12 @@ namespace SystemOverride
         [Export]
         Node2D _spaceshipsRoot;
 
+        [Export]
+        AudioStreamPlayer _spaceshipDestroyedStreamPlayer;
+
         List<Spaceship> _spaceships = new List<Spaceship>();
+
+        public int SpaceshipCount { get {  return _spaceships.Count; } }
 
         public override void _Ready()
         {
@@ -51,7 +56,7 @@ namespace SystemOverride
         }
 
         /// <summary>
-        /// Removes invalid spaceships from the _spaceships list.
+        /// Removes invalid and destroyed spaceships from the _spaceships list.
         /// </summary>
         private void RemoveInvalidSpaceships()
         {
@@ -60,6 +65,15 @@ namespace SystemOverride
                 if (!IsInstanceValid(_spaceships[i]))
                 {
                     _spaceships.RemoveAt(i);
+                    _spaceshipDestroyedStreamPlayer.PitchScale = (float)GD.RandRange(0.8, 1.3);
+                    _spaceshipDestroyedStreamPlayer.Play();
+                }
+
+                if (_spaceships[i].IsDestroyed)
+                {
+                    _spaceships.RemoveAt(i);
+                    _spaceshipDestroyedStreamPlayer.PitchScale = (float)GD.RandRange(0.8, 1.3);
+                    _spaceshipDestroyedStreamPlayer.Play();
                 }
             }
         }
@@ -115,6 +129,13 @@ namespace SystemOverride
             {
                 spaceship.FireWeapons(0);
             }
+        }
+
+        public void AddSpaceship(Spaceship spaceship)
+        {
+            AddChild(spaceship);
+            _spaceships.Add(spaceship);
+            spaceship.SwitchToCollisionLayer(2);
         }
     }
 }

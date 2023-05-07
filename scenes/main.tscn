@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://6f3er3i8q8io"]
+[gd_scene load_steps=34 format=3 uid="uid://6f3er3i8q8io"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -9,12 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://bus52y5qjsol2" path="res://graphics/arrow.png" id="4_ggwgs"]
 [ext_resource type="Texture2D" uid="uid://d3ypbbcbrxuar" path="res://graphics/app/cursor.png" id="5_pgqo7"]
 [ext_resource type="Texture2D" uid="uid://d0irnmgdw5fps" path="res://graphics/planets/Altara.png" id="7_hpm0e"]
+[ext_resource type="AudioStream" uid="uid://nx32mrqy200h" path="res://sfx/enemy_destroyed.wav" id="9_gbi1h"]
 [ext_resource type="PackedScene" uid="uid://clkvyk0yf6jhq" path="res://prefabs/spaceships/spaceship_001.tscn" id="9_x7b8i"]
 [ext_resource type="Texture2D" uid="uid://flvfj45je7hi" path="res://graphics/planets/moon.png" id="10_yvygf"]
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
 [ext_resource type="Texture2D" uid="uid://c5hfbju1ownmp" path="res://graphics/planets/moon3.png" id="14_wv56m"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
 [ext_resource type="AudioStream" uid="uid://dy31kjljxdq5r" path="res://sfx/my_very_own_dead_ship_music.ogg" id="16_qmnbt"]
+[ext_resource type="Script" path="res://scripts/EnemySpawner.cs" id="17_bdcr7"]
 [ext_resource type="Texture2D" uid="uid://chocqh7k8k0p" path="res://graphics/planets/star.png" id="17_p46rg"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
 
@@ -195,84 +197,17 @@ texture = ExtResource("4_ggwgs")
 position = Vector2(-24, -188)
 texture = ExtResource("5_pgqo7")
 
-[node name="AIController" type="Node2D" parent="." node_paths=PackedStringArray("_target", "_spaceshipsRoot")]
+[node name="AIController" type="Node2D" parent="." node_paths=PackedStringArray("_target", "_spaceshipsRoot", "_spaceshipDestroyedStreamPlayer")]
 script = ExtResource("11_ddh2e")
 _target = NodePath("../Player Spaceship")
 _spaceshipsRoot = NodePath("Spaceships")
+_spaceshipDestroyedStreamPlayer = NodePath("AudioStreamPlayer")
 
 [node name="Spaceships" type="Node2D" parent="AIController"]
 
-[node name="Spaceship ID001" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(5637, 6156)
-
-[node name="Spaceship ID004" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(6277, 7300)
-
-[node name="Spaceship ID005" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(7498, 7947)
-
-[node name="Spaceship ID006" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(6290, 8418)
-
-[node name="Spaceship ID002" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(7116, 6292)
-
-[node name="Spaceship ID003" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(8940, 5786)
-
-[node name="Spaceship ID007" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(7870, 6909)
-
-[node name="Spaceship ID008" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(8510, 8053)
-
-[node name="Spaceship ID009" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(9731, 8700)
-
-[node name="Spaceship ID010" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(8523, 9171)
-
-[node name="Spaceship ID011" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(9349, 7045)
-
-[node name="Spaceship ID012" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(11173, 6539)
-
-[node name="Spaceship ID013" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(9956, 5219)
-
-[node name="Spaceship ID014" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(10596, 6363)
-
-[node name="Spaceship ID015" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(11817, 7010)
-
-[node name="Spaceship ID016" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(10609, 7481)
-
-[node name="Spaceship ID017" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(11435, 5355)
-
-[node name="Spaceship ID018" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(13259, 4849)
-
-[node name="Spaceship ID019" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(10268, 3493)
-
-[node name="Spaceship ID020" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(10908, 4637)
-
-[node name="Spaceship ID021" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(12129, 5284)
-
-[node name="Spaceship ID022" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(10921, 5755)
-
-[node name="Spaceship ID023" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(11747, 3629)
-
-[node name="Spaceship ID024" parent="AIController/Spaceships" instance=ExtResource("9_x7b8i")]
-position = Vector2(13571, 3123)
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AIController"]
+stream = ExtResource("9_gbi1h")
+max_polyphony = 10
 
 [node name="EarthOrbitPoint" type="Node2D" parent="."]
 position = Vector2(16912, 13132)
@@ -394,3 +329,10 @@ modulate = Color(63.25, 21.69, 18.07, 1)
 position = Vector2(16836, 13126)
 scale = Vector2(10, 10)
 texture = ExtResource("17_p46rg")
+
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("_player", "_controller")]
+script = ExtResource("17_bdcr7")
+_enemySpaceship = ExtResource("9_x7b8i")
+_player = NodePath("../Player Spaceship")
+_spawnRadius = 10000.0
+_controller = NodePath("../AIController")
