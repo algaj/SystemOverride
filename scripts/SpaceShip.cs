@@ -227,7 +227,7 @@ namespace SystemOverride
 
             Health -= damage;
 
-            EmitSignal(SignalName.ScreenShakeRequested, (float)damage / MaxHealth * 10.0f);
+            EmitSignal(SignalName.ScreenShakeRequested, (float)damage / MaxHealth * 100.0f);
 
             _impactSfx.PitchScale = Mathf.Lerp(0.9f, 1.2f, _rng.Randf());
             _impactSfx.Play();

@@ -27,7 +27,7 @@ namespace SystemOverride
 
         public override void _Process(double delta)
         {
-            if (_controller.SpaceshipCount < 10)
+            if (_controller.SpaceshipCount < 15)
             {
                 SpawnEnemy();
             }

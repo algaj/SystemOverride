@@ -334,5 +334,5 @@ texture = ExtResource("17_p46rg")
 script = ExtResource("17_bdcr7")
 _enemySpaceship = ExtResource("9_x7b8i")
 _player = NodePath("../Player Spaceship")
-_spawnRadius = 10000.0
+_spawnRadius = 30000.0
 _controller = NodePath("../AIController")
