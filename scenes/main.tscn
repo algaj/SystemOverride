@@ -27,37 +27,37 @@ shader_parameter/tint_color = Color(1, 1, 1, 1)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3lj6y"]
 
-[sub_resource type="Gradient" id="Gradient_1ho48"]
+[sub_resource type="Gradient" id="Gradient_r3kvl"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0.584475, 0.89726, 1)
 colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 0.9, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_57hd4"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3hdof"]
 seed = 172
 frequency = 0.296
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d2pjq"]
-color_ramp = SubResource("Gradient_1ho48")
-noise = SubResource("FastNoiseLite_57hd4")
+color_ramp = SubResource("Gradient_r3kvl")
+noise = SubResource("FastNoiseLite_3hdof")
 
-[sub_resource type="Gradient" id="Gradient_ugesr"]
+[sub_resource type="Gradient" id="Gradient_afm6s"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0.767123, 0.899543)
 colors = PackedColorArray(0, 0, 0, 0, 0.955525, 0.488384, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_qgms4"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_si2cg"]
 frequency = 0.207
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3crxg"]
-color_ramp = SubResource("Gradient_ugesr")
-noise = SubResource("FastNoiseLite_qgms4")
+color_ramp = SubResource("Gradient_afm6s")
+noise = SubResource("FastNoiseLite_si2cg")
 
-[sub_resource type="Gradient" id="Gradient_le1bu"]
+[sub_resource type="Gradient" id="Gradient_5tvc3"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.498339, 0.823529, 1)
 colors = PackedColorArray(0.1524, 0.054, 0.3, 0.054902, 1, 0.833333, 0, 0.203922, 0.300667, 0.44, 0, 0.258824, 0.329667, 0.46, 0, 0.407843)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_xvsrf"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nlcue"]
 noise_type = 3
 seed = 89
 frequency = 0.013
@@ -78,8 +78,8 @@ width = 1024
 height = 1024
 seamless = true
 seamless_blend_skirt = 0.15
-color_ramp = SubResource("Gradient_le1bu")
-noise = SubResource("FastNoiseLite_xvsrf")
+color_ramp = SubResource("Gradient_5tvc3")
+noise = SubResource("FastNoiseLite_nlcue")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2q6ht"]
 shader = ExtResource("17_w3603")

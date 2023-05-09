@@ -1,0 +1,154 @@
+[gd_scene load_steps=14 format=3 uid="uid://evsm6aciq4bk"]
+
+[ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_18t4o"]
+[ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="2_7q5f0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vwmba"]
+shader = ExtResource("1_18t4o")
+shader_parameter/texture_scale = 0.04
+shader_parameter/tint_color = Color(1, 1, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_pryg1"]
+
+[sub_resource type="Gradient" id="Gradient_2odsj"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.584475, 0.89726, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 0.9, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ogklg"]
+seed = 172
+frequency = 0.296
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f4g6m"]
+color_ramp = SubResource("Gradient_2odsj")
+noise = SubResource("FastNoiseLite_ogklg")
+
+[sub_resource type="Gradient" id="Gradient_guudh"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.767123, 0.899543)
+colors = PackedColorArray(0, 0, 0, 0, 0.955525, 0.488384, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8onv7"]
+frequency = 0.207
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5pnqe"]
+color_ramp = SubResource("Gradient_guudh")
+noise = SubResource("FastNoiseLite_8onv7")
+
+[sub_resource type="Gradient" id="Gradient_hu0hl"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.498339, 0.823529, 1)
+colors = PackedColorArray(0.1524, 0.054, 0.3, 0.054902, 1, 0.833333, 0, 0.203922, 0.300667, 0.44, 0, 0.258824, 0.329667, 0.46, 0, 0.407843)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wy5uj"]
+noise_type = 3
+seed = 89
+frequency = 0.013
+fractal_type = 2
+fractal_octaves = 8
+fractal_lacunarity = 1.754
+fractal_gain = 0.609
+fractal_weighted_strength = 0.32
+domain_warp_type = 2
+domain_warp_amplitude = 0.869
+domain_warp_frequency = 1.436
+domain_warp_fractal_octaves = 10
+domain_warp_fractal_lacunarity = 6.172
+domain_warp_fractal_gain = 0.699
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6mbi3"]
+width = 1024
+height = 1024
+seamless = true
+seamless_blend_skirt = 0.15
+color_ramp = SubResource("Gradient_hu0hl")
+noise = SubResource("FastNoiseLite_wy5uj")
+
+[node name="settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Space background" type="ParallaxBackground" parent="."]
+layer = -50
+
+[node name="Parallax Stars 1" type="ParallaxLayer" parent="Space background"]
+z_index = -600
+z_as_relative = false
+motion_scale = Vector2(0.9, 0.9)
+
+[node name="Stars" type="MeshInstance2D" parent="Space background/Parallax Stars 1"]
+visible = false
+z_index = -4096
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_vwmba")
+scale = Vector2(150000, 125000)
+mesh = SubResource("QuadMesh_pryg1")
+texture = SubResource("NoiseTexture2D_f4g6m")
+
+[node name="Parallax Stars 2" type="ParallaxLayer" parent="Space background"]
+z_index = -600
+z_as_relative = false
+motion_scale = Vector2(0.95, 0.95)
+
+[node name="Stars" type="MeshInstance2D" parent="Space background/Parallax Stars 2"]
+z_index = -4096
+texture_filter = 2
+texture_repeat = 2
+material = SubResource("ShaderMaterial_vwmba")
+scale = Vector2(150000, 125000)
+mesh = SubResource("QuadMesh_pryg1")
+texture = SubResource("NoiseTexture2D_5pnqe")
+
+[node name="Parallax Dust" type="ParallaxLayer" parent="Space background"]
+z_index = 4096
+motion_scale = Vector2(0.8, 0.8)
+motion_offset = Vector2(183, 125)
+
+[node name="Space Dust" type="MeshInstance2D" parent="Space background/Parallax Dust"]
+texture_filter = 2
+texture_repeat = 2
+material = ExtResource("2_7q5f0")
+scale = Vector2(150000, 125000)
+mesh = SubResource("QuadMesh_pryg1")
+texture = SubResource("NoiseTexture2D_6mbi3")
+
+[node name="Parallax Dust2" type="ParallaxLayer" parent="Space background"]
+z_index = 4096
+motion_scale = Vector2(0.9, 0.9)
+motion_offset = Vector2(1000, 1000)
+
+[node name="Space Dust" type="MeshInstance2D" parent="Space background/Parallax Dust2"]
+texture_filter = 2
+texture_repeat = 2
+material = ExtResource("2_7q5f0")
+scale = Vector2(150000, 125000)
+mesh = SubResource("QuadMesh_pryg1")
+texture = SubResource("NoiseTexture2D_6mbi3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HSlider2" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HSlider3" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
