@@ -17,10 +17,10 @@
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
 [ext_resource type="Texture2D" uid="uid://c5hfbju1ownmp" path="res://graphics/planets/moon3.png" id="14_wv56m"]
 [ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
-[ext_resource type="AudioStream" uid="uid://dy31kjljxdq5r" path="res://sfx/my_very_own_dead_ship_music.ogg" id="16_qmnbt"]
 [ext_resource type="Script" path="res://scripts/EnemySpawner.cs" id="17_bdcr7"]
 [ext_resource type="Texture2D" uid="uid://chocqh7k8k0p" path="res://graphics/planets/star.png" id="17_p46rg"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
+[ext_resource type="AudioStream" uid="uid://n4y7hvqwpolf" path="res://sfx/determined_pursuit_loop.wav" id="18_a3lwi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
 shader = ExtResource("1_e0scc")
@@ -319,7 +319,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("16_qmnbt")
+stream = ExtResource("18_a3lwi")
 autoplay = true
 
 [node name="Star" type="Sprite2D" parent="."]
