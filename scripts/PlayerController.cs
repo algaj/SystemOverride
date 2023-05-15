@@ -20,6 +20,9 @@ namespace SystemOverride
 		[Export]
 		PlayerCamera _playerCamera;
 
+		[Export]
+		SlowMotion _slowMotion;
+
 		float _circleRadius = 170.0f;
 
 		int _circleLineCount = 64;
@@ -33,12 +36,18 @@ namespace SystemOverride
 			_spaceship.SwitchToCollisionLayer(1);
 
             _spaceship.ScreenShakeRequested += _spaceship_ScreenShakeRequested;
+			_spaceship.DamageTaken += _spaceship_DamageTaken;
 
 			_lastSpaceshipPosition = _spaceship.GlobalPosition;
 
 			Input.SetCustomMouseCursor(null);
 			Input.MouseMode = Input.MouseModeEnum.Hidden;
 		}
+
+        private void _spaceship_DamageTaken()
+        {
+			_slowMotion.TriggerSlowMotionHard();
+        }
 
         private void _spaceship_ScreenShakeRequested(float screenShakeFactor)
         {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://diphul608hcth"]
+[gd_scene load_steps=37 format=3 uid="uid://diphul608hcth"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://chocqh7k8k0p" path="res://graphics/planets/star.png" id="17_p46rg"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
 [ext_resource type="AudioStream" uid="uid://n4y7hvqwpolf" path="res://sfx/determined_pursuit_loop.wav" id="18_a3lwi"]
+[ext_resource type="Script" path="res://scripts/SlowMotion.cs" id="22_4dwde"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
 shader = ExtResource("1_e0scc")
@@ -182,13 +183,14 @@ position = Vector2(-1, -4)
 [node name="AudioListener2D" type="AudioListener2D" parent="Player Spaceship"]
 current = true
 
-[node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera")]
+[node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera", "_slowMotion")]
 script = ExtResource("4_e1spy")
 _spaceship = NodePath("../Player Spaceship")
 _shipToCursorLine = NodePath("Ship to cursor line")
 _directionArrow = NodePath("Spaceship moving direction")
 _cursor = NodePath("Cursor")
 _playerCamera = NodePath("../Player Camera")
+_slowMotion = NodePath("../SlowMotion")
 
 [node name="Ship to cursor line" type="Line2D" parent="Player Controller"]
 z_index = -2
@@ -206,10 +208,11 @@ texture = ExtResource("4_ggwgs")
 position = Vector2(-24, -188)
 texture = ExtResource("5_pgqo7")
 
-[node name="AIController" type="Node2D" parent="." node_paths=PackedStringArray("_target", "_spaceshipsRoot", "_spaceshipDestroyedStreamPlayer")]
+[node name="AIController" type="Node2D" parent="." node_paths=PackedStringArray("_target", "_spaceshipsRoot", "_slowMotion", "_spaceshipDestroyedStreamPlayer")]
 script = ExtResource("11_ddh2e")
 _target = NodePath("../Player Spaceship")
 _spaceshipsRoot = NodePath("Spaceships")
+_slowMotion = NodePath("../SlowMotion")
 _spaceshipDestroyedStreamPlayer = NodePath("AudioStreamPlayer")
 
 [node name="Spaceships" type="Node2D" parent="AIController"]
@@ -334,3 +337,6 @@ _enemySpaceship = ExtResource("9_x7b8i")
 _player = NodePath("../Player Spaceship")
 _spawnRadius = 30000.0
 _controller = NodePath("../AIController")
+
+[node name="SlowMotion" type="Node" parent="."]
+script = ExtResource("22_4dwde")

@@ -19,6 +19,9 @@ namespace SystemOverride
         Node2D _spaceshipsRoot;
 
         [Export]
+        SlowMotion _slowMotion;
+
+        [Export]
         AudioStreamPlayer _spaceshipDestroyedStreamPlayer;
 
         List<Spaceship> _spaceships = new List<Spaceship>();
@@ -67,6 +70,7 @@ namespace SystemOverride
                     _spaceships.RemoveAt(i);
                     _spaceshipDestroyedStreamPlayer.PitchScale = (float)GD.RandRange(0.8, 1.3);
                     _spaceshipDestroyedStreamPlayer.Play();
+                    _slowMotion.TriggerSlowMotion();
                 }
 
                 if (_spaceships[i].IsDestroyed)
@@ -74,6 +78,7 @@ namespace SystemOverride
                     _spaceships.RemoveAt(i);
                     _spaceshipDestroyedStreamPlayer.PitchScale = (float)GD.RandRange(0.8, 1.3);
                     _spaceshipDestroyedStreamPlayer.Play();
+                    _slowMotion.TriggerSlowMotion();
                 }
             }
         }

@@ -35,6 +35,9 @@ namespace SystemOverride
         [Signal]
         public delegate void ScreenShakeRequestedEventHandler(float screenShakeFactor);
 
+        [Signal]
+        public delegate void DamageTakenEventHandler();
+
         Vector2 _targetMovementEffort = Vector2.Zero;
 
         /// <summary>
@@ -236,7 +239,7 @@ namespace SystemOverride
 
             Health -= damage;
 
-            EmitSignal(SignalName.ScreenShakeRequested, (float)damage / MaxHealth * 100.0f);
+            EmitSignal(SignalName.ScreenShakeRequested, 14.0f);
 
             _impactSfx.PitchScale = Mathf.Lerp(0.9f, 1.2f, _rng.Randf());
             _impactSfx.Play();
@@ -245,6 +248,8 @@ namespace SystemOverride
             {
                 DestroySpaceship();
             }
+
+            EmitSignal(SignalName.DamageTaken);
         }
 
         public void DestroySpaceship()
