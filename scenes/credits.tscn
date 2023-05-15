@@ -1,7 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://blpjfiqcn8wb3"]
+[gd_scene load_steps=20 format=3 uid="uid://blpjfiqcn8wb3"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_ptc4o"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="2_a67wc"]
+[ext_resource type="FontFile" uid="uid://bhn8v1uric5jl" path="res://fonts/Lato-Bold.ttf" id="3_fsieh"]
+[ext_resource type="FontFile" uid="uid://da4d8gfqqy1gm" path="res://fonts/Lato-Regular.ttf" id="3_qx8po"]
+[ext_resource type="FontFile" uid="uid://dffy676c21j2h" path="res://fonts/Lato-Black.ttf" id="4_f4wbg"]
+[ext_resource type="FontFile" uid="uid://cy37fh86msp3y" path="res://fonts/Lato-Italic.ttf" id="5_kg6le"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iv3mq"]
 shader = ExtResource("1_ptc4o")
@@ -64,6 +68,18 @@ seamless_blend_skirt = 0.15
 color_ramp = SubResource("Gradient_dw7sg")
 noise = SubResource("FastNoiseLite_c1vsu")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snxve"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ue1pe"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+
 [node name="credits" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -72,30 +88,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.258
-anchor_top = 0.172
-anchor_right = 0.722
-anchor_bottom = 0.789
-offset_left = -495.36
-offset_top = -185.76
-offset_right = 533.76
-offset_bottom = 227.88
-grow_horizontal = 2
-grow_vertical = 2
-text = "Game made by Aleš Gajdacz (ReasonNotFound)."
-
-[node name="Space background" type="ParallaxBackground" parent="RichTextLabel"]
+[node name="Space background" type="ParallaxBackground" parent="."]
 layer = -50
 
-[node name="Parallax Stars 1" type="ParallaxLayer" parent="RichTextLabel/Space background"]
+[node name="Parallax Stars 1" type="ParallaxLayer" parent="Space background"]
 z_index = -600
 z_as_relative = false
 motion_scale = Vector2(0.9, 0.9)
 
-[node name="Stars" type="MeshInstance2D" parent="RichTextLabel/Space background/Parallax Stars 1"]
+[node name="Stars" type="MeshInstance2D" parent="Space background/Parallax Stars 1"]
 visible = false
 z_index = -4096
 texture_filter = 2
@@ -105,12 +106,12 @@ scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_rlce2")
 texture = SubResource("NoiseTexture2D_7wfgl")
 
-[node name="Parallax Stars 2" type="ParallaxLayer" parent="RichTextLabel/Space background"]
+[node name="Parallax Stars 2" type="ParallaxLayer" parent="Space background"]
 z_index = -600
 z_as_relative = false
 motion_scale = Vector2(0.95, 0.95)
 
-[node name="Stars" type="MeshInstance2D" parent="RichTextLabel/Space background/Parallax Stars 2"]
+[node name="Stars" type="MeshInstance2D" parent="Space background/Parallax Stars 2"]
 z_index = -4096
 texture_filter = 2
 texture_repeat = 2
@@ -119,12 +120,12 @@ scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_rlce2")
 texture = SubResource("NoiseTexture2D_5q8fv")
 
-[node name="Parallax Dust" type="ParallaxLayer" parent="RichTextLabel/Space background"]
+[node name="Parallax Dust" type="ParallaxLayer" parent="Space background"]
 z_index = 4096
 motion_scale = Vector2(0.8, 0.8)
 motion_offset = Vector2(183, 125)
 
-[node name="Space Dust" type="MeshInstance2D" parent="RichTextLabel/Space background/Parallax Dust"]
+[node name="Space Dust" type="MeshInstance2D" parent="Space background/Parallax Dust"]
 texture_filter = 2
 texture_repeat = 2
 material = ExtResource("2_a67wc")
@@ -132,15 +133,114 @@ scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_rlce2")
 texture = SubResource("NoiseTexture2D_fbrdr")
 
-[node name="Parallax Dust2" type="ParallaxLayer" parent="RichTextLabel/Space background"]
+[node name="Parallax Dust2" type="ParallaxLayer" parent="Space background"]
 z_index = 4096
 motion_scale = Vector2(0.9, 0.9)
 motion_offset = Vector2(1000, 1000)
 
-[node name="Space Dust" type="MeshInstance2D" parent="RichTextLabel/Space background/Parallax Dust2"]
+[node name="Space Dust" type="MeshInstance2D" parent="Space background/Parallax Dust2"]
 texture_filter = 2
 texture_repeat = 2
 material = ExtResource("2_a67wc")
 scale = Vector2(150000, 125000)
 mesh = SubResource("QuadMesh_rlce2")
 texture = SubResource("NoiseTexture2D_fbrdr")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -300.0
+offset_right = 500.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_snxve")
+
+[node name="Panel2" type="Panel" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ue1pe")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/Panel2"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="Panel/Panel2/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("3_fsieh")
+text = "About System Override"
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Panel/Panel2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.839
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.00006
+offset_top = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_fsieh")
+text = "Return"
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.092
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.200005
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer"]
+layout_mode = 2
+focus_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_qx8po")
+theme_override_fonts/bold_font = ExtResource("4_f4wbg")
+theme_override_fonts/italics_font = ExtResource("5_kg6le")
+bbcode_enabled = true
+text = "
+
+[center][/center][center][b]﻿[/b][b]﻿System Override v0.1.0 LITE (Laughably Incomplete Tech Experiment)[/b]
+Copyright 2023 Aleš Gajdacz
+
+[b]Experimental version of System Override released to itch.io[/b]
+[i]The game might be unstable. Please report issues at <https://reasonnotfound.itch.io/system-override>[/i]
+
+
+
+
+
+[b]Music[/b]
+
+[center][b]\"[i]Determined Pursuit[/i][/b][b]\"[/b] by [b]Emma_MA[/b] licensed [b]CC0: 
+[/b][url=https://opengameart.org/content/determined-pursuit-epic-orchestra-loop]https://opengameart.org/content/determined-pursuit-epic-orchestra-loop[/url][/center][url=https://opengameart.org/content/determined-pursuit-epic-orchestra-loop][/url]﻿[b][/b] 
+
+[b]Fonts[/b]
+
+[center][b]\"[i]Lato[/i][/b][b]\"[/b] by [b]tyPoland Lukasz Dziedzic[/b] licensed [b]SIL OPEN FONT LICENSE Version 1.1: 
+[/b][url=https://fonts.google.com/specimen/Lato]https://fonts.google.com/specimen/Lato[/url][/center][url=https://fonts.google.com/specimen/Lato][/url]﻿[b][/b] "
+fit_content = true
+selection_enabled = true
