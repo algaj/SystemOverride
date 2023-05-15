@@ -3,5 +3,5 @@
 [ext_resource type="Texture2D" uid="uid://cpvpknnkht622" path="res://graphics/hearth.png" id="1_5i0pn"]
 
 [node name="HealthSegment" type="Sprite2D"]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_5i0pn")
