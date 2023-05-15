@@ -25,21 +25,21 @@ _spaceshipExplostionSfx = ExtResource("3_lmhso")
 position = Vector2(-5.96046e-08, 64)
 scale = Vector2(1.974, 4.574)
 MoveDirectionGroup = 1
-EngineForce = 120000.0
+EngineForce = 60000.0
 
 [node name="AirEngine" parent="Engines" instance=ExtResource("5_x0g3m")]
 position = Vector2(-50, 48)
 rotation = 3.14159
 scale = Vector2(2.2, 2.2)
 TurnDirectionGroup = 1
-EngineForce = 30000.0
+EngineForce = 20000.0
 
 [node name="AirEngine2" parent="Engines" instance=ExtResource("5_x0g3m")]
 position = Vector2(50, 48)
 rotation = 3.14159
 scale = Vector2(2.2, 2.2)
 TurnDirectionGroup = 2
-EngineForce = 30000.0
+EngineForce = 20000.0
 
 [node name="Weapons" type="Node2D" parent="."]
 
@@ -47,14 +47,12 @@ EngineForce = 30000.0
 position = Vector2(-43, -25)
 scale = Vector2(4, 4)
 _fireIntervalMax = 1.2
-_fireIntervalMin = 0.3
 _fireSpreadAngle = 10.0
 
 [node name="basic_weapon2" parent="Weapons" instance=ExtResource("6_fjf7l")]
 position = Vector2(42, -25)
 scale = Vector2(4, 4)
 _fireIntervalMax = 1.2
-_fireIntervalMin = 0.3
 _fireSpreadAngle = 10.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

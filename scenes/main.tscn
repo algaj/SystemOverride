@@ -326,6 +326,7 @@ stream = ExtResource("18_a3lwi")
 autoplay = true
 
 [node name="Star" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(63.25, 21.69, 18.07, 1)
 position = Vector2(16836, 13126)
 scale = Vector2(10, 10)
