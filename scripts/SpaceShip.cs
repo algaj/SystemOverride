@@ -14,6 +14,9 @@ namespace SystemOverride
         int _maxHealth = 100;
 
         [Export]
+        float _despawnTime = 7.0f;
+
+        [Export]
         AudioStreamPlayer2D _impactSfx;
 
         [Export]
@@ -79,6 +82,8 @@ namespace SystemOverride
         Node2D _weaponsRoot;
         Node2D _spaceshipSprite;
 
+        Timer _despawnTimer;
+
         public override void _Ready()
         {
             // Check exports
@@ -93,6 +98,10 @@ namespace SystemOverride
             _weaponsRoot = GetNode<Node2D>("Weapons");
             _spaceshipSprite = GetNode<Node2D>("Sprite");
 
+            _despawnTimer = new Timer();
+            _despawnTimer.Timeout += OnDespawn;
+           AddChild(_despawnTimer);
+            _despawnTimer.WaitTime = _despawnTime;
 
             // Other initialization stuff
 
@@ -242,9 +251,8 @@ namespace SystemOverride
         {
 
             var spaceshipExplosionSfx = _spaceshipExplostionSfx.Instantiate<AfterFreeSfx>();
-            GetTree().Root.AddChild(spaceshipExplosionSfx);
-
             spaceshipExplosionSfx.GlobalPosition = GlobalPosition;
+            GetTree().Root.AddChild(spaceshipExplosionSfx);
 
             /* TODO: Queue free particles */
             GpuParticles2D fx = _spaceshipExplositionFX.Instantiate<GpuParticles2D>();
@@ -263,6 +271,23 @@ namespace SystemOverride
             {
                 engine.EngineEnabled = false;
             }
+
+            _despawnTimer.Start();
+        }
+
+        private void OnDespawn()
+        {
+            var spaceshipExplosionSfx = _spaceshipExplostionSfx.Instantiate<AfterFreeSfx>();
+            spaceshipExplosionSfx.GlobalPosition = GlobalPosition;
+            GetTree().Root.AddChild(spaceshipExplosionSfx);
+
+            /* TODO: Queue free particles */
+            GpuParticles2D fx = _spaceshipExplositionFX.Instantiate<GpuParticles2D>();
+            fx.GlobalPosition = GlobalPosition;
+            GetTree().Root.AddChild(fx);
+            fx.Emitting = true;
+
+            QueueFree();
         }
     }
 }
