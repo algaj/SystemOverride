@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnvje0q1e2hag"]
+
+[ext_resource type="Texture2D" uid="uid://cpvpknnkht622" path="res://graphics/hearth.png" id="1_5i0pn"]
+
+[node name="HealthSegment" type="Sprite2D"]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_5i0pn")

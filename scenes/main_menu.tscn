@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_6ipri"]
 [ext_resource type="PackedScene" uid="uid://blpjfiqcn8wb3" path="res://scenes/credits.tscn" id="2_788x0"]
-[ext_resource type="PackedScene" uid="uid://6f3er3i8q8io" path="res://scenes/main.tscn" id="2_yn5xv"]
+[ext_resource type="PackedScene" uid="uid://diphul608hcth" path="res://scenes/main.tscn" id="2_yn5xv"]
 [ext_resource type="PackedScene" uid="uid://evsm6aciq4bk" path="res://scenes/settings.tscn" id="3_m4xs1"]
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="5_xj6hq"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="6_lih1d"]

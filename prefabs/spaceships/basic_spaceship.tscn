@@ -14,6 +14,7 @@ mass = 98.91
 center_of_mass_mode = 1
 gravity_scale = 0.0
 script = ExtResource("1_muf4f")
+_maxHealth = 50
 _impactSfx = NodePath("AudioStreamPlayer2D")
 _spaceshipExplositionFX = ExtResource("2_neakm")
 _spaceshipExplostionSfx = ExtResource("3_f8pu3")

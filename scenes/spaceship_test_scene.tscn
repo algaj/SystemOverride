@@ -37,14 +37,13 @@ _maxZoom = 4.0
 z_index = 100
 position = Vector2(-1, -4)
 
-[node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera", "_healthBar")]
+[node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera")]
 script = ExtResource("3_7q1v7")
 _spaceship = NodePath("../Player Spaceship")
 _shipToCursorLine = NodePath("Ship to cursor line")
 _directionArrow = NodePath("Spaceship moving direction")
 _cursor = NodePath("Cursor")
 _playerCamera = NodePath("../Player Camera")
-_healthBar = NodePath("../CanvasLayer/HealthBar")
 
 [node name="Ship to cursor line" type="Line2D" parent="Player Controller"]
 z_index = -2

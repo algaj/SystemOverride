@@ -20,9 +20,6 @@ namespace SystemOverride
 		[Export]
 		PlayerCamera _playerCamera;
 
-		[Export]
-		ProgressBar _healthBar;
-
 		float _circleRadius = 170.0f;
 
 		int _circleLineCount = 64;
@@ -41,8 +38,6 @@ namespace SystemOverride
 
 			Input.SetCustomMouseCursor(null);
 			Input.MouseMode = Input.MouseModeEnum.Hidden;
-
-			_healthBar.Value = ((float)_spaceship.Health / (float)_spaceship.MaxHealth) * 100.0f;
 		}
 
         private void _spaceship_ScreenShakeRequested(float screenShakeFactor)
@@ -88,13 +83,6 @@ namespace SystemOverride
             }
 
 			_cursor.GlobalPosition = globalMousePos;
-
-			UpdateHealthBar((float)_spaceship.Health / (float)_spaceship.MaxHealth);
-		}
-
-		public void UpdateHealthBar(float healthFactor)
-        {
-			_healthBar.Value = ((float)_spaceship.Health / (float)_spaceship.MaxHealth) * 100.0f;
 		}
     }
 }
