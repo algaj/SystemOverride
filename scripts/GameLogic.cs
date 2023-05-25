@@ -93,7 +93,7 @@ namespace SystemOverride
             {
                 _currentLabelIndex++;
                 _lastRequiedSpaceshipsDestroyed = _requiedSpaceshipDestroyedForNextLabel;
-                _requiedSpaceshipDestroyedForNextLabel += (int)((float)_requiedSpaceshipDestroyedForNextLabel * (float)0.7f);
+                _requiedSpaceshipDestroyedForNextLabel += (int)((float)_requiedSpaceshipDestroyedForNextLabel * (float)1.0f);
 
                 if (_currentLabelIndex >= _labels.Length)
                 {
