@@ -93,7 +93,7 @@ namespace SystemOverride
             {
                 _currentLabelIndex++;
                 _lastRequiedSpaceshipsDestroyed = _requiedSpaceshipDestroyedForNextLabel;
-                _requiedSpaceshipDestroyedForNextLabel += (int)((float)_requiedSpaceshipDestroyedForNextLabel * (float)1.2f);
+                _requiedSpaceshipDestroyedForNextLabel += (int)((float)_requiedSpaceshipDestroyedForNextLabel * (float)0.7f);
 
                 if (_currentLabelIndex >= _labels.Length)
                 {
@@ -109,6 +109,11 @@ namespace SystemOverride
 
                 }
             }
+
+            if (_currentLabelIndex >= _labels.Length) {
+                return;
+            }
+
             _progressBar.Value = ((float)(score - _lastRequiedSpaceshipsDestroyed) / (float)(_requiedSpaceshipDestroyedForNextLabel - _lastRequiedSpaceshipsDestroyed)) * 100.0f;
             _scoreLabel.Text = _labels[_currentLabelIndex] + " ( " + score.ToString() + " / " + _requiedSpaceshipDestroyedForNextLabel.ToString() + " )";
         }
