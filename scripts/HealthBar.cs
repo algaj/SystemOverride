@@ -80,8 +80,11 @@ namespace SystemOverride {
 
         public override void _Process(double delta)
         {
-            GlobalPosition = _target.GlobalPosition;
-            Health = _target.Health;
+            if (IsInstanceValid(_target))
+            {
+                GlobalPosition = _target.GlobalPosition;
+                Health = _target.Health;
+            }
         }
 
         private void CreateHealthBarCircle()

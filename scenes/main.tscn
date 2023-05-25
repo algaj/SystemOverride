@@ -116,13 +116,20 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 shadow_size = 7
 
-[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("_aiController", "_scoreLabel", "_progressBar")]
+[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("_aiController", "_scoreLabel", "_progressBar", "_timerLabel", "_playerController", "_winningPanel", "_loosingPanel", "_loosingPanelButton", "_winningPanelButton", "_winningPanelLabel")]
 script = ExtResource("1_nnyqc")
 _aiController = NodePath("AIController")
 _mainMenuScenePath = "res://scenes/main_menu.tscn"
 _gameScenePath = "res://scenes/main.tscn"
 _scoreLabel = NodePath("CanvasLayer/ScoreLabel")
 _progressBar = NodePath("CanvasLayer/ProgressBar")
+_timerLabel = NodePath("CanvasLayer/ScoreLabel2")
+_playerController = NodePath("Player Controller")
+_winningPanel = NodePath("CanvasLayer/WinningPanel")
+_loosingPanel = NodePath("CanvasLayer/LoosingPanel")
+_loosingPanelButton = NodePath("CanvasLayer/LoosingPanel/Button")
+_winningPanelButton = NodePath("CanvasLayer/WinningPanel/Button")
+_winningPanelLabel = NodePath("CanvasLayer/WinningPanel/Label")
 
 [node name="Space background" type="ParallaxBackground" parent="."]
 layer = -50
@@ -359,6 +366,19 @@ step = 0.001
 value = 50.0
 show_percentage = false
 
+[node name="ScoreLabel2" type="Label" parent="CanvasLayer"]
+offset_left = 15.0
+offset_top = 29.0
+offset_right = 128.0
+offset_bottom = 52.0
+scale = Vector2(1.00357, 1)
+theme_override_fonts/font = ExtResource("19_ulm52")
+theme_override_font_sizes/font_size = 16
+text = "<timer text>"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
 [node name="ScoreLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 5
 anchor_left = 0.5
@@ -375,6 +395,92 @@ text = "<score text>"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
+
+[node name="LoosingPanel" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -135.0
+offset_right = 255.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = ExtResource("19_u12ea")
+
+[node name="Label" type="Label" parent="CanvasLayer/LoosingPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.419
+offset_bottom = -0.0230026
+grow_horizontal = 2
+text = "They got you. You are dead."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/LoosingPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.41
+anchor_right = 0.978
+anchor_bottom = 0.915
+offset_left = -0.14
+offset_top = 0.0299988
+offset_right = 0.219971
+offset_bottom = -0.0550003
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("19_u12ea")
+text = "Restart (R)"
+
+[node name="WinningPanel" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -135.0
+offset_right = 255.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = ExtResource("19_u12ea")
+
+[node name="Label" type="Label" parent="CanvasLayer/WinningPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.419
+offset_bottom = -0.0230026
+grow_horizontal = 2
+text = "You have won in <seconds>"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/WinningPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.014
+anchor_top = 0.41
+anchor_right = 0.978
+anchor_bottom = 0.915
+offset_left = -0.14
+offset_top = 0.0299988
+offset_right = 0.219971
+offset_bottom = -0.0550003
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("19_u12ea")
+text = "Congratulate yourself and restart (R)"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_a3lwi")

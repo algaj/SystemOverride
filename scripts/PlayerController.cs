@@ -30,6 +30,10 @@ namespace SystemOverride
 		Vector2 _lastSpaceshipPosition = Vector2.Zero;
 		Vector2 _lastSpaceshipDirection = Vector2.Zero;
 
+		[Signal]
+        public delegate void PlayerSpaceshipDestroyedEventHandler();
+
+		bool _wasSpaceshipDestroyed = false;
 
 		public override void _Ready()
 		{
@@ -58,7 +62,13 @@ namespace SystemOverride
 		{
 			if (!IsInstanceValid(_spaceship))
 			{
-				return;
+				if (!_wasSpaceshipDestroyed)
+				{
+					EmitSignal(SignalName.PlayerSpaceshipDestroyed);
+				}
+				_wasSpaceshipDestroyed = true;
+
+                return;
 			}
 
 			_lastSpaceshipDirection = (_spaceship.GlobalPosition - _lastSpaceshipPosition).Normalized();

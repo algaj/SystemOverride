@@ -96,7 +96,12 @@ namespace SystemOverride
         /// <returns>The normalized direction from the spaceship to the target.</returns>
         private Vector2 GetDirection(Spaceship spaceship)
         {
-            return (_target.GlobalPosition - spaceship.GlobalPosition).Normalized();
+            if (IsInstanceValid(_target))
+            {
+                return (_target.GlobalPosition - spaceship.GlobalPosition).Normalized();
+            }
+
+            return new Vector2(GD.Randf(), GD.Randf()).Normalized();
         }
 
         /// <summary>
@@ -135,10 +140,13 @@ namespace SystemOverride
 
         private void FireIfPossible(Spaceship spaceship, float facingDirectionOffset)
         {
-            const float maxFacingDirectionOffsetToFire = 0.1f;
-            if (facingDirectionOffset <= maxFacingDirectionOffsetToFire && spaceship.GlobalPosition.DistanceSquaredTo(_target.GlobalPosition) < 40000000.0f)
+            if (IsInstanceValid(_target))
             {
-                spaceship.FireWeapons(0);
+                const float maxFacingDirectionOffsetToFire = 0.1f;
+                if (facingDirectionOffset <= maxFacingDirectionOffsetToFire && spaceship.GlobalPosition.DistanceSquaredTo(_target.GlobalPosition) < 40000000.0f)
+                {
+                    spaceship.FireWeapons(0);
+                }
             }
         }
 

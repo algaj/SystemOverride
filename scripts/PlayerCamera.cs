@@ -48,12 +48,15 @@ namespace SystemOverride
 
         public override void _Process(double delta)
         {
-            // Follow target
-            GlobalPosition = (_anchor.GlobalPosition + _cursor.GlobalPosition) / 2.0f;
+            if (IsInstanceValid(_anchor))
+            {
+                // Follow target
+                GlobalPosition = (_anchor.GlobalPosition + _cursor.GlobalPosition) / 2.0f;
 
-            ProcessZoom((float)delta);
+                ProcessZoom((float)delta);
 
-            ProcessScreenShake((float)delta);
+                ProcessScreenShake((float)delta);
+            }
         }
 
         void ProcessZoom(float delta)
