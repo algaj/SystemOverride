@@ -1,23 +1,18 @@
-# System Override
+![System Override](https://github.com/algaj/SystemOverride/blob/main/.readme_graphics/logo_text.png?raw=true)
 
 System Override is a top-down space shooter game created with Godot game engine.
 
 ## Description
 
-In System Override, you take control of a spaceship and battle against enemy spaceships. Your objective is to destroy all enemy spaceships to complete a wave. The game features different weapons and power-ups that you can collect to upgrade your spaceship and increase your chances of survival.
+In System Override, you take control of a spaceship and battle against enemy spaceships.
 
-## Features
-
-- Top-down space shooter gameplay
-- Multiple waves with increasing difficulty
-- Different types of enemies with unique behaviors
-- Upgradable spaceship with customizable weapons and stats
+![screenshot](https://github.com/algaj/SystemOverride/blob/main/.readme_graphics/screenshot.png?raw=true)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Godot Engine v4.0
+- Godot Engine v4.1
 
 ### Installation
 
@@ -27,7 +22,7 @@ In System Override, you take control of a spaceship and battle against enemy spa
 
 ## Contributing
 
-Currently, this project is not open to contributions as it is a private repository.
+Currently, this project is not open to contributions. I personally don't have any plans right now with this game.
 
 ## License
-This repository is proprietary and does not allow the use of the code or the assets without written permission.
+See LICENSE file.
