@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dao8efj8gwobv"]
+[gd_scene load_steps=8 format=3 uid="uid://dao8efj8gwobv"]
 
 [ext_resource type="Texture2D" uid="uid://d3prx8qvd4gbj" path="res://graphics/bullet.png" id="1_xv6gh"]
+[ext_resource type="Script" path="res://scripts/AfterFreeGFX.cs" id="2_n6eyh"]
 
 [sub_resource type="Gradient" id="Gradient_y4pi6"]
 offsets = PackedFloat32Array(0.0109489, 0.186131, 0.718978, 1)
@@ -58,3 +59,4 @@ randomness = 1.0
 trail_lifetime = 0.1
 trail_sections = 2
 trail_section_subdivisions = 1
+script = ExtResource("2_n6eyh")
