@@ -23,6 +23,9 @@ namespace SystemOverride
 		[Export]
 		SlowMotion _slowMotion;
 
+		[Export]
+		Planet _mainPlanet;
+
 		float _circleRadius = 170.0f;
 
 		int _circleLineCount = 64;
@@ -69,6 +72,11 @@ namespace SystemOverride
 				_wasSpaceshipDestroyed = true;
 
                 return;
+			}
+
+			if (_spaceship.GlobalPosition.DistanceTo(_mainPlanet.GlobalPosition) > 30000.0f && !_spaceship.IsDestroyed)
+			{
+				_spaceship.DestroySpaceship();
 			}
 
 			_lastSpaceshipDirection = (_spaceship.GlobalPosition - _lastSpaceshipPosition).Normalized();

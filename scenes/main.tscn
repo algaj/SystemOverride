@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3]
+[gd_scene load_steps=41 format=3 uid="uid://djkkokj60w4w6"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
@@ -217,7 +217,7 @@ position = Vector2(-1, -4)
 [node name="AudioListener2D" type="AudioListener2D" parent="Player Spaceship"]
 current = true
 
-[node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera", "_slowMotion")]
+[node name="Player Controller" type="Node2D" parent="." node_paths=PackedStringArray("_spaceship", "_shipToCursorLine", "_directionArrow", "_cursor", "_playerCamera", "_slowMotion", "_mainPlanet")]
 script = ExtResource("4_e1spy")
 _spaceship = NodePath("../Player Spaceship")
 _shipToCursorLine = NodePath("Ship to cursor line")
@@ -225,6 +225,7 @@ _directionArrow = NodePath("Spaceship moving direction")
 _cursor = NodePath("Cursor")
 _playerCamera = NodePath("../Player Camera")
 _slowMotion = NodePath("../SlowMotion")
+_mainPlanet = NodePath("../EarthOrbitPoint/Altara")
 
 [node name="Ship to cursor line" type="Line2D" parent="Player Controller"]
 z_index = -2

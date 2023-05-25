@@ -50,6 +50,7 @@ namespace SystemOverride
         /// <param name="delta">The time elapsed since the last frame update.</param>
         public override void _Process(double delta)
         {
+
             RemoveInvalidSpaceships();
 
             foreach (var spaceship in _spaceships)
