@@ -120,6 +120,7 @@ shadow_size = 7
 script = ExtResource("1_nnyqc")
 _aiController = NodePath("AIController")
 _mainMenuScenePath = "res://scenes/main_menu.tscn"
+_gameScenePath = "res://scenes/main.tscn"
 _scoreLabel = NodePath("CanvasLayer/ScoreLabel")
 _progressBar = NodePath("CanvasLayer/ProgressBar")
 

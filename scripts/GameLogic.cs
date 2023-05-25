@@ -12,6 +12,10 @@ namespace SystemOverride
         [Export(PropertyHint.File)]
         string _mainMenuScenePath;
 
+        // String to avoid circular dependency
+        [Export(PropertyHint.File)]
+        string _gameScenePath;
+
         [Export]
         Label _scoreLabel;
 
@@ -26,8 +30,11 @@ namespace SystemOverride
 
         int _currentLabelIndex = 0;
 
+        Gravity _gravity;
+
         public override void _Ready()
         {
+            _gravity = GetNode<Gravity>("/root/Gravity");
             _aiController.AISpaceshipDestroyed += _aiController_AISpaceshipDestroyed;
             UpdateScoreLabel(_spaceshipsDestroyed);
         }
@@ -57,16 +64,19 @@ namespace SystemOverride
 
         public override void _Process(double delta)
         {
-            if (Input.IsKeyPressed(Key.Escape))
+            if (Input.IsActionJustPressed(InputActions.Exit))
             {
+                _gravity.UnregisterAllGravityPoints();
                 Input.MouseMode = Input.MouseModeEnum.Visible;
                 PackedScene mainMenu = GD.Load<PackedScene>(_mainMenuScenePath);
                 GetTree().ChangeSceneToPacked(mainMenu);
             }
 
-            if (Input.IsKeyPressed(Key.R))
+            if (Input.IsActionJustPressed(InputActions.Restart))
             {
-                // TODO: restart the game
+                _gravity.UnregisterAllGravityPoints();
+                PackedScene gameScene = GD.Load<PackedScene>(_gameScenePath);
+                GetTree().ChangeSceneToPacked(gameScene);
             }
         }
     }

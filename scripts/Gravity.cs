@@ -31,6 +31,11 @@ namespace SystemOverride
 			gravityPoints.Add(new GravityPoint(node, gravityForce));
 		}
 
+		public void UnregisterAllGravityPoints()
+		{
+			gravityPoints.Clear();
+		}
+
 		public Vector2 CalculateGravityForce(Vector2 pos)
 		{
 			Vector2 result = Vector2.Zero;

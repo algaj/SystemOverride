@@ -13,5 +13,7 @@ namespace SystemOverride
         public const string SideThrustLeft = "side_thrust_left";
         public const string SideThrustRight = "side_thrust_right";
         public const string FireWeapons = "fire_weapons";
+        public const string Exit = "exit";
+        public const string Restart = "restart";
     }
 }
