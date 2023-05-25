@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://oykkag5vp113"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/light.png" id="1_kpbpu"]
+[ext_resource type="Texture2D" uid="uid://dx5surx7f5562" path="res://graphics/misc/light.png" id="1_kpbpu"]
 [ext_resource type="Script" path="res://scripts/AfterFreeGFX.cs" id="2_ch1uw"]
 
 [sub_resource type="Gradient" id="Gradient_fpk33"]

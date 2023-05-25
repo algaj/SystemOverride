@@ -1,13 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://budcb26ymjxpf"]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_6ipri"]
 [ext_resource type="PackedScene" uid="uid://blpjfiqcn8wb3" path="res://scenes/credits.tscn" id="2_788x0"]
-[ext_resource type="PackedScene" uid="uid://diphul608hcth" path="res://scenes/main.tscn" id="2_yn5xv"]
+[ext_resource type="PackedScene" path="res://scenes/main.tscn" id="2_yn5xv"]
 [ext_resource type="FontFile" uid="uid://bhn8v1uric5jl" path="res://fonts/Lato-Bold.ttf" id="5_3l5bi"]
 [ext_resource type="Theme" uid="uid://ccceoxeg0el6c" path="res://styles/main_menu_theme.tres" id="5_o8rqm"]
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="5_xj6hq"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="6_lih1d"]
-[ext_resource type="Texture2D" uid="uid://tegseaa6dbgn" path="res://graphics/logo_text.png" id="7_jvi2b"]
+[ext_resource type="Texture2D" uid="uid://tegseaa6dbgn" path="res://graphics/app/logo_text.png" id="7_jvi2b"]
 [ext_resource type="StyleBox" uid="uid://creewoy6ba0lf" path="res://styles/main_style.tres" id="7_ko1j2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ckjgq"]

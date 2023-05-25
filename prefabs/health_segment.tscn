@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnvje0q1e2hag"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Texture2D" uid="uid://cpvpknnkht622" path="res://graphics/hearth.png" id="1_b6k52"]
+[ext_resource type="Texture2D" uid="uid://cpvpknnkht622" path="res://graphics/misc/hearth.png" id="1_b6k52"]
 
 [node name="HealthSegment" type="Sprite2D"]
 scale = Vector2(0.8, 0.8)

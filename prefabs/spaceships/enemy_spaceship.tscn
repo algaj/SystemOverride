@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/Spaceship.cs" id="1_6ugbi"]
+[ext_resource type="PackedScene" path="res://prefabs/particles/spaceship_explosion.tscn" id="2_ah7r1"]
+[ext_resource type="PackedScene" path="res://prefabs/after_free_sfx/spaceship_explosion.tscn" id="3_lmhso"]
+[ext_resource type="PackedScene" path="res://prefabs/engines/main_engine.tscn" id="4_y3xnj"]
+[ext_resource type="PackedScene" uid="uid://cd078lehxxjwg" path="res://prefabs/engines/direction_engine.tscn" id="5_x0g3m"]
+[ext_resource type="PackedScene" path="res://prefabs/weapons/basic_weapon.tscn" id="6_fjf7l"]
+[ext_resource type="Texture2D" uid="uid://du1fu0sgfko4t" path="res://graphics/spaceships/sp008_eclipse.png" id="8_ampod"]
+[ext_resource type="AudioStream" uid="uid://bb2wyoricw5xu" path="res://sfx/impact.wav" id="9_88dp4"]
+
+[node name="Spaceship ID001" type="RigidBody2D" node_paths=PackedStringArray("_impactSfx")]
+mass = 70.0
+center_of_mass_mode = 1
+gravity_scale = 0.0
+script = ExtResource("1_6ugbi")
+_maxHealth = 1
+_impactSfx = NodePath("AudioStreamPlayer2D")
+_spaceshipExplositionFX = ExtResource("2_ah7r1")
+_spaceshipExplostionSfx = ExtResource("3_lmhso")
+
+[node name="Engines" type="Node2D" parent="."]
+
+[node name="BasicEngine" parent="Engines" instance=ExtResource("4_y3xnj")]
+position = Vector2(-5.96046e-08, 64)
+scale = Vector2(1.974, 4.574)
+MoveDirectionGroup = 1
+EngineForce = 60000.0
+
+[node name="AirEngine" parent="Engines" instance=ExtResource("5_x0g3m")]
+position = Vector2(-50, 48)
+rotation = 3.14159
+scale = Vector2(2.2, 2.2)
+TurnDirectionGroup = 1
+EngineForce = 20000.0
+
+[node name="AirEngine2" parent="Engines" instance=ExtResource("5_x0g3m")]
+position = Vector2(50, 48)
+rotation = 3.14159
+scale = Vector2(2.2, 2.2)
+TurnDirectionGroup = 2
+EngineForce = 20000.0
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="basic_weapon" parent="Weapons" instance=ExtResource("6_fjf7l")]
+position = Vector2(-43, -25)
+scale = Vector2(4, 4)
+_fireIntervalMax = 1.2
+_fireSpreadAngle = 10.0
+
+[node name="basic_weapon2" parent="Weapons" instance=ExtResource("6_fjf7l")]
+position = Vector2(42, -25)
+scale = Vector2(4, 4)
+_fireIntervalMax = 1.2
+_fireSpreadAngle = 10.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_88dp4")
+max_polyphony = 10
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("8_ampod")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+scale = Vector2(0.3, 0.3)
+polygon = PackedVector2Array(8, -224.8, 8, -222.6, 18, -208.6, 18, -203, 21.9, -141, 22.5, -141, 26.8, -125.4, 26, -187, 27.3, -187, 28.3, -194, 30.3, -194, 34.8, -197.3, 37, -196.2, 37, -195.1, 43, -191.1, 43, -187.3, 56.3, -156, 59.3, -156, 243, -103.5, 243, -101.9, 252, -93.9, 252, -87, 250.1, -87, 235.1, -63, 227.9, -63, 198.8, -66, 192.2, -66, 160.1, -63, 143, -63, 109, -63.9, 109, -62.7, 103.4, -47, 101.6, -47, 89, -38.9, 89, -34, 92.8, 3, 137.1, 78, 137.7, 78, 225, 149, 225, 152, 230, 172.8, 230, 179.8, 226.8, 183, 223.4, 183, 210.5, 174, 207.6, 174, 88, 119.1, 88, 122.4, 72.4, 164, 70.4, 164, 34, 177.4, 34, 178.5, 6.20001, 229, 4.79999, 229, -0.5, 234.4, -3, 233.3, -3, 231.5, -35.1, 177, -36.4, 177, -73, 163.4, -73, 160.4, -88.8, 119.6, -228, 184.1, -228, 180, -230.6, 170, -228.7, 170, -224.7, 148, -222.7, 148, -140, 82, -140, 80.5, -101.2, 13, -99.9, 13, -94, 6.29999, -94, 3.89999, -89.2, -38.4, -104, -47.9, -104, -50.5, -109.4, -64, -143, -64, -196, -65.9, -196, -65.1, -236, -62.9, -236, -65.4, -251, -86.4, -251, -97, -248.8, -97, -241.8, -104, -238.4, -104, -211.4, -114, -207.1, -114, -57, -155.5, -52, -161.7, -52, -164.3, -42.4, -192, -40.8, -192, -35.8, -197, -33.3, -197, -28, -193, -28, -190.3, -26, -184.3, -26, -129.9, -22, -140.4, -22, -169.1, -17.8, -210, -16.3, -210, -10.3, -223, -8.3, -223, -4, -224.4, -4, -226.3)

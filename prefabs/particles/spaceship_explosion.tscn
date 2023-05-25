@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dao8efj8gwobv"]
+[gd_scene load_steps=8 format=3]
 
-[ext_resource type="Texture2D" uid="uid://d3prx8qvd4gbj" path="res://graphics/bullet.png" id="1_xv6gh"]
+[ext_resource type="Texture2D" uid="uid://d3prx8qvd4gbj" path="res://graphics/misc/bullet.png" id="1_xv6gh"]
 [ext_resource type="Script" path="res://scripts/AfterFreeGFX.cs" id="2_n6eyh"]
 
 [sub_resource type="Gradient" id="Gradient_y4pi6"]

@@ -1,8 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://byfiad0ogaev3"]
-
-[ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_a4ufy"]
-
-[resource]
-shader = ExtResource("1_a4ufy")
-shader_parameter/texture_scale = 0.005
-shader_parameter/tint_color = Color(0.588235, 0.678431, 1, 0.168627)

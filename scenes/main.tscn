@@ -1,29 +1,29 @@
-[gd_scene load_steps=41 format=3 uid="uid://diphul608hcth"]
+[gd_scene load_steps=41 format=3]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
 [ext_resource type="Script" path="res://scripts/GameLogic.cs" id="1_nnyqc"]
-[ext_resource type="PackedScene" uid="uid://b5qsdb0rgicka" path="res://prefabs/spaceships/basic_spaceship.tscn" id="2_7v4dp"]
+[ext_resource type="PackedScene" path="res://prefabs/spaceships/player_spaceship.tscn" id="2_7v4dp"]
 [ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="2_qujta"]
 [ext_resource type="Script" path="res://scripts/Planet.cs" id="3_3ytod"]
 [ext_resource type="Script" path="res://scripts/PlayerController.cs" id="4_e1spy"]
-[ext_resource type="Texture2D" uid="uid://bus52y5qjsol2" path="res://graphics/arrow.png" id="4_ggwgs"]
-[ext_resource type="PackedScene" uid="uid://cnvje0q1e2hag" path="res://prefabs/health_segment.tscn" id="5_iq4gr"]
+[ext_resource type="Texture2D" uid="uid://bus52y5qjsol2" path="res://graphics/misc/arrow.png" id="4_ggwgs"]
+[ext_resource type="PackedScene" path="res://prefabs/health_segment.tscn" id="5_iq4gr"]
 [ext_resource type="Texture2D" uid="uid://d3ypbbcbrxuar" path="res://graphics/app/cursor.png" id="5_pgqo7"]
 [ext_resource type="Script" path="res://scripts/HealthBar.cs" id="5_sp8eu"]
-[ext_resource type="Texture2D" uid="uid://d0irnmgdw5fps" path="res://graphics/planets/Altara.png" id="7_hpm0e"]
+[ext_resource type="Texture2D" uid="uid://d0irnmgdw5fps" path="res://graphics/planets/main_planet.png" id="7_hpm0e"]
 [ext_resource type="AudioStream" uid="uid://nx32mrqy200h" path="res://sfx/enemy_destroyed.wav" id="9_gbi1h"]
-[ext_resource type="PackedScene" uid="uid://clkvyk0yf6jhq" path="res://prefabs/spaceships/spaceship_001.tscn" id="9_x7b8i"]
-[ext_resource type="Texture2D" uid="uid://flvfj45je7hi" path="res://graphics/planets/moon.png" id="10_yvygf"]
+[ext_resource type="PackedScene" path="res://prefabs/spaceships/enemy_spaceship.tscn" id="9_x7b8i"]
+[ext_resource type="Texture2D" uid="uid://flvfj45je7hi" path="res://graphics/planets/main_planet_moon3.png" id="10_yvygf"]
 [ext_resource type="Script" path="res://scripts/AIController.cs" id="11_ddh2e"]
-[ext_resource type="Texture2D" uid="uid://c5hfbju1ownmp" path="res://graphics/planets/moon3.png" id="14_wv56m"]
-[ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/moon2.png" id="15_yrpv2"]
+[ext_resource type="Texture2D" uid="uid://c5hfbju1ownmp" path="res://graphics/planets/main_planet_moon2.png" id="14_wv56m"]
+[ext_resource type="Texture2D" uid="uid://bds71ls5sv3yf" path="res://graphics/planets/main_planet_moon1.png" id="15_yrpv2"]
 [ext_resource type="Script" path="res://scripts/EnemySpawner.cs" id="17_bdcr7"]
 [ext_resource type="Texture2D" uid="uid://chocqh7k8k0p" path="res://graphics/planets/star.png" id="17_p46rg"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
-[ext_resource type="AudioStream" uid="uid://n4y7hvqwpolf" path="res://sfx/determined_pursuit_loop.wav" id="18_a3lwi"]
 [ext_resource type="StyleBox" uid="uid://creewoy6ba0lf" path="res://styles/main_style.tres" id="19_u12ea"]
 [ext_resource type="FontFile" uid="uid://bhn8v1uric5jl" path="res://fonts/Lato-Bold.ttf" id="19_ulm52"]
+[ext_resource type="AudioStream" uid="uid://n4y7hvqwpolf" path="res://music/determined_pursuit_loop.wav" id="21_tddnj"]
 [ext_resource type="Script" path="res://scripts/SlowMotion.cs" id="22_4dwde"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
@@ -483,7 +483,7 @@ theme_override_styles/normal = ExtResource("19_u12ea")
 text = "Congratulate yourself and restart (R)"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("18_a3lwi")
+stream = ExtResource("21_tddnj")
 autoplay = true
 
 [node name="Star" type="Sprite2D" parent="."]

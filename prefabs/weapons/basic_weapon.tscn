@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c44xix01fcjgs" path="res://prefabs/projectiles/basic_projectile.tscn" id="2_3rkjd"]
 [ext_resource type="PackedScene" uid="uid://b5pofdyf4c7tc" path="res://prefabs/particles/basic_weapon_fire_particles.tscn" id="2_o0ly3"]
 [ext_resource type="AudioStream" uid="uid://c6hffa0dyfyey" path="res://sfx/cannon_shot.wav" id="4_e1m1x"]
-[ext_resource type="Texture2D" uid="uid://d3qgj12u0peq5" path="res://graphics/gun.png" id="5_d6oxw"]
+[ext_resource type="Texture2D" uid="uid://d3qgj12u0peq5" path="res://graphics/misc/gun.png" id="5_d6oxw"]
 
 [node name="basic_weapon" type="Node2D" node_paths=PackedStringArray("_audioStreamPlayer", "_fireParticles", "_fireTimer", "_barrel", "_barrelEnd")]
 script = ExtResource("1_li8oi")
