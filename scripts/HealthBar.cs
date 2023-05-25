@@ -54,12 +54,7 @@ namespace SystemOverride {
 
             int healthSegmentCount = Mathf.CeilToInt(_health / _hpPerSegment) - 1;
 
-            if (healthSegmentCount <= 0)
-            {
-                return;
-            }
-
-            float angleStep = Mathf.DegToRad(10.0f);
+            float angleStep = Mathf.DegToRad(20.0f);
 
             float angleTotal = healthSegmentCount * angleStep;
 
@@ -70,7 +65,7 @@ namespace SystemOverride {
                 float x = Mathf.Cos(i * angleStep + startingAngle) * _healthBarCircleRadius;
                 float y = Mathf.Sin(i * angleStep + startingAngle) * _healthBarCircleRadius;
                 Sprite2D segment = _healthSegment.Instantiate<Sprite2D>();
-                segment.Modulate = _segmentGradient.Sample(i * angleStep / angleTotal);
+                segment.Modulate = _segmentGradient.Sample(i / 5.0f);
                 AddChild(segment);
                 segment.Position = new Vector2(x, y);
                 _healthSegments.Add(segment);

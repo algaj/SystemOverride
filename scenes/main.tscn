@@ -89,8 +89,8 @@ offsets = PackedFloat32Array(0, 0.486207, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.556863, 0.282353, 0.0745098, 1, 0, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_g8var"]
-offsets = PackedFloat32Array(0, 0.288079, 0.645695, 0.890728)
-colors = PackedColorArray(0.2, 0.333333, 1, 1, 0.315333, 1, 0.21, 1, 1, 0.95, 0, 1, 1, 0.18, 0.18, 1)
+offsets = PackedFloat32Array(0, 0.337748, 0.519868, 0.731788, 0.817881)
+colors = PackedColorArray(1, 0.18, 0.18, 1, 1, 0.95, 0, 1, 0.315333, 1, 0.21, 1, 0.35971, 0.996759, 0.196389, 1, 0.2, 0.333333, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2q6ht"]
 shader = ExtResource("17_w3603")
