@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ccceoxeg0el6c"]
+
+[ext_resource type="FontFile" uid="uid://bhn8v1uric5jl" path="res://fonts/Lato-Bold.ttf" id="1_tpd0b"]
+
+[resource]
+default_font = ExtResource("1_tpd0b")

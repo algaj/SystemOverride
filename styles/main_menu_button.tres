@@ -1,0 +1,20 @@
+[gd_resource type="StyleBoxFlat" format=3 uid="uid://creewoy6ba0lf"]
+
+[resource]
+content_margin_left = 40.0
+content_margin_top = 5.0
+content_margin_right = 40.0
+content_margin_bottom = 5.0
+bg_color = Color(0.117647, 0.0588235, 0.0862745, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.415686)
+shadow_size = 12
+shadow_offset = Vector2(5, 5)
