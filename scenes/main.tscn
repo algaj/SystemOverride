@@ -1,7 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://diphul608hcth"]
+[gd_scene load_steps=41 format=3 uid="uid://diphul608hcth"]
 
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_e0scc"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="1_g7563"]
+[ext_resource type="Script" path="res://scripts/GameLogic.cs" id="1_nnyqc"]
 [ext_resource type="PackedScene" uid="uid://b5qsdb0rgicka" path="res://prefabs/spaceships/basic_spaceship.tscn" id="2_7v4dp"]
 [ext_resource type="Script" path="res://scripts/PlayerCamera.cs" id="2_qujta"]
 [ext_resource type="Script" path="res://scripts/Planet.cs" id="3_3ytod"]
@@ -21,6 +22,8 @@
 [ext_resource type="Texture2D" uid="uid://chocqh7k8k0p" path="res://graphics/planets/star.png" id="17_p46rg"]
 [ext_resource type="Shader" path="res://shaders/post_process.gdshader" id="17_w3603"]
 [ext_resource type="AudioStream" uid="uid://n4y7hvqwpolf" path="res://sfx/determined_pursuit_loop.wav" id="18_a3lwi"]
+[ext_resource type="StyleBox" uid="uid://creewoy6ba0lf" path="res://styles/main_style.tres" id="19_u12ea"]
+[ext_resource type="FontFile" uid="uid://bhn8v1uric5jl" path="res://fonts/Lato-Bold.ttf" id="19_ulm52"]
 [ext_resource type="Script" path="res://scripts/SlowMotion.cs" id="22_4dwde"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajlgu"]
@@ -95,7 +98,30 @@ colors = PackedColorArray(1, 0.18, 0.18, 1, 1, 0.95, 0, 1, 0.315333, 1, 0.21, 1,
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2q6ht"]
 shader = ExtResource("17_w3603")
 
-[node name="Main Scene" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qj61v"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.384314, 0.176471, 0.431373, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.913725, 0.741176, 0.85098, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 7
+
+[node name="Main Scene" type="Node2D" node_paths=PackedStringArray("_aiController", "_scoreLabel", "_progressBar")]
+script = ExtResource("1_nnyqc")
+_aiController = NodePath("AIController")
+_mainMenuScenePath = "res://scenes/main_menu.tscn"
+_scoreLabel = NodePath("CanvasLayer/ScoreLabel")
+_progressBar = NodePath("CanvasLayer/ProgressBar")
 
 [node name="Space background" type="ParallaxBackground" parent="."]
 layer = -50
@@ -320,6 +346,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 18.0
+grow_horizontal = 2
+theme_override_styles/background = ExtResource("19_u12ea")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qj61v")
+step = 0.001
+value = 50.0
+show_percentage = false
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 29.0
+offset_right = 57.0
+offset_bottom = 52.0
+grow_horizontal = 2
+scale = Vector2(1.00357, 1)
+theme_override_fonts/font = ExtResource("19_ulm52")
+theme_override_font_sizes/font_size = 16
+text = "<score text>"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_a3lwi")

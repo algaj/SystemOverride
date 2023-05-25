@@ -28,6 +28,9 @@ namespace SystemOverride
 
         public int SpaceshipCount { get {  return _spaceships.Count; } }
 
+        [Signal]
+        public delegate void AISpaceshipDestroyedEventHandler();
+
         public override void _Ready()
         {
             int spaceshipCount = _spaceshipsRoot.GetChildCount();
@@ -67,20 +70,23 @@ namespace SystemOverride
             {
                 if (!IsInstanceValid(_spaceships[i]))
                 {
-                    _spaceships.RemoveAt(i);
-                    _spaceshipDestroyedStreamPlayer.PitchScale = (float)GD.RandRange(0.8, 1.3);
-                    _spaceshipDestroyedStreamPlayer.Play();
-                    _slowMotion.TriggerSlowMotion();
+                    RemoveSpaceshipAtIndex(i);
                 }
 
                 if (_spaceships[i].IsDestroyed)
                 {
-                    _spaceships.RemoveAt(i);
-                    _spaceshipDestroyedStreamPlayer.PitchScale = (float)GD.RandRange(0.8, 1.3);
-                    _spaceshipDestroyedStreamPlayer.Play();
-                    _slowMotion.TriggerSlowMotion();
+                    RemoveSpaceshipAtIndex(i);
                 }
             }
+        }
+
+        private void RemoveSpaceshipAtIndex(int i)
+        {
+            _spaceships.RemoveAt(i);
+            _spaceshipDestroyedStreamPlayer.PitchScale = (float)GD.RandRange(0.8, 1.3);
+            _spaceshipDestroyedStreamPlayer.Play();
+            _slowMotion.TriggerSlowMotion();
+            EmitSignal(SignalName.AISpaceshipDestroyed);
         }
 
         /// <summary>

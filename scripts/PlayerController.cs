@@ -40,7 +40,6 @@ namespace SystemOverride
 
 			_lastSpaceshipPosition = _spaceship.GlobalPosition;
 
-			Input.SetCustomMouseCursor(null);
 			Input.MouseMode = Input.MouseModeEnum.Hidden;
 		}
 
