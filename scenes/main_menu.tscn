@@ -81,7 +81,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6ipri")
 newGameButton = NodePath("VBoxContainer/Button")
-settingsButton = NodePath("VBoxContainer/Button2")
+settingsButton = NodePath("")
 creditsButton = NodePath("VBoxContainer/Button3")
 exitButton = NodePath("VBoxContainer/Button4")
 gameScene = ExtResource("2_yn5xv")
@@ -111,12 +111,6 @@ theme_override_fonts/font = ExtResource("5_3l5bi")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("7_ko1j2")
 text = "New Game"
-
-[node name="Button2" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("5_o8rqm")
-theme_override_styles/normal = ExtResource("7_ko1j2")
-text = "Settings"
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
 layout_mode = 2
