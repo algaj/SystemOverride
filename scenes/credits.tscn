@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://blpjfiqcn8wb3"]
+[gd_scene load_steps=21 format=3 uid="uid://blpjfiqcn8wb3"]
 
+[ext_resource type="Script" path="res://scripts/Credits.cs" id="1_c52wj"]
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="1_ptc4o"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="2_a67wc"]
 [ext_resource type="FontFile" uid="uid://bhn8v1uric5jl" path="res://fonts/Lato-Bold.ttf" id="3_fsieh"]
 [ext_resource type="FontFile" uid="uid://da4d8gfqqy1gm" path="res://fonts/Lato-Regular.ttf" id="3_qx8po"]
 [ext_resource type="FontFile" uid="uid://dffy676c21j2h" path="res://fonts/Lato-Black.ttf" id="4_f4wbg"]
 [ext_resource type="FontFile" uid="uid://cy37fh86msp3y" path="res://fonts/Lato-Italic.ttf" id="5_kg6le"]
+[ext_resource type="StyleBox" uid="uid://creewoy6ba0lf" path="res://styles/main_style.tres" id="5_qgfyr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iv3mq"]
 shader = ExtResource("1_ptc4o")
@@ -68,25 +70,21 @@ seamless_blend_skirt = 0.15
 color_ramp = SubResource("Gradient_dw7sg")
 noise = SubResource("FastNoiseLite_c1vsu")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snxve"]
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ue1pe"]
 bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 
-[node name="credits" type="Control"]
+[node name="credits" type="Control" node_paths=PackedStringArray("_returnToMainMenuButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c52wj")
+_mainMenuScenePath = "res://scenes/main_menu.tscn"
+_returnToMainMenuButton = NodePath("Panel/Panel2/Button")
 
 [node name="Space background" type="ParallaxBackground" parent="."]
 layer = -50
@@ -159,7 +157,7 @@ offset_right = 500.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_snxve")
+theme_override_styles/panel = ExtResource("5_qgfyr")
 
 [node name="Panel2" type="Panel" parent="Panel"]
 layout_mode = 1
@@ -184,6 +182,7 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("3_fsieh")
+theme_override_styles/normal = ExtResource("5_qgfyr")
 text = "About System Override"
 vertical_alignment = 1
 
@@ -192,13 +191,14 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.839
 anchor_top = 0.1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1.00006
-offset_top = -3.0
+anchor_right = 0.991
+anchor_bottom = 0.9
+offset_left = -1.0
+offset_right = -6.10352e-05
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_fsieh")
+theme_override_styles/normal = ExtResource("5_qgfyr")
 text = "Return"
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
@@ -227,9 +227,10 @@ text = "
 Copyright 2023 Aleš Gajdacz
 
 [b]Experimental version of System Override released to itch.io[/b]
-[i]The game might be unstable. Please report issues at <https://reasonnotfound.itch.io/system-override>[/i]
+[url=https://reasonnotfound.itch.io/system-override]https://reasonnotfound.itch.io/system-override[/url]
 
-
+[b]Source project released on github[/b]
+[url=https://github.com/algaj/SystemOverride]https://github.com/algaj/SystemOverride[/url]
 
 
 

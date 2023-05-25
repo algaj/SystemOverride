@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ijgng42t3c3m"]
+[gd_scene load_steps=22 format=3 uid="uid://budcb26ymjxpf"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_6ipri"]
 [ext_resource type="PackedScene" uid="uid://blpjfiqcn8wb3" path="res://scenes/credits.tscn" id="2_788x0"]
@@ -8,8 +8,8 @@
 [ext_resource type="Theme" uid="uid://ccceoxeg0el6c" path="res://styles/main_menu_theme.tres" id="5_o8rqm"]
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="5_xj6hq"]
 [ext_resource type="Material" uid="uid://bmbww0e03bttp" path="res://materials/space_clouds_material.tres" id="6_lih1d"]
-[ext_resource type="StyleBox" uid="uid://creewoy6ba0lf" path="res://styles/main_menu_button.tres" id="7_glu3n"]
 [ext_resource type="Texture2D" uid="uid://tegseaa6dbgn" path="res://graphics/logo_text.png" id="7_jvi2b"]
+[ext_resource type="StyleBox" uid="uid://creewoy6ba0lf" path="res://styles/main_style.tres" id="7_ko1j2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ckjgq"]
 shader = ExtResource("5_xj6hq")
@@ -109,25 +109,25 @@ theme = ExtResource("5_o8rqm")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("5_3l5bi")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = ExtResource("7_glu3n")
+theme_override_styles/normal = ExtResource("7_ko1j2")
 text = "New Game"
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_o8rqm")
-theme_override_styles/normal = ExtResource("7_glu3n")
+theme_override_styles/normal = ExtResource("7_ko1j2")
 text = "Settings"
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_o8rqm")
-theme_override_styles/normal = ExtResource("7_glu3n")
+theme_override_styles/normal = ExtResource("7_ko1j2")
 text = "Credits"
 
 [node name="Button4" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_o8rqm")
-theme_override_styles/normal = ExtResource("7_glu3n")
+theme_override_styles/normal = ExtResource("7_ko1j2")
 text = "Exit"
 
 [node name="Label2" type="Label" parent="."]
