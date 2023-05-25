@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://budcb26ymjxpf"]
+[gd_scene load_steps=21 format=3 uid="uid://budcb26ymjxpf"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.cs" id="1_6ipri"]
 [ext_resource type="PackedScene" uid="uid://blpjfiqcn8wb3" path="res://scenes/credits.tscn" id="2_788x0"]
 [ext_resource type="PackedScene" uid="uid://diphul608hcth" path="res://scenes/main.tscn" id="2_yn5xv"]
-[ext_resource type="PackedScene" uid="uid://evsm6aciq4bk" path="res://scenes/settings.tscn" id="3_m4xs1"]
 [ext_resource type="FontFile" uid="uid://bhn8v1uric5jl" path="res://fonts/Lato-Bold.ttf" id="5_3l5bi"]
 [ext_resource type="Theme" uid="uid://ccceoxeg0el6c" path="res://styles/main_menu_theme.tres" id="5_o8rqm"]
 [ext_resource type="Shader" path="res://shaders/tileable.gdshader" id="5_xj6hq"]
@@ -72,7 +71,7 @@ seamless_blend_skirt = 0.15
 color_ramp = SubResource("Gradient_le1bu")
 noise = SubResource("FastNoiseLite_xvsrf")
 
-[node name="main_menu" type="Control" node_paths=PackedStringArray("newGameButton", "settingsButton", "creditsButton", "exitButton")]
+[node name="main_menu" type="Control" node_paths=PackedStringArray("newGameButton", "creditsButton", "exitButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,12 +80,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6ipri")
 newGameButton = NodePath("VBoxContainer/Button")
-settingsButton = NodePath("")
 creditsButton = NodePath("VBoxContainer/Button3")
 exitButton = NodePath("VBoxContainer/Button4")
 gameScene = ExtResource("2_yn5xv")
 creditsScene = ExtResource("2_788x0")
-settingsScene = ExtResource("3_m4xs1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
